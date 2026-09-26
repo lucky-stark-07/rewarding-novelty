@@ -19,12 +19,14 @@ interface CorpusInspectorProps {
   corpus: CorpusEntry[];
   onRegenerateCorpus: () => Promise<void>;
   loadingRegen: boolean;
+  regenerateEnabled: boolean;
 }
 
 export const CorpusInspector: React.FC<CorpusInspectorProps> = ({
   corpus,
   onRegenerateCorpus,
   loadingRegen,
+  regenerateEnabled,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedEntries, setExpandedEntries] = useState<Record<string, boolean>>({});
@@ -74,16 +76,23 @@ export const CorpusInspector: React.FC<CorpusInspectorProps> = ({
           </div>
         </div>
 
-        {/* Action Button */}
-        <button
-          type="button"
-          onClick={onRegenerateCorpus}
-          disabled={loadingRegen}
-          className="w-full md:w-auto px-5 py-3 rounded-xl font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2 shrink-0 border border-indigo-400/30"
-        >
-          <RefreshCw className={`w-4 h-4 ${loadingRegen ? "animate-spin" : ""}`} />
-          <span>{loadingRegen ? "Generating 50 Reviews..." : "Regenerate Synthetic Corpus"}</span>
-        </button>
+        {/* Admin-only action: hidden unless the server has ADMIN_TOKEN set */}
+        {regenerateEnabled ? (
+          <button
+            type="button"
+            onClick={onRegenerateCorpus}
+            disabled={loadingRegen}
+            title="Admin only: replaces the whole corpus (asks for confirmation and the admin token)"
+            className="w-full md:w-auto px-5 py-3 rounded-xl font-semibold text-xs text-rose-100 bg-rose-600/80 hover:bg-rose-600 disabled:opacity-50 transition-all flex items-center justify-center gap-2 shrink-0 border border-rose-400/30"
+          >
+            <RefreshCw className={`w-4 h-4 ${loadingRegen ? "animate-spin" : ""}`} />
+            <span>{loadingRegen ? "Generating 50 Reviews..." : "Regenerate Corpus (admin)"}</span>
+          </button>
+        ) : (
+          <span className="text-[11px] text-slate-500 max-w-[14rem] md:text-right">
+            Read-only baseline. Regeneration is an admin action and is disabled on this server.
+          </span>
+        )}
       </div>
 
       {/* Stats Breakdown Bar */}
@@ -137,7 +146,7 @@ export const CorpusInspector: React.FC<CorpusInspectorProps> = ({
           <h3 className="text-base font-bold text-slate-300">No Corpus Reviews Found</h3>
           <p className="text-xs text-slate-500 max-w-sm mx-auto">
             {totalReviews === 0
-              ? "The comparison corpus is currently empty. Click 'Regenerate Synthetic Corpus' to populate it with 50 synthetic review samples."
+              ? "The comparison corpus is empty, so every claim is treated as novel. An admin can populate it with `make gen-corpus` or the admin regenerate action."
               : "No reviews match your current search query. Try clearing the search filter."}
           </p>
         </div>

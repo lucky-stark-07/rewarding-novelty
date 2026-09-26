@@ -1,4 +1,4 @@
-.PHONY: setup gen-corpus test eval smoke load dev
+.PHONY: setup gen-corpus test eval holdout smoke load dev
 BACKEND_PORT ?= 8000
 FRONTEND_PORT ?= 3000
 
@@ -16,6 +16,10 @@ test:
 
 eval:
 	.venv/bin/python -m scripts.evaluate
+
+# Held-out set: never used for tuning. Writes reports/holdout.md.
+holdout:
+	.venv/bin/python -m scripts.evaluate --holdout
 
 smoke:
 	.venv/bin/python -m scripts.smoke_live

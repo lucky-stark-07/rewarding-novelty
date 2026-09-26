@@ -11,6 +11,8 @@ def _split(value: str) -> list[str]:
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     openrouter_api_key: SecretStr | None = Field(default=None, repr=False)
+    # POST /corpus/regenerate replaces the whole corpus and makes paid calls: disabled unless this is set.
+    admin_token: SecretStr | None = Field(default=None, repr=False)
     openrouter_base_url: str = "https://openrouter.ai/api/v1"
     frontend_origin: str = "http://localhost:3000"
     fast_model: str = "google/gemini-2.5-flash-lite"

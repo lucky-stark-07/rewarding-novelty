@@ -75,6 +75,21 @@ def test_near_duplicate_with_one_new_detail_gets_partial_credit(corpus: CorpusSt
     assert 0 < result.submission_score < 0.85
 
 
+def test_vague_filler_review_scores_low(corpus: CorpusStore) -> None:
+    result = run_score(Submission(what_you_like="It's good.", what_you_dislike="Could be better.", problem_solved="Helps the team."), corpus, settings=BANDED)
+    dislike = next(field for field in result.field_scores if field.field == FieldName.WHAT_YOU_DISLIKE)
+    assert dislike.claims == [] and dislike.score == 0.0
+    # (0.25 + 0 + 0.25) / 3: the claim-less field is averaged in, not dropped.
+    assert result.submission_score == pytest.approx(0.5 / 3)
+    assert result.submission_score <= 0.2
+
+
+def test_filled_field_without_claims_counts_as_zero(corpus: CorpusStore) -> None:
+    with_filler = run_score(Submission(what_you_like="Single novel review", what_you_dislike="Could be better."), corpus, settings=BANDED)
+    without = run_score(Submission(what_you_like="Single novel review"), corpus, settings=BANDED)
+    assert with_filler.submission_score == pytest.approx(without.submission_score / 2)
+
+
 def test_relevance_gates_each_claim_not_the_field_average(corpus: CorpusStore) -> None:
     """A covered on-topic claim must not lend relevance to a novel off-topic claim in the same field."""
     result = run_score(Submission(what_you_like="Mixed gating review"), corpus, settings=BANDED)

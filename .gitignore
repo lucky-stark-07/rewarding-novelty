@@ -223,10 +223,10 @@ __pycache__/
 .env
 .pytest_cache/
 backend/.cache/
-backend/corpus.json
 backend/corpus.json.lock
 logs/
 
 # Next.js
 frontend/node_modules/
 frontend/.next/
+frontend/tsconfig.tsbuildinfo

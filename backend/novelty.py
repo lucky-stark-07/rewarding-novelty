@@ -198,9 +198,12 @@ async def _score(submission: Submission, index: CorpusIndex, llm: LLMClient, set
     with span("aggregate", claims=len(claims)) as attrs:
         assessments = [_assess(claim, neighbor_lists[i], relevance[i], coverage.get(i), [(c, s) for c, s in neighbor_lists[i] if s > settings.low_threshold] if i in ambiguous else None, settings) for i, claim in enumerate(claims)]
         fields = _field_scores(assessments)
-        active_fields = [item.score for item in fields if item.claims]
-        submission_score = sum(active_fields) / len(active_fields)
-        attrs["submission_score"] = round(submission_score, 4)
+        # Every field the reviewer filled in counts; one that yields no claims ("Could be better.") scores 0
+        # instead of being dropped, so filler cannot raise the average.
+        populated = {field for field in FieldName if submission.field_text(field).strip()}
+        scored_fields = [item.score for item in fields if item.field in populated or item.claims]
+        submission_score = sum(scored_fields) / len(scored_fields)
+        attrs.update(submission_score=round(submission_score, 4), empty_fields=sorted(field.value for field in populated if not any(item.field == field and item.claims for item in fields)))
 
     added_to_corpus = False
     # Degraded judgments are provisional; never let them change the comparison baseline.

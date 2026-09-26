@@ -383,6 +383,41 @@ def test_llm_outage_returns_degraded_200_and_is_counted(tmp_path: Path) -> None:
     assert stats["degraded_count"] == 1 and stats["outcomes"] == {"degraded": 1}
 
 
+def test_corpus_regeneration_is_disabled_without_admin_token(tmp_path: Path, monkeypatch) -> None:
+    from backend.routes import corpus as corpus_route
+    async def must_not_run(*_args, **_kwargs):
+        raise AssertionError("generation must not start")
+    monkeypatch.setattr(corpus_route, "generate_corpus", must_not_run)
+    async def fn(_app, client):
+        return await client.post("/corpus/regenerate", headers={"x-admin-token": "anything"}), (await client.get("/stats")).json()
+    response, stats = asyncio.run(with_app(app_settings(tmp_path), FixtureLLM(), fn))
+    assert response.status_code == 403 and stats["config"]["corpus_regenerate_enabled"] is False
+
+
+def test_corpus_regeneration_requires_the_right_token_and_runs_once(tmp_path: Path, monkeypatch) -> None:
+    from backend.routes import corpus as corpus_route
+    release = asyncio.Event()
+    calls = []
+    async def fake_generate(*_args, **_kwargs):
+        calls.append(1)
+        await release.wait()
+        return [_entry(1), _entry(2)]
+    monkeypatch.setattr(corpus_route, "generate_corpus", fake_generate)
+    async def fn(_app, client):
+        missing = await client.post("/corpus/regenerate")
+        wrong = await client.post("/corpus/regenerate", headers={"x-admin-token": "wrong"})
+        first = asyncio.create_task(client.post("/corpus/regenerate", headers={"x-admin-token": "s3cret"}))
+        while not calls:
+            await asyncio.sleep(0.01)
+        second = await client.post("/corpus/regenerate", headers={"x-admin-token": "s3cret"})
+        release.set()
+        return missing, wrong, await first, second, (await client.get("/corpus")).json()
+    missing, wrong, first, second, corpus = asyncio.run(with_app(app_settings(tmp_path, admin_token="s3cret"), FixtureLLM(), fn))
+    assert missing.status_code == 401 and wrong.status_code == 401
+    assert second.status_code == 409 and first.status_code == 200
+    assert [entry["id"] for entry in corpus] == ["e1", "e2"] and len(calls) == 1
+
+
 def test_concurrent_requests_add_to_corpus_without_loss(tmp_path: Path) -> None:
     n = 12
     async def fn(_app, client):

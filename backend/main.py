@@ -49,6 +49,7 @@ def create_app(settings: Settings | None = None, llm: LLMClient | None = None) -
                 "high_threshold": active.high_threshold,
                 "entailment_top_k": active.entailment_top_k,
                 "max_inflight_requests": active.max_inflight_requests,
+                "corpus_regenerate_enabled": bool(active.admin_token and active.admin_token.get_secret_value()),
                 "prompt_versions": [prompt.PROMPT_VERSION for prompt in (EXTRACT_CLAIMS, JUDGE_RELEVANCE, JUDGE_COVERAGE, GENERATE_CORPUS)],
             },
         }

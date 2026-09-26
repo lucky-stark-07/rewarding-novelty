@@ -1,0 +1,1702 @@
+[
+  {
+    "id": "18c20987-7e3d-44aa-80d3-8a0a54f8b289",
+    "submission": {
+      "what_you_like": "The ability to aggregate customer feedback from various channels into a single, manageable feed is a game-changer. It saves us so much time digging through emails and Slack messages. The roadmap visualization is also excellent for communicating our plans to the wider organization.",
+      "what_you_dislike": "While the core features are strong, the reporting capabilities feel a bit basic. We'd love more granular control over custom reports, especially for tracking feature adoption over time.",
+      "problem_solved": "Consolidated customer feedback and provided a clear, shareable roadmap, reducing scattered information and improving cross-functional alignment."
+    },
+    "claims": [
+      {
+        "id": "dcd88280-773a-48d9-9e2e-19b8b271580e",
+        "field": "what_you_like",
+        "text": "Aggregates customer feedback from multiple sources.",
+        "source_submission_id": "18c20987-7e3d-44aa-80d3-8a0a54f8b289"
+      },
+      {
+        "id": "f99a60c9-21a8-4c32-a182-0c43db026da1",
+        "field": "what_you_like",
+        "text": "Provides an excellent roadmap visualization.",
+        "source_submission_id": "18c20987-7e3d-44aa-80d3-8a0a54f8b289"
+      },
+      {
+        "id": "2f0d8ae4-d99a-4c4d-a4d8-399370d632fe",
+        "field": "what_you_dislike",
+        "text": "Reporting capabilities are somewhat basic.",
+        "source_submission_id": "18c20987-7e3d-44aa-80d3-8a0a54f8b289"
+      },
+      {
+        "id": "5c2dcb13-cb5e-40cf-bdc7-a851c3fbc5a5",
+        "field": "problem_solved",
+        "text": "Reduced scattered information by consolidating feedback.",
+        "source_submission_id": "18c20987-7e3d-44aa-80d3-8a0a54f8b289"
+      }
+    ]
+  },
+  {
+    "id": "3f01a3df-eb35-4db1-933c-a587e54b5d88",
+    "submission": {
+      "what_you_like": "This platform has become our single source of truth for all things product. From initial ideation and feedback collection to roadmap planning and release notes, everything is in one place. It's incredibly efficient.",
+      "what_you_dislike": "The pricing can become quite steep as our team grows. While we see the value, finding a more flexible pricing tier for scale-ups would be appreciated.",
+      "problem_solved": "Eliminated the need to jump between multiple tools for product management tasks, creating a centralized hub for all product-related information and decisions."
+    },
+    "claims": [
+      {
+        "id": "971e91cd-4450-4eba-b42c-d2dea7d1b72d",
+        "field": "what_you_like",
+        "text": "Serves as a single source of truth for product management.",
+        "source_submission_id": "3f01a3df-eb35-4db1-933c-a587e54b5d88"
+      },
+      {
+        "id": "06080168-ec01-4198-adda-1dc5ae49a46f",
+        "field": "what_you_like",
+        "text": "Centralizes ideation, feedback, roadmaps, and release notes.",
+        "source_submission_id": "3f01a3df-eb35-4db1-933c-a587e54b5d88"
+      },
+      {
+        "id": "775af341-5f56-4b8f-9d4d-02ca5695b665",
+        "field": "what_you_dislike",
+        "text": "Pricing can be high for growing companies.",
+        "source_submission_id": "3f01a3df-eb35-4db1-933c-a587e54b5d88"
+      },
+      {
+        "id": "7742d2c7-118c-4137-b3e3-e8060afd017e",
+        "field": "problem_solved",
+        "text": "Eliminated context switching between disparate tools.",
+        "source_submission_id": "3f01a3df-eb35-4db1-933c-a587e54b5d88"
+      }
+    ]
+  },
+  {
+    "id": "b1b4dc27-46f4-4c0c-8872-ae9abdf5e71c",
+    "submission": {
+      "what_you_like": "The prioritization framework integrated into the platform is superb. It allows us to objectively evaluate incoming feature requests against our strategic goals. The ability to tie feedback directly to roadmap items is also a huge plus.",
+      "what_you_dislike": "The analytics dashboard needs improvement. It's hard to get deep insights into user sentiment trends without exporting data and doing further analysis manually.",
+      "problem_solved": "Provided a structured way to prioritize product features based on strategic objectives and customer feedback, leading to more impactful product development."
+    },
+    "claims": [
+      {
+        "id": "82900fb4-6d5c-4a43-9387-3f93727253b6",
+        "field": "what_you_like",
+        "text": "Offers a superb prioritization framework.",
+        "source_submission_id": "b1b4dc27-46f4-4c0c-8872-ae9abdf5e71c"
+      },
+      {
+        "id": "6aede7d3-ca47-4541-a2ef-ced8957bd233",
+        "field": "what_you_like",
+        "text": "Connects customer feedback directly to roadmap items.",
+        "source_submission_id": "b1b4dc27-46f4-4c0c-8872-ae9abdf5e71c"
+      },
+      {
+        "id": "6a33fcb7-382c-4936-b91e-7682c14b66ed",
+        "field": "what_you_dislike",
+        "text": "The analytics dashboard lacks depth for trend analysis.",
+        "source_submission_id": "b1b4dc27-46f4-4c0c-8872-ae9abdf5e71c"
+      },
+      {
+        "id": "23ba7a5d-e021-41d3-bf8e-d4161913c087",
+        "field": "problem_solved",
+        "text": "Enabled objective prioritization of product features.",
+        "source_submission_id": "b1b4dc27-46f4-4c0c-8872-ae9abdf5e71c"
+      }
+    ]
+  },
+  {
+    "id": "4582f1b2-bcac-4eea-b2b9-8549ef777302",
+    "submission": {
+      "what_you_like": "Onboarding was surprisingly smooth for such a comprehensive tool. The interface is intuitive, and we were able to get our first roadmap and feedback collection set up within a day. It really helps us maintain focus on our product vision.",
+      "what_you_dislike": "The mobile experience is somewhat limited. While usable for quick checks, complex tasks like editing roadmap items or detailed feedback analysis are cumbersome on a phone.",
+      "problem_solved": "Streamlined the product planning process, ensuring the team stays aligned with the product vision and effectively communicates it internally and externally."
+    },
+    "claims": [
+      {
+        "id": "080384a7-8dc4-4b44-9533-095414203285",
+        "field": "what_you_like",
+        "text": "Smooth and intuitive onboarding process.",
+        "source_submission_id": "4582f1b2-bcac-4eea-b2b9-8549ef777302"
+      },
+      {
+        "id": "ac56c128-4d84-454e-82f1-673d4e9a8b53",
+        "field": "what_you_like",
+        "text": "Helps maintain focus on the product vision.",
+        "source_submission_id": "4582f1b2-bcac-4eea-b2b9-8549ef777302"
+      },
+      {
+        "id": "7b65280d-88a4-46b9-aedf-0fdccc19ae49",
+        "field": "what_you_dislike",
+        "text": "Mobile experience is cumbersome for complex tasks.",
+        "source_submission_id": "4582f1b2-bcac-4eea-b2b9-8549ef777302"
+      },
+      {
+        "id": "96a9c184-9697-4e66-bc16-205709fd35eb",
+        "field": "problem_solved",
+        "text": "Kept the team aligned with the product vision.",
+        "source_submission_id": "4582f1b2-bcac-4eea-b2b9-8549ef777302"
+      }
+    ]
+  },
+  {
+    "id": "9d1cf9f9-fe52-4cfe-a0ba-e876c5d38827",
+    "submission": {
+      "what_you_like": "This platform significantly enhances cross-functional collaboration. Marketing, sales, and engineering can all access and contribute to the product strategy in a transparent way. It has reduced so much interdepartmental friction.",
+      "what_you_dislike": "The search functionality could be more powerful. Sometimes finding specific past feedback or roadmap decisions requires a lot of digging through filters.",
+      "problem_solved": "Broke down communication silos between departments, fostering better collaboration and a unified understanding of product strategy and priorities."
+    },
+    "claims": [
+      {
+        "id": "f8ae6fd2-0e48-4177-bfc5-ca48f57ef96b",
+        "field": "what_you_like",
+        "text": "Enhances cross-functional collaboration effectively.",
+        "source_submission_id": "9d1cf9f9-fe52-4cfe-a0ba-e876c5d38827"
+      },
+      {
+        "id": "f2260071-7ad6-4145-863b-a01139fa970a",
+        "field": "what_you_like",
+        "text": "Provides transparent access to product strategy for all teams.",
+        "source_submission_id": "9d1cf9f9-fe52-4cfe-a0ba-e876c5d38827"
+      },
+      {
+        "id": "29bdaf1e-dd16-4bb3-843f-4524a82785b0",
+        "field": "what_you_dislike",
+        "text": "Search functionality could be more robust.",
+        "source_submission_id": "9d1cf9f9-fe52-4cfe-a0ba-e876c5d38827"
+      },
+      {
+        "id": "42c82213-b0a5-45a8-a7ed-f0d3259944c4",
+        "field": "problem_solved",
+        "text": "Reduced interdepartmental friction by centralizing product information.",
+        "source_submission_id": "9d1cf9f9-fe52-4cfe-a0ba-e876c5d38827"
+      }
+    ]
+  },
+  {
+    "id": "22a5c62f-d471-4b45-975c-c04ab03b97bc",
+    "submission": {
+      "what_you_like": "As a UX researcher, I love how this tool allows me to easily link user interview insights and usability testing findings directly to specific product features and roadmap items. It makes demonstrating the impact of research so much clearer.",
+      "what_you_dislike": "The customization options for feedback forms are a bit limited. We'd like more control over field types and conditional logic to better tailor them to specific user segments.",
+      "problem_solved": "Provided a clear and traceable link between user research findings and product development decisions, ensuring user needs are consistently addressed."
+    },
+    "claims": [
+      {
+        "id": "c1710fe8-f061-453c-9fc0-f957b0c1e8cc",
+        "field": "what_you_like",
+        "text": "Facilitates linking research findings to product items.",
+        "source_submission_id": "22a5c62f-d471-4b45-975c-c04ab03b97bc"
+      },
+      {
+        "id": "f762e129-c47b-413d-b6cf-e90d23f4073b",
+        "field": "problem_solved",
+        "text": "Made it easier to demonstrate the impact of UX research.",
+        "source_submission_id": "22a5c62f-d471-4b45-975c-c04ab03b97bc"
+      },
+      {
+        "id": "733271d9-bbd8-42a5-81ab-70b74d836e81",
+        "field": "what_you_dislike",
+        "text": "Feedback form customization options are limited.",
+        "source_submission_id": "22a5c62f-d471-4b45-975c-c04ab03b97bc"
+      },
+      {
+        "id": "031cb5bf-6af2-4f4b-b790-9235334a31e1",
+        "field": "problem_solved",
+        "text": "Ensured user needs are systematically considered in product development.",
+        "source_submission_id": "22a5c62f-d471-4b45-975c-c04ab03b97bc"
+      }
+    ]
+  },
+  {
+    "id": "a5b3ed19-8d53-45e4-868d-8727f6c63879",
+    "submission": {
+      "what_you_like": "The portfolio management view is critical for our enterprise. It gives leadership a high-level overview of all product initiatives and their alignment with strategic goals. The transparency it offers is unmatched.",
+      "what_you_dislike": "Admin controls could be more granular. Assigning specific permissions across different teams and projects can sometimes be overly complex.",
+      "problem_solved": "Provided a clear, centralized view of the product portfolio and roadmap for executive leadership, improving strategic decision-making and resource allocation."
+    },
+    "claims": [
+      {
+        "id": "99981233-ae62-41bb-a302-9345d27a1016",
+        "field": "what_you_like",
+        "text": "Offers a valuable portfolio management view for leadership.",
+        "source_submission_id": "a5b3ed19-8d53-45e4-868d-8727f6c63879"
+      },
+      {
+        "id": "ca617db2-78d7-4ad7-9616-44008e216cf4",
+        "field": "problem_solved",
+        "text": "Increased transparency across product initiatives.",
+        "source_submission_id": "a5b3ed19-8d53-45e4-868d-8727f6c63879"
+      },
+      {
+        "id": "57d7620d-bef6-45fc-9802-1ed71092f628",
+        "field": "what_you_dislike",
+        "text": "Admin controls for permissions can be complex.",
+        "source_submission_id": "a5b3ed19-8d53-45e4-868d-8727f6c63879"
+      },
+      {
+        "id": "b2ac5b13-4f68-4175-baba-1d38b58f0e8d",
+        "field": "problem_solved",
+        "text": "Ensured roadmap consistency across multiple product lines.",
+        "source_submission_id": "a5b3ed19-8d53-45e4-868d-8727f6c63879"
+      }
+    ]
+  },
+  {
+    "id": "e8793ad3-9e10-4c49-bba9-d48b25c689c9",
+    "submission": {
+      "what_you_like": "This tool has transformed how our customer success team operates. We can easily track customer requests, see how they map to our roadmap, and manage expectations about feature delivery. It's a massive win for proactive communication.",
+      "what_you_dislike": "The notification system can be a bit overwhelming. It's easy to get swamped with updates if you're part of many projects or discussions.",
+      "problem_solved": "Empowered the customer success team with better visibility into product plans and customer feedback, enabling more effective client communication and expectation management."
+    },
+    "claims": [
+      {
+        "id": "a5298458-2263-4b75-99af-5dd8f907376c",
+        "field": "what_you_like",
+        "text": "Enables easy tracking of customer requests.",
+        "source_submission_id": "e8793ad3-9e10-4c49-bba9-d48b25c689c9"
+      },
+      {
+        "id": "e605c2a4-a5cb-4c38-9752-999ecf48354f",
+        "field": "problem_solved",
+        "text": "Improved expectation management with clients regarding feature delivery.",
+        "source_submission_id": "e8793ad3-9e10-4c49-bba9-d48b25c689c9"
+      },
+      {
+        "id": "04106d13-1c6e-47b8-aea9-49fe3520d00c",
+        "field": "what_you_dislike",
+        "text": "The notification system can be overwhelming.",
+        "source_submission_id": "e8793ad3-9e10-4c49-bba9-d48b25c689c9"
+      },
+      {
+        "id": "9a5251c9-138e-47ed-9be2-f0db8bac14a3",
+        "field": "problem_solved",
+        "text": "Automated the process of linking customer feedback to product development.",
+        "source_submission_id": "e8793ad3-9e10-4c49-bba9-d48b25c689c9"
+      }
+    ]
+  },
+  {
+    "id": "971ad07f-765d-49b1-a99a-cfc282c248f5",
+    "submission": {
+      "what_you_like": "Excellent for stakeholder communication. We can easily generate reports and share the roadmap with executives and other departments, ensuring everyone is on the same page regarding product direction. The visual appeal is also a big plus.",
+      "what_you_dislike": "Integration with our existing design tools (Figma) is a bit clunky. It requires a workaround to pull in design mockups effectively.",
+      "problem_solved": "Facilitated clear and consistent communication of product strategy and progress to all stakeholders, reducing confusion and fostering buy-in."
+    },
+    "claims": [
+      {
+        "id": "fa299f45-5e73-433f-82fc-0466073763c9",
+        "field": "what_you_like",
+        "text": "Facilitates clear stakeholder communication.",
+        "source_submission_id": "971ad07f-765d-49b1-a99a-cfc282c248f5"
+      },
+      {
+        "id": "46a89a6f-e3c5-40ff-af1c-ff2f2b4aebda",
+        "field": "what_you_like",
+        "text": "The platform has a visually appealing interface.",
+        "source_submission_id": "971ad07f-765d-49b1-a99a-cfc282c248f5"
+      },
+      {
+        "id": "15e12196-756b-4d88-a502-150f34923524",
+        "field": "what_you_dislike",
+        "text": "Integration with design tools like Figma is clunky.",
+        "source_submission_id": "971ad07f-765d-49b1-a99a-cfc282c248f5"
+      },
+      {
+        "id": "7823420f-89d4-46e3-9d93-6af7ceaa4954",
+        "field": "problem_solved",
+        "text": "Provided a clear channel for executive reporting on product initiatives.",
+        "source_submission_id": "971ad07f-765d-49b1-a99a-cfc282c248f5"
+      }
+    ]
+  },
+  {
+    "id": "35e938a1-c181-4c96-94f9-3b039de79a79",
+    "submission": {
+      "what_you_like": "For a regulated financial company, the compliance features are essential. Having a clear audit trail and robust security measures built-in gives us peace of mind. The user interface is clean and easy to navigate.",
+      "what_you_dislike": "The ability to import data from other systems is quite limited. We had to manually migrate a lot of historical feedback, which was time-consuming.",
+      "problem_solved": "Met the stringent compliance and security requirements of a financial institution while providing a centralized platform for product planning and feedback management."
+    },
+    "claims": [
+      {
+        "id": "d7e6ecad-bb75-406b-8fa2-1171e9cfad5b",
+        "field": "what_you_like",
+        "text": "Meets compliance requirements for a financial company.",
+        "source_submission_id": "35e938a1-c181-4c96-94f9-3b039de79a79"
+      },
+      {
+        "id": "83c39f72-32e6-43d3-8713-5253029cfd2a",
+        "field": "problem_solved",
+        "text": "Provided a clear audit trail for regulatory purposes.",
+        "source_submission_id": "35e938a1-c181-4c96-94f9-3b039de79a79"
+      },
+      {
+        "id": "86abb12e-5de0-47fe-bcd6-718cf4da58fd",
+        "field": "what_you_dislike",
+        "text": "Data import capabilities are limited.",
+        "source_submission_id": "35e938a1-c181-4c96-94f9-3b039de79a79"
+      },
+      {
+        "id": "054902b1-eaad-4c16-a22a-f2abb09608ee",
+        "field": "problem_solved",
+        "text": "Streamlined product planning within a regulated environment.",
+        "source_submission_id": "35e938a1-c181-4c96-94f9-3b039de79a79"
+      }
+    ]
+  },
+  {
+    "id": "1d197774-6238-46ec-998f-72f425c5d85c",
+    "submission": {
+      "what_you_like": "The platform excels at consolidating feedback from support tickets, sales calls, and direct user submissions. This unified view makes it much easier to identify trends and common pain points, saving us significant time in analysis.",
+      "what_you_dislike": "The API documentation could be more comprehensive. We encountered some challenges integrating with our internal knowledge base.",
+      "problem_solved": "Centralized all user feedback into a single, searchable repository, enabling faster identification of trends and informed product decisions."
+    },
+    "claims": [
+      {
+        "id": "af148091-5dce-4c72-bcd6-8331c376f48c",
+        "field": "what_you_like",
+        "text": "Consolidates feedback from multiple sources effectively.",
+        "source_submission_id": "1d197774-6238-46ec-998f-72f425c5d85c"
+      },
+      {
+        "id": "b9d07f50-c9c2-4a0b-8ec4-de3fcf7da9f0",
+        "field": "problem_solved",
+        "text": "Saved time by reducing manual feedback aggregation.",
+        "source_submission_id": "1d197774-6238-46ec-998f-72f425c5d85c"
+      },
+      {
+        "id": "5935aa14-222a-4305-a799-74c1455d09c3",
+        "field": "what_you_dislike",
+        "text": "API documentation could be more thorough.",
+        "source_submission_id": "1d197774-6238-46ec-998f-72f425c5d85c"
+      },
+      {
+        "id": "344823a2-3d63-4d42-a7cf-3c745df3f743",
+        "field": "problem_solved",
+        "text": "Enabled identification of recurring user pain points.",
+        "source_submission_id": "1d197774-6238-46ec-998f-72f425c5d85c"
+      }
+    ]
+  },
+  {
+    "id": "8086684a-5b6c-4071-8056-36d2c4bee8ef",
+    "submission": {
+      "what_you_like": "This tool has been instrumental in aligning our product development efforts with core business objectives. The ability to link roadmap items to strategic initiatives and track progress makes resource allocation much more efficient.",
+      "what_you_dislike": "Managing complex project plans with intricate dependencies can become challenging within the platform. It's not ideal for highly detailed, multi-level project breakdowns.",
+      "problem_solved": "Ensured product development efforts were directly tied to business objectives, leading to better resource allocation and a clearer strategic direction."
+    },
+    "claims": [
+      {
+        "id": "77eed3c7-748c-4e4c-ac37-939438a8d679",
+        "field": "what_you_like",
+        "text": "Aligns product development with business objectives.",
+        "source_submission_id": "8086684a-5b6c-4071-8056-36d2c4bee8ef"
+      },
+      {
+        "id": "97d849b1-da15-4259-b6b3-606220b266e8",
+        "field": "problem_solved",
+        "text": "Improved resource allocation by linking roadmap to strategy.",
+        "source_submission_id": "8086684a-5b6c-4071-8056-36d2c4bee8ef"
+      },
+      {
+        "id": "364960f3-33fe-474d-8e7a-8aa0309ae000",
+        "field": "what_you_dislike",
+        "text": "Managing complex project plans with dependencies is challenging.",
+        "source_submission_id": "8086684a-5b6c-4071-8056-36d2c4bee8ef"
+      },
+      {
+        "id": "d01e0558-27a8-4e3a-988b-d055fd9baaff",
+        "field": "problem_solved",
+        "text": "Justified strategic investments by demonstrating alignment with business goals.",
+        "source_submission_id": "8086684a-5b6c-4071-8056-36d2c4bee8ef"
+      }
+    ]
+  },
+  {
+    "id": "7148f6da-e01a-4a42-8456-c25ad84beeda",
+    "submission": {
+      "what_you_like": "The user interface is incredibly clean and modern, making it a pleasure to use daily. I particularly appreciate the accessibility features, which ensure that all team members can contribute effectively, regardless of ability.",
+      "what_you_dislike": "Version control for roadmap changes isn't as robust as we'd like. Reverting to previous states or comparing significant revisions can be difficult.",
+      "problem_solved": "Created a user-friendly and accessible platform for product management, improving team engagement and ensuring everyone could participate in the planning process."
+    },
+    "claims": [
+      {
+        "id": "939b1469-5fcd-4926-9058-5df85b80d0e8",
+        "field": "what_you_like",
+        "text": "Features a clean and modern user interface.",
+        "source_submission_id": "7148f6da-e01a-4a42-8456-c25ad84beeda"
+      },
+      {
+        "id": "02682b2c-6c4c-48e5-be38-afd9785c1921",
+        "field": "what_you_like",
+        "text": "Offers strong accessibility features for all users.",
+        "source_submission_id": "7148f6da-e01a-4a42-8456-c25ad84beeda"
+      },
+      {
+        "id": "6672484e-dc4f-4930-9759-1d2b10d5ba61",
+        "field": "what_you_dislike",
+        "text": "Version control for roadmap changes is not robust.",
+        "source_submission_id": "7148f6da-e01a-4a42-8456-c25ad84beeda"
+      },
+      {
+        "id": "2614c964-eaca-4633-a95a-4871b41edbeb",
+        "field": "problem_solved",
+        "text": "Increased stakeholder involvement in product roadmap discussions.",
+        "source_submission_id": "7148f6da-e01a-4a42-8456-c25ad84beeda"
+      }
+    ]
+  },
+  {
+    "id": "9633271c-5deb-407d-b93c-9c9e94061ed9",
+    "submission": {
+      "what_you_like": "Communicating upcoming releases is so much smoother now. We can easily draft and distribute release notes directly from the platform, ensuring all internal and external stakeholders are informed about what's new.",
+      "what_you_dislike": "The feedback forms lack advanced conditional logic, making it difficult to create dynamic questionnaires for different user segments.",
+      "problem_solved": "Streamlined the release communication process, ensuring timely and consistent updates for all relevant parties."
+    },
+    "claims": [
+      {
+        "id": "1177e267-38dc-4429-846b-47e883bbd874",
+        "field": "what_you_like",
+        "text": "Simplifies the creation and distribution of release notes.",
+        "source_submission_id": "9633271c-5deb-407d-b93c-9c9e94061ed9"
+      },
+      {
+        "id": "8a2164f3-af24-4875-9f0d-958075021cdc",
+        "field": "problem_solved",
+        "text": "Ensured stakeholders are kept informed about product updates.",
+        "source_submission_id": "9633271c-5deb-407d-b93c-9c9e94061ed9"
+      },
+      {
+        "id": "92b00dc5-1009-4905-97da-70c5053badaf",
+        "field": "what_you_dislike",
+        "text": "Feedback forms lack advanced conditional logic.",
+        "source_submission_id": "9633271c-5deb-407d-b93c-9c9e94061ed9"
+      },
+      {
+        "id": "131c823e-635e-4b54-96b5-b573450ce8b6",
+        "field": "problem_solved",
+        "text": "Improved the efficiency of the release process communication.",
+        "source_submission_id": "9633271c-5deb-407d-b93c-9c9e94061ed9"
+      }
+    ]
+  },
+  {
+    "id": "6a98aee9-9850-4e64-8275-efb04206c652",
+    "submission": {
+      "what_you_like": "Sharing our product roadmap externally has never been easier. The platform allows us to create public-facing roadmaps that stakeholders can easily access and understand. It's a great way to build trust and transparency.",
+      "what_you_dislike": "The collaboration features, while good, could be enhanced with more granular notification controls. It's sometimes hard to filter out noise from highly active discussions.",
+      "problem_solved": "Enabled seamless sharing of product roadmaps with external stakeholders, fostering transparency and aligning expectations."
+    },
+    "claims": [
+      {
+        "id": "8c84cc48-cbf5-44c1-81e2-d24321425467",
+        "field": "what_you_like",
+        "text": "Facilitates easy external sharing of product roadmaps.",
+        "source_submission_id": "6a98aee9-9850-4e64-8275-efb04206c652"
+      },
+      {
+        "id": "cb0b635e-3fe4-4991-baed-e6d21618a70a",
+        "field": "problem_solved",
+        "text": "Provided a centralized source for all product-related information.",
+        "source_submission_id": "6a98aee9-9850-4e64-8275-efb04206c652"
+      },
+      {
+        "id": "64fb9292-80f3-42d1-9fab-16195b304df6",
+        "field": "what_you_like",
+        "text": "Offers robust collaboration features.",
+        "source_submission_id": "6a98aee9-9850-4e64-8275-efb04206c652"
+      },
+      {
+        "id": "193b81db-968b-452e-9c43-e70fd46da533",
+        "field": "problem_solved",
+        "text": "Ensured priority alignment across different teams and projects.",
+        "source_submission_id": "6a98aee9-9850-4e64-8275-efb04206c652"
+      }
+    ]
+  },
+  {
+    "id": "5959c920-f564-4a6c-a6c1-acc65e4aafba",
+    "submission": {
+      "what_you_like": "We use this tool to meticulously track user needs and feature requests. It's invaluable for ensuring our product evolves in line with what our users actually want and need. Integration with our EHR system was surprisingly straightforward.",
+      "what_you_dislike": "The basic feedback analysis tools are insufficient for our needs. We often have to export data to perform more sophisticated sentiment analysis.",
+      "problem_solved": "Provided a structured way to capture and analyze user needs, ensuring the product roadmap directly reflects customer priorities and market demands."
+    },
+    "claims": [
+      {
+        "id": "4dfe5931-aca8-4737-91e0-7ea14afedfeb",
+        "field": "what_you_like",
+        "text": "Effectively tracks user needs and feature requests.",
+        "source_submission_id": "5959c920-f564-4a6c-a6c1-acc65e4aafba"
+      },
+      {
+        "id": "0f6337c9-9aa4-4c6f-bfc2-dc1398c477e2",
+        "field": "problem_solved",
+        "text": "Ensured the product evolves based on user demand.",
+        "source_submission_id": "5959c920-f564-4a6c-a6c1-acc65e4aafba"
+      },
+      {
+        "id": "61315674-fe10-40a3-84de-b8cbf0ac89c8",
+        "field": "what_you_dislike",
+        "text": "Basic feedback analysis tools require manual data export for deeper insights.",
+        "source_submission_id": "5959c920-f564-4a6c-a6c1-acc65e4aafba"
+      },
+      {
+        "id": "ea125d8f-3c58-4428-96a7-6daa171c2dec",
+        "field": "problem_solved",
+        "text": "Facilitated product adaptation based on user feedback.",
+        "source_submission_id": "5959c920-f564-4a6c-a6c1-acc65e4aafba"
+      }
+    ]
+  },
+  {
+    "id": "09f58e43-3a91-49b0-86ce-12e487fbd558",
+    "submission": {
+      "what_you_like": "Demonstrating the Return on Investment (ROI) for new features has become significantly easier. We can directly link feedback that drove a feature to its successful release and subsequent user adoption metrics.",
+      "what_you_dislike": "The analytics dashboard doesn't offer enough flexibility for custom visualizations. We need more options to tailor dashboards to specific performance indicators.",
+      "problem_solved": "Enabled clear demonstration of ROI for product initiatives by tracking the journey from initial feedback to successful feature launch and adoption."
+    },
+    "claims": [
+      {
+        "id": "e27e13c0-447f-437c-b2e8-923d018b49aa",
+        "field": "what_you_like",
+        "text": "Simplifies ROI demonstration for product features.",
+        "source_submission_id": "09f58e43-3a91-49b0-86ce-12e487fbd558"
+      },
+      {
+        "id": "ec292b56-3552-4371-a33e-5c1a9aca7d24",
+        "field": "problem_solved",
+        "text": "Provides seamless tracking from feedback to release for features.",
+        "source_submission_id": "09f58e43-3a91-49b0-86ce-12e487fbd558"
+      },
+      {
+        "id": "61a46dd6-2efb-423a-8d29-e167b90f82de",
+        "field": "what_you_dislike",
+        "text": "Analytics dashboard lacks flexibility for custom visualizations.",
+        "source_submission_id": "09f58e43-3a91-49b0-86ce-12e487fbd558"
+      },
+      {
+        "id": "50b25b9f-07ff-40be-92d7-0832f0e907a2",
+        "field": "problem_solved",
+        "text": "Improved tracking of customer value realization.",
+        "source_submission_id": "09f58e43-3a91-49b0-86ce-12e487fbd558"
+      }
+    ]
+  },
+  {
+    "id": "384750ca-af43-438f-b146-4ad63c9fd12f",
+    "submission": {
+      "what_you_like": "The platform truly unifies our product planning process. We no longer have scattered spreadsheets or documents. Having a shared roadmap view accessible to everyone has dramatically improved our team's focus and alignment.",
+      "what_you_dislike": "The onboarding documentation could be more comprehensive, especially for advanced configuration settings and integrations.",
+      "problem_solved": "Eliminated planning fragmentation by consolidating all product planning activities into a single, accessible platform with a shared roadmap view."
+    },
+    "claims": [
+      {
+        "id": "b441a05a-7210-4949-9a8d-b46ccba8a9c4",
+        "field": "what_you_like",
+        "text": "Unifies the entire product planning process.",
+        "source_submission_id": "384750ca-af43-438f-b146-4ad63c9fd12f"
+      },
+      {
+        "id": "ce82c1ad-d54e-4c0d-901e-a08b6aba242d",
+        "field": "problem_solved",
+        "text": "Eliminated fragmented planning by centralizing information.",
+        "source_submission_id": "384750ca-af43-438f-b146-4ad63c9fd12f"
+      },
+      {
+        "id": "b586caa9-e9dc-4257-a2ee-cc34a0069ef7",
+        "field": "what_you_like",
+        "text": "Provides a shared roadmap view for improved team alignment.",
+        "source_submission_id": "384750ca-af43-438f-b146-4ad63c9fd12f"
+      },
+      {
+        "id": "56c73215-7528-42fd-b785-81ad37cc1110",
+        "field": "problem_solved",
+        "text": "Reduced confusion related to planning documentation.",
+        "source_submission_id": "384750ca-af43-438f-b146-4ad63c9fd12f"
+      }
+    ]
+  },
+  {
+    "id": "bd39ff0a-7e47-4295-8aae-037e692c7c54",
+    "submission": {
+      "what_you_like": "This tool is fantastic for helping us retain focus on our core product strategy. It acts as a strong guardrail against scope creep by making it clear what we've committed to and why. The startup pricing is also very accessible.",
+      "what_you_dislike": "While it captures feedback well, it doesn't offer deep analytics on user sentiment trends without manual export and analysis.",
+      "problem_solved": "Helped the startup maintain strategic discipline and avoid scope creep by providing a clear, centralized view of product priorities and commitments."
+    },
+    "claims": [
+      {
+        "id": "6d9d5593-5502-4211-a546-5ed116204c97",
+        "field": "what_you_like",
+        "text": "Helps retain focus on the core product strategy.",
+        "source_submission_id": "bd39ff0a-7e47-4295-8aae-037e692c7c54"
+      },
+      {
+        "id": "d45a293e-00ab-4962-bc20-86f3087adc4b",
+        "field": "problem_solved",
+        "text": "Prevents scope creep by clearly defining priorities.",
+        "source_submission_id": "bd39ff0a-7e47-4295-8aae-037e692c7c54"
+      },
+      {
+        "id": "a3ed8744-d76a-402e-8a09-d8ba65a77f72",
+        "field": "what_you_like",
+        "text": "Offers accessible pricing for startups.",
+        "source_submission_id": "bd39ff0a-7e47-4295-8aae-037e692c7c54"
+      },
+      {
+        "id": "105daaf5-e558-488b-a23e-5ff29c9facf0",
+        "field": "problem_solved",
+        "text": "Instituted a greater sense of strategic discipline within the product team.",
+        "source_submission_id": "bd39ff0a-7e47-4295-8aae-037e692c7c54"
+      }
+    ]
+  },
+  {
+    "id": "578b7a8f-1d87-4809-9236-9144578f13db",
+    "submission": {
+      "what_you_like": "The ability to segment feedback based on user type, plan, or other custom criteria is incredibly powerful. It allows us to tailor our product development to specific user segments effectively.",
+      "what_you_dislike": "The integration with our current issue tracking system (Jira) is good, but not seamless. There's still a bit of manual effort required to sync certain data points.",
+      "problem_solved": "Enabled precise tailoring of product features to specific user needs by providing robust feedback segmentation capabilities."
+    },
+    "claims": [
+      {
+        "id": "ffafc33a-8158-4d8b-b654-0b4d83d5bb07",
+        "field": "what_you_like",
+        "text": "Allows for effective feedback segmentation.",
+        "source_submission_id": "578b7a8f-1d87-4809-9236-9144578f13db"
+      },
+      {
+        "id": "eaf93345-702d-49a9-8ea5-77cbaaa61021",
+        "field": "problem_solved",
+        "text": "Enables tailoring features to specific user segments.",
+        "source_submission_id": "578b7a8f-1d87-4809-9236-9144578f13db"
+      },
+      {
+        "id": "5852a228-56b4-4ff8-8f7f-a6e81c98c988",
+        "field": "what_you_dislike",
+        "text": "Integration with Jira requires some manual data syncing.",
+        "source_submission_id": "578b7a8f-1d87-4809-9236-9144578f13db"
+      },
+      {
+        "id": "68f4d437-f6a5-43f4-96a6-20a605682dad",
+        "field": "problem_solved",
+        "text": "Provided visibility into feedback trends for targeted development.",
+        "source_submission_id": "578b7a8f-1d87-4809-9236-9144578f13db"
+      }
+    ]
+  },
+  {
+    "id": "4baa58e6-067a-4490-b268-05b072fe2519",
+    "submission": {
+      "what_you_like": "This platform has significantly streamlined our internal communication streams related to product updates. Everyone can see the latest roadmap and release notes, ensuring product update visibility across the company.",
+      "what_you_dislike": "The task management features within the platform feel a bit basic. We still rely on dedicated task management tools for our development workflow.",
+      "problem_solved": "Improved internal communication and ensured consistent visibility of product updates and plans across the entire organization."
+    },
+    "claims": [
+      {
+        "id": "d28550cf-d03b-4d4b-8226-a125d1f7dbf1",
+        "field": "what_you_like",
+        "text": "Streamlines internal communication about product updates.",
+        "source_submission_id": "4baa58e6-067a-4490-b268-05b072fe2519"
+      },
+      {
+        "id": "96978c99-fd94-49c9-853e-a0a64e338d81",
+        "field": "problem_solved",
+        "text": "Enhanced product update visibility across the company.",
+        "source_submission_id": "4baa58e6-067a-4490-b268-05b072fe2519"
+      },
+      {
+        "id": "7a7e52f6-76bf-450a-8e79-3176e2850580",
+        "field": "what_you_dislike",
+        "text": "Task management features are basic.",
+        "source_submission_id": "4baa58e6-067a-4490-b268-05b072fe2519"
+      },
+      {
+        "id": "d1608095-3ac9-4c31-b92e-4d851a05fe05",
+        "field": "problem_solved",
+        "text": "Facilitated better information dissemination regarding product changes.",
+        "source_submission_id": "4baa58e6-067a-4490-b268-05b072fe2519"
+      }
+    ]
+  },
+  {
+    "id": "2bf452ee-6de8-4fab-aff4-8d62349f91e1",
+    "submission": {
+      "what_you_like": "The visual roadmap builder is fantastic for strategic planning and collaboration. We can easily map out initiatives, link them to objectives, and see dependencies. The CRM integration is also quite robust.",
+      "what_you_dislike": "Performance can sometimes lag when dealing with very large datasets or complex roadmap views, especially during peak usage hours.",
+      "problem_solved": "Provided a dynamic and collaborative environment for strategic product planning, improving alignment between teams and facilitating clear dependency mapping."
+    },
+    "claims": [
+      {
+        "id": "46ec3e4b-4e10-4ccc-bced-c3e3957d7a42",
+        "field": "what_you_like",
+        "text": "Features a fantastic visual roadmap builder.",
+        "source_submission_id": "2bf452ee-6de8-4fab-aff4-8d62349f91e1"
+      },
+      {
+        "id": "cf5fcbaa-caa3-4dc7-a5e4-5199496e900d",
+        "field": "problem_solved",
+        "text": "Enabled collaborative strategic planning.",
+        "source_submission_id": "2bf452ee-6de8-4fab-aff4-8d62349f91e1"
+      },
+      {
+        "id": "ebca233d-8d31-4499-963f-dd33417579f3",
+        "field": "what_you_dislike",
+        "text": "Performance can lag with large datasets or complex views.",
+        "source_submission_id": "2bf452ee-6de8-4fab-aff4-8d62349f91e1"
+      },
+      {
+        "id": "3477dab9-86e0-482f-a542-861a0a356ef5",
+        "field": "problem_solved",
+        "text": "Improved mapping of dependencies between product initiatives.",
+        "source_submission_id": "2bf452ee-6de8-4fab-aff4-8d62349f91e1"
+      }
+    ]
+  },
+  {
+    "id": "f99981f9-dbcd-4b30-8406-577f30055166",
+    "submission": {
+      "what_you_like": "As an IT administrator, I appreciate the robust administration controls and the focus on data security. It makes managing user access and ensuring compliance much easier within our enterprise environment.",
+      "what_you_dislike": "The platform can sometimes feel slow to load, particularly when navigating between different sections or when many users are active simultaneously.",
+      "problem_solved": "Provided a secure and manageable platform for enterprise product collaboration, meeting IT governance and security standards."
+    },
+    "claims": [
+      {
+        "id": "a72ec926-6aff-4eee-b02a-69adf0e1d8cc",
+        "field": "what_you_like",
+        "text": "Offers robust administration controls for IT.",
+        "source_submission_id": "f99981f9-dbcd-4b30-8406-577f30055166"
+      },
+      {
+        "id": "bc0d1110-65ec-4636-8e38-04ddccef5110",
+        "field": "problem_solved",
+        "text": "Ensured data security and compliance for enterprise use.",
+        "source_submission_id": "f99981f9-dbcd-4b30-8406-577f30055166"
+      },
+      {
+        "id": "13b806e6-3ee8-4d57-87b1-ac3193879d25",
+        "field": "what_you_dislike",
+        "text": "Platform performance can be slow during peak hours.",
+        "source_submission_id": "f99981f9-dbcd-4b30-8406-577f30055166"
+      },
+      {
+        "id": "55544020-8e31-4b98-8afe-0c5d538ccd95",
+        "field": "problem_solved",
+        "text": "Simplified enterprise product management oversight.",
+        "source_submission_id": "f99981f9-dbcd-4b30-8406-577f30055166"
+      }
+    ]
+  },
+  {
+    "id": "e2eacadd-87e7-4382-a583-af1b07580e1d",
+    "submission": {
+      "what_you_like": "Capturing feedback from our sales team has been revolutionized. This tool makes it incredibly easy for them to submit insights from customer conversations, which directly informs our market need identification.",
+      "what_you_dislike": "The integration with marketing automation tools is not as deep as we'd hoped. We have to manually sync some campaign data.",
+      "problem_solved": "Enabled the sales team to easily contribute customer insights, directly informing market needs and product development priorities."
+    },
+    "claims": [
+      {
+        "id": "8b3ac563-4129-4cd5-976f-2f0e2dd4003e",
+        "field": "what_you_like",
+        "text": "Simplifies capturing feedback from the sales team.",
+        "source_submission_id": "e2eacadd-87e7-4382-a583-af1b07580e1d"
+      },
+      {
+        "id": "89016062-3f7c-4f28-8b6e-485a63dad39b",
+        "field": "problem_solved",
+        "text": "Directly informed market need identification through sales feedback.",
+        "source_submission_id": "e2eacadd-87e7-4382-a583-af1b07580e1d"
+      },
+      {
+        "id": "b837c082-7c58-48cc-a744-314ac5f89c09",
+        "field": "what_you_dislike",
+        "text": "Marketing automation integration lacks depth.",
+        "source_submission_id": "e2eacadd-87e7-4382-a583-af1b07580e1d"
+      },
+      {
+        "id": "9830b61e-189f-4a59-8648-3597eb8ca899",
+        "field": "problem_solved",
+        "text": "Influenced marketing strategy by providing direct customer insights.",
+        "source_submission_id": "e2eacadd-87e7-4382-a583-af1b07580e1d"
+      }
+    ]
+  },
+  {
+    "id": "0a26d408-f052-482d-a65d-7d774acc350b",
+    "submission": {
+      "what_you_like": "The platform excels at keeping our large, distributed team aligned. Everyone has visibility into the product roadmap and priorities, which significantly reduces confusion and duplicated effort.",
+      "what_you_dislike": "Reporting flexibility could be improved. We need more options for custom reports and data exports to integrate with our BI tools.",
+      "problem_solved": "Ensured alignment across a large, distributed team by providing a single source of truth for product plans and priorities, eliminating communication silos."
+    },
+    "claims": [
+      {
+        "id": "4df6540d-20da-4871-bec9-c456b521ef61",
+        "field": "what_you_like",
+        "text": "Keeps large, distributed teams aligned effectively.",
+        "source_submission_id": "0a26d408-f052-482d-a65d-7d774acc350b"
+      },
+      {
+        "id": "5660ccc0-278f-4c7f-aa86-d9c10cee3604",
+        "field": "problem_solved",
+        "text": "Eliminated communication silos by providing shared visibility.",
+        "source_submission_id": "0a26d408-f052-482d-a65d-7d774acc350b"
+      },
+      {
+        "id": "4e15e1df-808b-49e0-ac72-5366d93f2066",
+        "field": "what_you_dislike",
+        "text": "Reporting flexibility needs improvement for custom reports.",
+        "source_submission_id": "0a26d408-f052-482d-a65d-7d774acc350b"
+      },
+      {
+        "id": "8e9a0435-c67e-495b-a41b-4b3bd9b8aba0",
+        "field": "problem_solved",
+        "text": "Improved overall team visibility into product strategy.",
+        "source_submission_id": "0a26d408-f052-482d-a65d-7d774acc350b"
+      }
+    ]
+  },
+  {
+    "id": "079ee9e9-382b-4d43-8f4e-6d1068f506d1",
+    "submission": {
+      "what_you_like": "For our design team, having a central place to link user research findings and design context to the product roadmap is invaluable. It ensures we're always building based on a deep understanding of user problems.",
+      "what_you_dislike": "The platform sometimes struggles with rendering very complex roadmap visualizations, leading to slow load times.",
+      "problem_solved": "Bridged the gap between design, research, and development by centralizing user context and linking it directly to the product roadmap, fostering a truly user-centered approach."
+    },
+    "claims": [
+      {
+        "id": "b072ef27-c28a-4a65-ac72-3b92c5cab11a",
+        "field": "what_you_like",
+        "text": "Provides valuable design context linked to the product roadmap.",
+        "source_submission_id": "079ee9e9-382b-4d43-8f4e-6d1068f506d1"
+      },
+      {
+        "id": "113a95c9-7909-49b6-bccf-467882a5b79c",
+        "field": "problem_solved",
+        "text": "Ensured development is based on a deep understanding of user problems.",
+        "source_submission_id": "079ee9e9-382b-4d43-8f4e-6d1068f506d1"
+      },
+      {
+        "id": "e2021034-0d61-4db0-b4b3-b0460a71c7bf",
+        "field": "what_you_dislike",
+        "text": "Struggles with rendering complex roadmap visualizations.",
+        "source_submission_id": "079ee9e9-382b-4d43-8f4e-6d1068f506d1"
+      },
+      {
+        "id": "84cd29dd-08b0-4ba8-8843-ffe3fbf312b9",
+        "field": "problem_solved",
+        "text": "Reduced collaboration disjointedness between design and product teams.",
+        "source_submission_id": "079ee9e9-382b-4d43-8f4e-6d1068f506d1"
+      }
+    ]
+  },
+  {
+    "id": "509cf54b-e822-4309-83a7-a1f73a6ac25f",
+    "submission": {
+      "what_you_like": "The backlog organization features are excellent. It's easy to categorize, tag, and prioritize incoming ideas and requests. This level of transparency across the entire product backlog is fantastic for company-wide understanding.",
+      "what_you_dislike": "The notification system can be quite noisy. We often get too many updates, making it hard to focus on what's truly important.",
+      "problem_solved": "Organized the product backlog effectively and provided company-wide transparency into what's being considered and prioritized, leading to clearer decision-making."
+    },
+    "claims": [
+      {
+        "id": "54a6fc1c-c5e6-4e4f-8432-3f4cd1d99a89",
+        "field": "what_you_like",
+        "text": "Provides excellent backlog organization tools.",
+        "source_submission_id": "509cf54b-e822-4309-83a7-a1f73a6ac25f"
+      },
+      {
+        "id": "325b0481-666f-4550-831a-2d03cfe792ce",
+        "field": "problem_solved",
+        "text": "Achieved company-wide transparency into the product backlog.",
+        "source_submission_id": "509cf54b-e822-4309-83a7-a1f73a6ac25f"
+      },
+      {
+        "id": "3a0d65ea-4876-4097-92b5-dfe1067f0977",
+        "field": "what_you_dislike",
+        "text": "The notification system can be noisy and overwhelming.",
+        "source_submission_id": "509cf54b-e822-4309-83a7-a1f73a6ac25f"
+      },
+      {
+        "id": "367cf540-21bd-4c16-8be1-96d83c8f3baa",
+        "field": "problem_solved",
+        "text": "Brought clarity to the product prioritization process.",
+        "source_submission_id": "509cf54b-e822-4309-83a7-a1f73a6ac25f"
+      }
+    ]
+  },
+  {
+    "id": "0c0c8bc5-e38a-474a-8daf-6ed1025b4cca",
+    "submission": {
+      "what_you_like": "This platform has brought incredible cohesion to our entire product workflow, from initial idea generation to final release. It seamlessly connects different stages of the product lifecycle.",
+      "what_you_dislike": "The ability to export detailed raw data is limited. We often need more granular data for our own custom analysis and reporting.",
+      "problem_solved": "Unified the product workflow, creating a smooth transition from idea to launch and improving overall process efficiency."
+    },
+    "claims": [
+      {
+        "id": "5aa1b520-326c-493e-9903-67436d620f6e",
+        "field": "what_you_like",
+        "text": "Brings cohesion to the entire product workflow.",
+        "source_submission_id": "0c0c8bc5-e38a-474a-8daf-6ed1025b4cca"
+      },
+      {
+        "id": "f45410f4-18de-43c9-adcb-01ccdee32580",
+        "field": "problem_solved",
+        "text": "Created a seamless idea-to-launch process.",
+        "source_submission_id": "0c0c8bc5-e38a-474a-8daf-6ed1025b4cca"
+      },
+      {
+        "id": "f542fadf-11f7-4204-880a-d685eca4cacd",
+        "field": "what_you_dislike",
+        "text": "Limited ability to export detailed raw data.",
+        "source_submission_id": "0c0c8bc5-e38a-474a-8daf-6ed1025b4cca"
+      },
+      {
+        "id": "dddd1bde-9874-4e5b-b1fb-63df9f85edff",
+        "field": "problem_solved",
+        "text": "Enhanced process efficiency across the product lifecycle.",
+        "source_submission_id": "0c0c8bc5-e38a-474a-8daf-6ed1025b4cca"
+      }
+    ]
+  },
+  {
+    "id": "edf475ed-f871-4065-8899-a3ba317d9a41",
+    "submission": {
+      "what_you_like": "The way this tool aligns product initiatives with overarching business objectives is phenomenal. It provides clear justification for every roadmap item, making strategic investment decisions much easier to articulate and defend.",
+      "what_you_dislike": "Configuring complex role-based permissions can be quite challenging. The setup process for granular access control is not intuitive.",
+      "problem_solved": "Ensured product development was always aligned with business objectives, providing a clear rationale for strategic investments and resource allocation."
+    },
+    "claims": [
+      {
+        "id": "f833468c-f55c-439c-98dd-71f3a05d24e5",
+        "field": "what_you_like",
+        "text": "Aligns product initiatives with business objectives effectively.",
+        "source_submission_id": "edf475ed-f871-4065-8899-a3ba317d9a41"
+      },
+      {
+        "id": "0064475e-f726-489e-8198-38a3126ee0ec",
+        "field": "problem_solved",
+        "text": "Provided clear justification for strategic investments.",
+        "source_submission_id": "edf475ed-f871-4065-8899-a3ba317d9a41"
+      },
+      {
+        "id": "0347383a-7270-45ab-a6c0-c221c26588ab",
+        "field": "what_you_dislike",
+        "text": "Configuring complex role-based permissions is challenging.",
+        "source_submission_id": "edf475ed-f871-4065-8899-a3ba317d9a41"
+      },
+      {
+        "id": "342aa41f-9dd6-4376-8d6e-86722b6f4a12",
+        "field": "problem_solved",
+        "text": "Facilitated articulation and defense of the business case for product features.",
+        "source_submission_id": "edf475ed-f871-4065-8899-a3ba317d9a41"
+      }
+    ]
+  },
+  {
+    "id": "a041ff1d-5285-4a2e-a139-8b9ce5ee777d",
+    "submission": {
+      "what_you_like": "Centralizing product decisions here has dramatically reduced miscommunication. Everyone can see the rationale behind choices and the current status of features, making information much more accessible.",
+      "what_you_dislike": "Integrating with our existing knowledge base system felt like a missed opportunity. It would be great if it could act as a central hub for product documentation too.",
+      "problem_solved": "Reduced miscommunication and improved accessibility of product information by centralizing decisions and status updates."
+    },
+    "claims": [
+      {
+        "id": "2915d672-afb9-48d8-bc1c-9036cdbef3cc",
+        "field": "what_you_like",
+        "text": "Centralizes product decisions effectively.",
+        "source_submission_id": "a041ff1d-5285-4a2e-a139-8b9ce5ee777d"
+      },
+      {
+        "id": "77041f23-dc32-4930-bf30-e2f21fb4d050",
+        "field": "problem_solved",
+        "text": "Reduced miscommunication across teams.",
+        "source_submission_id": "a041ff1d-5285-4a2e-a139-8b9ce5ee777d"
+      },
+      {
+        "id": "202b3161-8ad7-46d8-8aa8-fc1a6f56a9d7",
+        "field": "what_you_dislike",
+        "text": "Integration with existing knowledge base systems is lacking.",
+        "source_submission_id": "a041ff1d-5285-4a2e-a139-8b9ce5ee777d"
+      },
+      {
+        "id": "73b59f6c-0938-4051-a53f-e139318dbecb",
+        "field": "problem_solved",
+        "text": "Improved information accessibility for all team members.",
+        "source_submission_id": "a041ff1d-5285-4a2e-a139-8b9ce5ee777d"
+      }
+    ]
+  },
+  {
+    "id": "7c46a402-2bde-42c8-8f85-fca67a2fb1af",
+    "submission": {
+      "what_you_like": "For our industrial manufacturing clients, capturing and analyzing feedback from field technicians is crucial. This platform makes it easy to collate that input and see actionable trends in user feedback.",
+      "what_you_dislike": "The detail level in the feedback reporting could be enhanced. We sometimes need more granular export options for deeper analysis.",
+      "problem_solved": "Provided a streamlined way to collect and analyze feedback from field technicians, leading to improved product development for industrial applications."
+    },
+    "claims": [
+      {
+        "id": "83faf883-3ffe-4688-9a86-e160200f5c78",
+        "field": "what_you_like",
+        "text": "Facilitates collection of feedback from industrial technicians.",
+        "source_submission_id": "7c46a402-2bde-42c8-8f85-fca67a2fb1af"
+      },
+      {
+        "id": "e0777c32-57b7-4bae-abf4-143a0b133dba",
+        "field": "problem_solved",
+        "text": "Enabled analysis of trends in user feedback for industrial products.",
+        "source_submission_id": "7c46a402-2bde-42c8-8f85-fca67a2fb1af"
+      },
+      {
+        "id": "aa3d1aae-7cb8-4b87-8146-df69bcb70bdb",
+        "field": "what_you_dislike",
+        "text": "Feedback reporting detail could be enhanced.",
+        "source_submission_id": "7c46a402-2bde-42c8-8f85-fca67a2fb1af"
+      },
+      {
+        "id": "ce17d989-f5b1-425a-ab96-9d3e1527295a",
+        "field": "problem_solved",
+        "text": "Improved user feedback analysis processes.",
+        "source_submission_id": "7c46a402-2bde-42c8-8f85-fca67a2fb1af"
+      }
+    ]
+  },
+  {
+    "id": "744b02e9-6378-4744-91ac-eaded12eb9fb",
+    "submission": {
+      "what_you_like": "The executive visibility this platform provides is outstanding. We can easily link customer needs directly to strategic roadmap items, and the search function is powerful enough to find any piece of information quickly.",
+      "what_you_dislike": "While the core roadmap planning is strong, detailed task management and sprint planning feel less robust than dedicated tools.",
+      "problem_solved": "Provided executives with clear visibility into product strategy and customer needs, enabling better strategic decision-making and communication."
+    },
+    "claims": [
+      {
+        "id": "50a19dcd-de2e-4bd4-9373-0212b52f1ead",
+        "field": "what_you_like",
+        "text": "Offers outstanding executive visibility into product strategy.",
+        "source_submission_id": "744b02e9-6378-4744-91ac-eaded12eb9fb"
+      },
+      {
+        "id": "b58891ea-dfb7-4083-b826-2354d4cddc49",
+        "field": "problem_solved",
+        "text": "Linked customer needs directly to strategic roadmap items.",
+        "source_submission_id": "744b02e9-6378-4744-91ac-eaded12eb9fb"
+      },
+      {
+        "id": "101f02b9-3a84-4d54-bb80-bbd4451bb500",
+        "field": "what_you_like",
+        "text": "Powerful search functionality for quick information retrieval.",
+        "source_submission_id": "744b02e9-6378-4744-91ac-eaded12eb9fb"
+      },
+      {
+        "id": "8b243482-b4ab-4112-b051-9c0c2aa8689a",
+        "field": "problem_solved",
+        "text": "Enhanced strategic communication regarding product direction.",
+        "source_submission_id": "744b02e9-6378-4744-91ac-eaded12eb9fb"
+      }
+    ]
+  },
+  {
+    "id": "78b75984-d7ca-4b0a-bb51-c5addf7681ba",
+    "submission": {
+      "what_you_like": "This tool has been great for aligning our marketing campaigns with product development. We can ensure marketing efforts support upcoming features and track campaign goals effectively.",
+      "what_you_dislike": "The dashboard customization options are somewhat limited. We'd like more freedom to arrange and filter widgets to suit our specific marketing metrics.",
+      "problem_solved": "Improved alignment between marketing campaigns and product development, ensuring cohesive messaging and support for new features."
+    },
+    "claims": [
+      {
+        "id": "19f64540-7fd1-48ac-bcd7-7dc58617b918",
+        "field": "what_you_like",
+        "text": "Facilitates marketing and product alignment.",
+        "source_submission_id": "78b75984-d7ca-4b0a-bb51-c5addf7681ba"
+      },
+      {
+        "id": "c5d43f5f-a8cb-4784-b7e2-d18df6421033",
+        "field": "problem_solved",
+        "text": "Ensured marketing campaigns support product development goals.",
+        "source_submission_id": "78b75984-d7ca-4b0a-bb51-c5addf7681ba"
+      },
+      {
+        "id": "4af802d4-dd40-4c7c-b993-0038e84f09b9",
+        "field": "what_you_dislike",
+        "text": "Dashboard customization options are limited.",
+        "source_submission_id": "78b75984-d7ca-4b0a-bb51-c5addf7681ba"
+      },
+      {
+        "id": "4fdf9b8c-fd67-4b44-9d58-12f5b6fe1cfa",
+        "field": "problem_solved",
+        "text": "Enabled tracking of campaign goals in relation to product releases.",
+        "source_submission_id": "78b75984-d7ca-4b0a-bb51-c5addf7681ba"
+      }
+    ]
+  },
+  {
+    "id": "a91865e6-d0d9-40e5-908f-0120af2bd707",
+    "submission": {
+      "what_you_like": "As a consumer software company, consolidating feedback from so many users is key. This platform helps us identify unmet needs and track them effectively. The integration with our bug tracking system is also a plus.",
+      "what_you_dislike": "The ability to deeply customize feedback forms is lacking. We can't implement complex logic or conditional questions easily.",
+      "problem_solved": "Provided a holistic view of user feedback and needs for a consumer product, enabling better prioritization and development of features that users truly want."
+    },
+    "claims": [
+      {
+        "id": "d2c554fb-6ee4-49e2-a077-5b437c043862",
+        "field": "what_you_like",
+        "text": "Excellent for consolidating feedback in consumer software.",
+        "source_submission_id": "a91865e6-d0d9-40e5-908f-0120af2bd707"
+      },
+      {
+        "id": "feb95a83-efdf-4e06-96b6-53c0c95b70aa",
+        "field": "problem_solved",
+        "text": "Helped identify unmet user needs for the product.",
+        "source_submission_id": "a91865e6-d0d9-40e5-908f-0120af2bd707"
+      },
+      {
+        "id": "c1456e25-9102-47d4-9f12-7e07ccf65f4d",
+        "field": "what_you_dislike",
+        "text": "Limited ability to deeply customize feedback forms.",
+        "source_submission_id": "a91865e6-d0d9-40e5-908f-0120af2bd707"
+      },
+      {
+        "id": "61ca8dbb-5a94-4fd0-a89c-c28c79d41057",
+        "field": "problem_solved",
+        "text": "Provided a holistic view of the user experience.",
+        "source_submission_id": "a91865e6-d0d9-40e5-908f-0120af2bd707"
+      }
+    ]
+  },
+  {
+    "id": "edfb0d36-cb51-49fb-bead-b933cb3bbc3e",
+    "submission": {
+      "what_you_like": "The roadmap planning collaboration features are top-notch. It's easy for engineers and product managers to work together on timelines and dependencies. This keeps everyone building the right things.",
+      "what_you_dislike": "The notification system can be overly aggressive, sometimes sending too many alerts for minor updates.",
+      "problem_solved": "Enhanced collaboration between product and engineering teams on roadmap planning, ensuring focus on building the most impactful features."
+    },
+    "claims": [
+      {
+        "id": "907a5a3e-5e2a-4efa-95eb-9eed82bca15d",
+        "field": "what_you_like",
+        "text": "Provides top-notch roadmap planning collaboration features.",
+        "source_submission_id": "edfb0d36-cb51-49fb-bead-b933cb3bbc3e"
+      },
+      {
+        "id": "cf1ffc8d-6992-4c40-ade7-1f36bd9ca124",
+        "field": "problem_solved",
+        "text": "Ensured product and engineering teams align on building the right features.",
+        "source_submission_id": "edfb0d36-cb51-49fb-bead-b933cb3bbc3e"
+      },
+      {
+        "id": "50445320-a10f-44d6-bfe2-ecee0dd4ba69",
+        "field": "what_you_dislike",
+        "text": "Notification system can be overly aggressive.",
+        "source_submission_id": "edfb0d36-cb51-49fb-bead-b933cb3bbc3e"
+      },
+      {
+        "id": "9d18fd0d-8d4a-4b11-ab65-dc7c1460c988",
+        "field": "problem_solved",
+        "text": "Unified the planning process between product and engineering.",
+        "source_submission_id": "edfb0d36-cb51-49fb-bead-b933cb3bbc3e"
+      }
+    ]
+  },
+  {
+    "id": "651c979c-c2a2-4d29-a19f-32ce2db92498",
+    "submission": {
+      "what_you_like": "This tool provides a structured framework for our decision-making process. It forces us to think critically about resource constraints and justify every roadmap item, which is essential for our non-profit organization.",
+      "what_you_dislike": "The reporting features for non-profits, specifically around impact metrics tied to grants, are not yet developed. We need more specialized reporting.",
+      "problem_solved": "Brought structure and transparency to decision-making, ensuring resources were allocated effectively and strategically for maximum impact."
+    },
+    "claims": [
+      {
+        "id": "1256b1f1-9794-4800-9744-8e4e6a3b4796",
+        "field": "what_you_like",
+        "text": "Provides a structured decision-making framework.",
+        "source_submission_id": "651c979c-c2a2-4d29-a19f-32ce2db92498"
+      },
+      {
+        "id": "d19c91e3-bbb4-44fc-a253-f53c51b2e1e1",
+        "field": "problem_solved",
+        "text": "Enabled effective management of resource constraints.",
+        "source_submission_id": "651c979c-c2a2-4d29-a19f-32ce2db92498"
+      },
+      {
+        "id": "cf6ab275-63b6-4d45-b1db-d2c404855b69",
+        "field": "what_you_dislike",
+        "text": "Reporting features for non-profits need development.",
+        "source_submission_id": "651c979c-c2a2-4d29-a19f-32ce2db92498"
+      },
+      {
+        "id": "f28fd8bf-99bd-489d-a489-fbf4c56d79d2",
+        "field": "problem_solved",
+        "text": "Fostered a transparent decision-making process.",
+        "source_submission_id": "651c979c-c2a2-4d29-a19f-32ce2db92498"
+      }
+    ]
+  },
+  {
+    "id": "82b0c9bb-fbe5-4e8a-b145-826300cf6a3c",
+    "submission": {
+      "what_you_like": "The direct link from customer feedback to roadmap items is invaluable. It allows us to validate our product strategy and ensure we're investing in features that truly resonate with users. The feedback form customization is also quite good.",
+      "what_you_dislike": "While good, the platform could offer more advanced analytics for identifying emerging feedback trends without manual intervention.",
+      "problem_solved": "Enabled validation of product strategy by directly linking customer feedback to roadmap decisions, ensuring development efforts align with user needs."
+    },
+    "claims": [
+      {
+        "id": "321478bc-d002-4f30-a41a-7bcb201d876d",
+        "field": "what_you_like",
+        "text": "Links customer feedback directly to roadmap items.",
+        "source_submission_id": "82b0c9bb-fbe5-4e8a-b145-826300cf6a3c"
+      },
+      {
+        "id": "8db32c0b-b025-4a02-a5e3-fc7a2d1ac398",
+        "field": "problem_solved",
+        "text": "Validated product strategy based on direct user feedback.",
+        "source_submission_id": "82b0c9bb-fbe5-4e8a-b145-826300cf6a3c"
+      },
+      {
+        "id": "c7a78a97-769e-40a0-8a46-429e8424cbb8",
+        "field": "what_you_like",
+        "text": "Offers good customization for feedback forms.",
+        "source_submission_id": "82b0c9bb-fbe5-4e8a-b145-826300cf6a3c"
+      },
+      {
+        "id": "2c6d3136-6102-4c06-8405-08bc38a77adf",
+        "field": "problem_solved",
+        "text": "Provided justification for strategic initiatives based on user input.",
+        "source_submission_id": "82b0c9bb-fbe5-4e8a-b145-826300cf6a3c"
+      }
+    ]
+  },
+  {
+    "id": "a74554fd-ec88-4a62-ad09-5a90bf76299f",
+    "submission": {
+      "what_you_like": "Keeping our global teams aligned on the product roadmap is a huge challenge, and this platform solves it brilliantly. Everyone has access to the same, up-to-date information, regardless of their timezone.",
+      "what_you_dislike": "Performance can degrade during peak hours, especially for our users in Asia. We've experienced some latency issues.",
+      "problem_solved": "Ensured consistent alignment and communication across globally distributed product teams, overcoming timezone and geographical barriers."
+    },
+    "claims": [
+      {
+        "id": "598dfe86-3ca0-44b8-860e-487aa9e751d8",
+        "field": "what_you_like",
+        "text": "Excellent for aligning global product teams.",
+        "source_submission_id": "a74554fd-ec88-4a62-ad09-5a90bf76299f"
+      },
+      {
+        "id": "382b28b0-7c2b-45c0-b0a8-418d7d550059",
+        "field": "problem_solved",
+        "text": "Facilitated cross-timezone collaboration effectively.",
+        "source_submission_id": "a74554fd-ec88-4a62-ad09-5a90bf76299f"
+      },
+      {
+        "id": "ba8da987-1e40-48ef-8797-f7806a385243",
+        "field": "what_you_dislike",
+        "text": "Performance degrades during peak hours for some regions.",
+        "source_submission_id": "a74554fd-ec88-4a62-ad09-5a90bf76299f"
+      },
+      {
+        "id": "d0f3451e-08fc-45f2-8137-836efec95d83",
+        "field": "problem_solved",
+        "text": "Provided a unified product management experience for enterprise-level operations.",
+        "source_submission_id": "a74554fd-ec88-4a62-ad09-5a90bf76299f"
+      }
+    ]
+  },
+  {
+    "id": "81997aa9-1002-4ff6-80a0-8276583bce1f",
+    "submission": {
+      "what_you_like": "The way this tool consolidates feedback and surfaces user desires is fantastic. It makes prioritizing features based on what users actually want much more straightforward.",
+      "what_you_dislike": "We're hoping for more advanced analytics features in the future. The current reporting is good but doesn't offer the deep dive we sometimes need.",
+      "problem_solved": "Simplified the process of understanding and prioritizing user desires by consolidating feedback and providing clear insights."
+    },
+    "claims": [
+      {
+        "id": "0449fe9e-378a-4ad9-9eb6-d7d08ec06949",
+        "field": "what_you_like",
+        "text": "Consolidates feedback and surfaces user desires effectively.",
+        "source_submission_id": "81997aa9-1002-4ff6-80a0-8276583bce1f"
+      },
+      {
+        "id": "5edf5b4e-0b11-4927-b067-d599cfdcf42b",
+        "field": "problem_solved",
+        "text": "Made it easier to prioritize features based on user demand.",
+        "source_submission_id": "81997aa9-1002-4ff6-80a0-8276583bce1f"
+      },
+      {
+        "id": "9d05428b-743a-4f09-94b0-26202f12f6e7",
+        "field": "what_you_dislike",
+        "text": "Hoping for more advanced analytics features in future releases.",
+        "source_submission_id": "81997aa9-1002-4ff6-80a0-8276583bce1f"
+      },
+      {
+        "id": "cf34a52a-9876-41f3-a4fa-6166dd597b9e",
+        "field": "problem_solved",
+        "text": "Enabled data-driven prioritization of product roadmap items.",
+        "source_submission_id": "81997aa9-1002-4ff6-80a0-8276583bce1f"
+      }
+    ]
+  },
+  {
+    "id": "1f35f0aa-3751-49d4-880f-168ffa4c233a",
+    "submission": {
+      "what_you_like": "Having a single source of truth for our product roadmap is a game-changer. No more hunting through emails or outdated docs. Everyone can see the latest information, which has eliminated so much confusion.",
+      "what_you_dislike": "The mobile app's functionality is quite limited. It's difficult to make edits or view detailed information on the go.",
+      "problem_solved": "Eliminated roadmap confusion and ensured everyone was working from the most current information by establishing a single source of truth."
+    },
+    "claims": [
+      {
+        "id": "40ba662a-4dac-4af8-9d50-df3cf2b9d592",
+        "field": "what_you_like",
+        "text": "Provides a single source of truth for the product roadmap.",
+        "source_submission_id": "1f35f0aa-3751-49d4-880f-168ffa4c233a"
+      },
+      {
+        "id": "d1e79da6-c974-413f-a380-ee9918a2eaad",
+        "field": "problem_solved",
+        "text": "Eliminated roadmap confusion by centralizing information.",
+        "source_submission_id": "1f35f0aa-3751-49d4-880f-168ffa4c233a"
+      },
+      {
+        "id": "5038204f-af4c-4aaa-b1ab-47c79a889bcc",
+        "field": "what_you_dislike",
+        "text": "Mobile app functionality is limited for editing and viewing details.",
+        "source_submission_id": "1f35f0aa-3751-49d4-880f-168ffa4c233a"
+      },
+      {
+        "id": "2caed60b-0a1b-4df1-beec-714dd8723aaa",
+        "field": "problem_solved",
+        "text": "Ensured access to the latest product roadmap information.",
+        "source_submission_id": "1f35f0aa-3751-49d4-880f-168ffa4c233a"
+      }
+    ]
+  },
+  {
+    "id": "6d30be8e-63ca-4089-97da-c546aeeb5872",
+    "submission": {
+      "what_you_like": "This tool has been instrumental for our customer success team. We can now easily track feedback from inception through to its implementation in a release, demonstrating the impact to our clients.",
+      "what_you_dislike": "The integration with Asana isn't as seamless as we'd hoped. There's some duplication of effort in task management.",
+      "problem_solved": "Enabled the customer success team to demonstrate the impact of customer feedback by tracking it from initial submission to final release."
+    },
+    "claims": [
+      {
+        "id": "517fee9a-7307-4271-9ebe-3520452ca450",
+        "field": "what_you_like",
+        "text": "Tracks feedback from inception to release effectively.",
+        "source_submission_id": "6d30be8e-63ca-4089-97da-c546aeeb5872"
+      },
+      {
+        "id": "59add4b4-f2e1-4876-a227-5d1c6f1613b7",
+        "field": "problem_solved",
+        "text": "Allowed customer success to demonstrate customer impact.",
+        "source_submission_id": "6d30be8e-63ca-4089-97da-c546aeeb5872"
+      },
+      {
+        "id": "646a8f59-c4a7-410d-a2a5-b6aa31249c22",
+        "field": "what_you_dislike",
+        "text": "Integration with Asana is not fully seamless.",
+        "source_submission_id": "6d30be8e-63ca-4089-97da-c546aeeb5872"
+      },
+      {
+        "id": "483d8a15-7e34-412f-8f44-09b53aad9d9e",
+        "field": "problem_solved",
+        "text": "Improved feedback traceability throughout the product development cycle.",
+        "source_submission_id": "6d30be8e-63ca-4089-97da-c546aeeb5872"
+      }
+    ]
+  },
+  {
+    "id": "f68a99bd-ebe9-4efe-8b1d-a70a4b3236d6",
+    "submission": {
+      "what_you_like": "Having a dedicated feedback repository is fantastic. It allows us to really understand user pain points and ensure we're building solutions that address them directly. It's a great tool for user-centered development.",
+      "what_you_dislike": "The filtering capabilities within the feedback module could be more advanced. We find it challenging to narrow down feedback based on very specific criteria.",
+      "problem_solved": "Created a centralized repository for user feedback, leading to a deeper understanding of pain points and more targeted product development."
+    },
+    "claims": [
+      {
+        "id": "c836248e-51e2-428d-8505-c478de912245",
+        "field": "what_you_like",
+        "text": "Provides a dedicated and organized feedback repository.",
+        "source_submission_id": "f68a99bd-ebe9-4efe-8b1d-a70a4b3236d6"
+      },
+      {
+        "id": "f41cd6e1-15a4-4e82-8a24-f2146aff47dc",
+        "field": "problem_solved",
+        "text": "Led to a better understanding of user pain points.",
+        "source_submission_id": "f68a99bd-ebe9-4efe-8b1d-a70a4b3236d6"
+      },
+      {
+        "id": "02836af9-9141-47ba-b4ee-e32f7c8e72c5",
+        "field": "what_you_dislike",
+        "text": "Feedback filtering capabilities could be more advanced.",
+        "source_submission_id": "f68a99bd-ebe9-4efe-8b1d-a70a4b3236d6"
+      },
+      {
+        "id": "678d8eff-893d-41ee-8557-3e04ec9bc321",
+        "field": "problem_solved",
+        "text": "Enabled the generation of actionable insights from user feedback.",
+        "source_submission_id": "f68a99bd-ebe9-4efe-8b1d-a70a4b3236d6"
+      }
+    ]
+  },
+  {
+    "id": "36121c2e-4473-4c97-9467-81f69f461683",
+    "submission": {
+      "what_you_like": "This platform significantly enhances how we communicate our product strategy. We can easily share updates and align stakeholders on our vision and progress, ensuring everyone is rowing in the same direction.",
+      "what_you_dislike": "The onboarding process, while guided, requires significant time investment to fully configure and leverage all features.",
+      "problem_solved": "Improved the communication of product strategy to all stakeholders, fostering alignment and ensuring consistent messaging."
+    },
+    "claims": [
+      {
+        "id": "3da37e01-d8d5-4058-ae38-b2bfcc31e6fc",
+        "field": "what_you_like",
+        "text": "Enhances communication of product strategy.",
+        "source_submission_id": "36121c2e-4473-4c97-9467-81f69f461683"
+      },
+      {
+        "id": "ac5b406e-5fc2-48ec-bce4-1d7f2609ba90",
+        "field": "problem_solved",
+        "text": "Aligned stakeholders on product vision and progress.",
+        "source_submission_id": "36121c2e-4473-4c97-9467-81f69f461683"
+      },
+      {
+        "id": "2b756d27-c9b8-4d03-8e6c-bc4df9c85a72",
+        "field": "what_you_dislike",
+        "text": "Onboarding requires a significant time investment for full configuration.",
+        "source_submission_id": "36121c2e-4473-4c97-9467-81f69f461683"
+      },
+      {
+        "id": "c6ddaa05-ce93-4fe5-9009-0d9aec4ffd9d",
+        "field": "problem_solved",
+        "text": "Enabled consistent communication of product plans.",
+        "source_submission_id": "36121c2e-4473-4c97-9467-81f69f461683"
+      }
+    ]
+  },
+  {
+    "id": "ac55a6e8-fb51-4fb1-b871-4e97919e08d0",
+    "submission": {
+      "what_you_like": "The roadmap planning capabilities are very robust. We can effectively track initiatives, link them to strategic objectives, and manage dependencies. It's a solid tool for managing complex product portfolios.",
+      "what_you_dislike": "The feedback trend analytics are good, but could be more sophisticated. We'd love more predictive capabilities based on historical data.",
+      "problem_solved": "Provided a robust framework for roadmap planning and initiative tracking, ensuring alignment with strategic objectives and effective management of product portfolios."
+    },
+    "claims": [
+      {
+        "id": "d8a81e1a-0c21-486e-bb2e-d32f75b4af74",
+        "field": "what_you_like",
+        "text": "Offers robust roadmap planning capabilities.",
+        "source_submission_id": "ac55a6e8-fb51-4fb1-b871-4e97919e08d0"
+      },
+      {
+        "id": "8098fd3c-ed91-4277-a4c7-1de98feb06a6",
+        "field": "problem_solved",
+        "text": "Enabled effective tracking of product initiatives.",
+        "source_submission_id": "ac55a6e8-fb51-4fb1-b871-4e97919e08d0"
+      },
+      {
+        "id": "92d71b31-4fbf-4d7c-8270-c2d1825cbcc2",
+        "field": "what_you_dislike",
+        "text": "Feedback trend analytics could be more sophisticated.",
+        "source_submission_id": "ac55a6e8-fb51-4fb1-b871-4e97919e08d0"
+      },
+      {
+        "id": "711ef377-68de-4765-aafe-64d59e0371c2",
+        "field": "problem_solved",
+        "text": "Improved roadmap management by providing structure and visibility.",
+        "source_submission_id": "ac55a6e8-fb51-4fb1-b871-4e97919e08d0"
+      }
+    ]
+  },
+  {
+    "id": "8af577a1-cdbf-4a24-99a1-e4d298ca5595",
+    "submission": {
+      "what_you_like": "Linking product vision directly to engineering execution is seamless with this tool. It ensures the team is always building the right thing based on clear user needs and strategic goals.",
+      "what_you_dislike": "The customization options for feedback forms are limited, making it hard to tailor them precisely for different user research scenarios.",
+      "problem_solved": "Ensured engineering efforts were directly aligned with the product vision and user needs, leading to the development of the right product features."
+    },
+    "claims": [
+      {
+        "id": "31074d78-3d78-448e-bb5c-88672099a1c1",
+        "field": "what_you_like",
+        "text": "Seamlessly links product vision to engineering execution.",
+        "source_submission_id": "8af577a1-cdbf-4a24-99a1-e4d298ca5595"
+      },
+      {
+        "id": "8b7cc228-2d14-449d-8e0c-b7ac12035854",
+        "field": "problem_solved",
+        "text": "Ensured the team builds the right product features aligned with strategy.",
+        "source_submission_id": "8af577a1-cdbf-4a24-99a1-e4d298ca5595"
+      },
+      {
+        "id": "70748fb7-6fa5-4e60-85a2-3a2dd9934b15",
+        "field": "what_you_dislike",
+        "text": "Feedback form customization options are limited.",
+        "source_submission_id": "8af577a1-cdbf-4a24-99a1-e4d298ca5595"
+      },
+      {
+        "id": "dd87b0c2-23a8-4bf5-8e45-a8e96ffc7d4b",
+        "field": "problem_solved",
+        "text": "Closed the gap between vision and execution in product development.",
+        "source_submission_id": "8af577a1-cdbf-4a24-99a1-e4d298ca5595"
+      }
+    ]
+  },
+  {
+    "id": "847cba1b-90a9-4598-a59f-fa77692e9e41",
+    "submission": {
+      "what_you_like": "For our small startup, managing feedback effectively without getting overwhelmed by spreadsheets is crucial. This platform is an excellent alternative, providing structure and clarity.",
+      "what_you_dislike": "The pricing tiers can be a bit steep for very early-stage startups. We're hoping for more flexible options as we grow.",
+      "problem_solved": "Provided a scalable and efficient way for a startup to manage customer feedback and product planning, moving away from cumbersome spreadsheet-based methods."
+    },
+    "claims": [
+      {
+        "id": "6af6660d-6473-495d-b263-0d6d066b43e7",
+        "field": "what_you_like",
+        "text": "Excellent for managing feedback in a startup environment.",
+        "source_submission_id": "847cba1b-90a9-4598-a59f-fa77692e9e41"
+      },
+      {
+        "id": "93845d4e-6d01-4d14-9c21-4798f72e03e5",
+        "field": "problem_solved",
+        "text": "Provided a structured alternative to spreadsheet-based feedback management.",
+        "source_submission_id": "847cba1b-90a9-4598-a59f-fa77692e9e41"
+      },
+      {
+        "id": "18c36627-d8e3-4410-929e-d14092d0b837",
+        "field": "what_you_dislike",
+        "text": "Pricing can be a concern for very early-stage startups.",
+        "source_submission_id": "847cba1b-90a9-4598-a59f-fa77692e9e41"
+      },
+      {
+        "id": "2e83d87c-262b-4305-98b8-dc4899bf318e",
+        "field": "problem_solved",
+        "text": "Enabled early-stage scalability for product feedback processes.",
+        "source_submission_id": "847cba1b-90a9-4598-a59f-fa77692e9e41"
+      }
+    ]
+  },
+  {
+    "id": "7313c1d0-6735-4183-b1d6-412f4911f8e1",
+    "submission": {
+      "what_you_like": "This tool simplifies the entire product lifecycle, from ideation to launch. The integrated workflow connects all the pieces seamlessly, making our process much more efficient.",
+      "what_you_dislike": "The UI responsiveness can sometimes be an issue, especially when dealing with large amounts of data or complex roadmap views.",
+      "problem_solved": "Simplified the product lifecycle and created a more efficient, integrated workflow from concept to release."
+    },
+    "claims": [
+      {
+        "id": "13251d2b-79ba-4ae0-8821-462450b4f751",
+        "field": "what_you_like",
+        "text": "Simplifies the entire product lifecycle.",
+        "source_submission_id": "7313c1d0-6735-4183-b1d6-412f4911f8e1"
+      },
+      {
+        "id": "ce7a959d-8c60-435e-8a98-966971d5ad69",
+        "field": "problem_solved",
+        "text": "Created a seamless and integrated workflow.",
+        "source_submission_id": "7313c1d0-6735-4183-b1d6-412f4911f8e1"
+      },
+      {
+        "id": "0eb82399-b658-4132-b66a-f1ca6cd2d75a",
+        "field": "what_you_dislike",
+        "text": "UI responsiveness can be an issue with large datasets.",
+        "source_submission_id": "7313c1d0-6735-4183-b1d6-412f4911f8e1"
+      },
+      {
+        "id": "d3a337d5-b0e9-47d4-98cc-08b5b162a754",
+        "field": "problem_solved",
+        "text": "Improved workflow efficiency across product development stages.",
+        "source_submission_id": "7313c1d0-6735-4183-b1d6-412f4911f8e1"
+      }
+    ]
+  },
+  {
+    "id": "06967703-0775-4a07-96e4-27b5d531a177",
+    "submission": {
+      "what_you_like": "As a UX researcher, the ability to directly link research findings to roadmap items is invaluable. It ensures our research has a tangible impact on the product's direction.",
+      "what_you_dislike": "The ability to export raw research data is limited, which hinders deeper, independent analysis.",
+      "problem_solved": "Ensured UX research directly influenced product decisions by providing a clear link between research findings and the product roadmap."
+    },
+    "claims": [
+      {
+        "id": "be0723a6-2246-452a-832f-0271b3949fc4",
+        "field": "what_you_like",
+        "text": "Links UX research findings directly to roadmap items.",
+        "source_submission_id": "06967703-0775-4a07-96e4-27b5d531a177"
+      },
+      {
+        "id": "c91a4dda-82cc-42fb-a4d6-fc5a3c26df24",
+        "field": "problem_solved",
+        "text": "Ensured research has a tangible impact on product direction.",
+        "source_submission_id": "06967703-0775-4a07-96e4-27b5d531a177"
+      },
+      {
+        "id": "889d644f-ce9d-4b59-a8a5-4760d06925f1",
+        "field": "what_you_dislike",
+        "text": "Limited ability to export raw research data for independent analysis.",
+        "source_submission_id": "06967703-0775-4a07-96e4-27b5d531a177"
+      },
+      {
+        "id": "38e0919a-0378-4686-b68d-2dce9895195d",
+        "field": "problem_solved",
+        "text": "Facilitated actionable research insights influencing product development.",
+        "source_submission_id": "06967703-0775-4a07-96e4-27b5d531a177"
+      }
+    ]
+  },
+  {
+    "id": "dc47e1bc-4f97-4ace-adad-31fefab9b075",
+    "submission": {
+      "what_you_like": "This platform has been essential for organizational alignment. It provides clear visibility into our product strategy and roadmap, ensuring everyone understands our goals and priorities.",
+      "what_you_dislike": "The integrated task management features are not as robust as we need for our development teams. We still rely on separate tools for detailed sprint planning.",
+      "problem_solved": "Achieved better organizational alignment by providing a clear, shared view of the product strategy and roadmap."
+    },
+    "claims": [
+      {
+        "id": "d4d34e40-6a56-4a59-b1fa-5f681403d5cd",
+        "field": "what_you_like",
+        "text": "Essential for organizational alignment on product strategy.",
+        "source_submission_id": "dc47e1bc-4f97-4ace-adad-31fefab9b075"
+      },
+      {
+        "id": "4921e9cb-0284-448c-825f-ccf39a0a38b7",
+        "field": "problem_solved",
+        "text": "Provided clear visibility into the product strategy and roadmap.",
+        "source_submission_id": "dc47e1bc-4f97-4ace-adad-31fefab9b075"
+      },
+      {
+        "id": "4ca483fc-aa0d-446b-b845-97cfcaf92389",
+        "field": "what_you_dislike",
+        "text": "Integrated task management features are not robust enough for development teams.",
+        "source_submission_id": "dc47e1bc-4f97-4ace-adad-31fefab9b075"
+      },
+      {
+        "id": "0ff5ed7c-27b3-4678-814a-455462e2906b",
+        "field": "problem_solved",
+        "text": "Enhanced strategic clarity across the organization.",
+        "source_submission_id": "dc47e1bc-4f97-4ace-adad-31fefab9b075"
+      }
+    ]
+  },
+  {
+    "id": "f45b45b3-31e4-4684-acde-cb5ca58ae043",
+    "submission": {
+      "what_you_like": "We love how this tool centralizes feedback and links it directly to our roadmap planning. This ensures we're always building what our customers need most.",
+      "what_you_dislike": "The development tool integrations could be smoother. Syncing certain data points between this platform and our coding environment requires manual steps.",
+      "problem_solved": "Created a unified approach to product planning by centralizing feedback and directly linking it to roadmap development."
+    },
+    "claims": [
+      {
+        "id": "9e7d719a-5602-4076-bc02-3b0e986e68fa",
+        "field": "what_you_like",
+        "text": "Centralizes feedback and links it to roadmap planning.",
+        "source_submission_id": "f45b45b3-31e4-4684-acde-cb5ca58ae043"
+      },
+      {
+        "id": "a5d7abec-84cf-4e15-bc09-3b49452c4498",
+        "field": "problem_solved",
+        "text": "Ensured product development focused on customer needs.",
+        "source_submission_id": "f45b45b3-31e4-4684-acde-cb5ca58ae043"
+      },
+      {
+        "id": "49a11131-3818-4641-9e08-e6e414847a69",
+        "field": "what_you_dislike",
+        "text": "Development tool integrations require manual steps.",
+        "source_submission_id": "f45b45b3-31e4-4684-acde-cb5ca58ae043"
+      },
+      {
+        "id": "ae66998d-1a94-4777-82d5-7f5574670b85",
+        "field": "problem_solved",
+        "text": "Established a unified planning approach across the product lifecycle.",
+        "source_submission_id": "f45b45b3-31e4-4684-acde-cb5ca58ae043"
+      }
+    ]
+  }
+]

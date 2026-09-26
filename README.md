@@ -69,7 +69,7 @@ Ambiguous claims are judged against the top-k neighbours, not just the nearest. 
 
 The coverage prompt (v4) says explicitly that a *broader* claim about the same feature area is not coverage. Without that, the judge called specific new gaps "partial" whenever the corpus had a vague claim such as "reporting could be better".
 
-On the 25-case set the separation margin went from −0.083 (original) to +0.451, with ROC-AUC 1.000 (see `reports/eval.md`). It is still a small dataset, not broad calibration.
+On the 25-case tuning set the separation margin went from −0.083 (original) to +0.389, with ROC-AUC 1.000 (see `reports/eval.md`). Those numbers are in-sample. On the untouched 15-case held-out set: 12/15 passed, margin +0.111, ROC-AUC 1.000 (see below).
 
 When the comparison corpus is empty, an extractable claim is treated as novel because there is no comparison evidence; relevance still gates its score. An exact duplicate receives 0 without an LLM call. The form has an opt-in to add a submission after scoring, only when it meets `CORPUS_ACCEPTANCE_THRESHOLD` (default `0.60`). The in-memory index is updated incrementally, so the next request sees it.
 
@@ -98,7 +98,25 @@ All agent prompts live in `backend/prompts/` as Markdown: `extract_claims.md`, `
 
 Single-process assumption: `/stats`, the circuit breaker, the semaphore and the in-memory index are per process. Running several uvicorn workers keeps the corpus file safe, but each worker's index only sees its own appends until restart.
 
-Before scoring meaningful submissions, generate the corpus. Without `backend/corpus.json`, new claims have no comparison baseline and are treated as novel.
+The 50-review comparison corpus is committed at `backend/corpus.json` (synthetic, generated once with `make gen-corpus`), so a fresh clone scores against the same baseline the evals used. Regenerating produces a different corpus (temperature 0.9) and invalidates `reports/eval.md` and `reports/holdout.md`.
+
+## Guardrails
+
+| Risk | Guardrail | Where |
+| --- | --- | --- |
+| Oversized or malformed input | Pydantic request schema: three string fields of at most 4000 characters, returns 422 otherwise | `schemas.py` `Submission` |
+| Prompt injection in review text | User text is placed last, after the static instructions; the model may only return a strict JSON schema; batch outputs must contain exactly the expected ids; scores are bounded 0–1. Held-out injection cases score 0.000 and 0.111 | `prompts/*.md`, `llm_client.complete_json`, `novelty._expect_ids` |
+| Malformed or out-of-range model output | Pydantic validation, one repair re-ask, then that stage degrades instead of returning garbage | `llm_client.py` |
+| Off-topic, keyword-stuffed or gibberish reviews | Relevance multiplies every claim's novelty (a hard gate), and keyword stuffing is judged on subject, not on words | `novelty._field_scores`, `judge_relevance.md` |
+| Low-effort filler | Generic claims are capped at relevance 0.25; filled-in fields that yield no claims count as 0 | `judge_relevance.md` v4, `novelty._score` |
+| Re-submitting existing content | Exact-duplicate check (no LLM call) and embedding plus judge coverage against the corpus | `corpus.find_duplicate`, `novelty` |
+| Corpus poisoning | A submission is added only when the user opts in, the score is at least 0.60, and scoring was not degraded | `novelty._score` |
+| Corpus wiped or rebuilt mid-demo | Regeneration is disabled unless `ADMIN_TOKEN` is set. It then needs that token (constant-time compare), browser confirmation, and runs one at a time | `routes/corpus.py`, `CorpusInspector.tsx` |
+| Runaway cost or load | Budget cap, concurrency semaphore, response cache, overload shedding (503) | `llm_client.py`, `routes/submit.py` |
+| Model outage | Retries, OpenRouter fallbacks, circuit breaker, degraded mode labelled in the response and UI | `llm_client.py`, `novelty.py` |
+| Secret leakage | Keys only from env as `SecretStr` (never in repr or dumps); `.env` is gitignored | `config.py` |
+
+Not covered: there is no content moderation (abusive or personal data in reviews is scored and, if opted in, stored as-is), no per-client rate limit or authentication on `/score`, and no truthfulness check.
 
 ## Configuration
 
@@ -142,11 +160,13 @@ Fresh checkout quickstart:
 make setup
 ```
 
-Add your `OPENROUTER_API_KEY` to `.env`, then generate the comparison corpus (this makes paid model calls):
+Add your `OPENROUTER_API_KEY` to `.env`. The comparison corpus is already committed; regenerate it only if you change the reference product (this makes paid model calls and changes every score):
 
 ```bash
 make gen-corpus
 ```
+
+Without an API key the app still starts and scores in degraded mode (embedding similarity only, flagged as provisional).
 
 Start the frontend and API together:
 
@@ -184,7 +204,7 @@ make test
 curl http://localhost:8000/health
 ```
 
-Expected output is `51 passed`. Tests use hand-written LLM response fixtures (or a fake upstream for the client tests), with the real local Sentence Transformer embeddings, retrieval, batching and scoring math.
+Expected output is `55 passed`. Tests use hand-written LLM response fixtures (or a fake upstream for the client tests), with the real local Sentence Transformer embeddings, retrieval, batching and scoring math.
 
 - **Scoring:** the scoring cases, adversarial examples, partial credit, top-k judging, per-claim gating, per-field batching and concurrent extraction.
 - **Prompts and cache:** prompt loading and ordering, and cache-key composition, the memory LRU, the disk cache and the cache-disable flag.
@@ -199,7 +219,14 @@ make eval
 .venv/bin/python -m scripts.corpus_stats
 ```
 
-`make eval` writes the per-case and aggregate results to `reports/eval.json` and `reports/eval.md`.
+`make eval` writes the per-case and aggregate results to `reports/eval.json` and `reports/eval.md`. **Those 25 cases are the tuning set:** the 0.75 threshold and the coverage and relevance prompts were adjusted while looking at them, so their numbers (margin 0.389, ROC-AUC 1.000) are in-sample. Its 5 "redundant" cases are exact corpus copies that the duplicate check scores 0 without any LLM call.
+
+`make holdout` scores `tests/fixtures/holdout_cases.json`: 15 cases written after tuning and never used to choose anything. Pass bounds are fixed in `scripts/evaluate.py`, and no sweep runs on them. First and only scored run (`reports/holdout.md`): **12 / 15 passed, margin 0.111, ROC-AUC 1.000**. The three failures:
+
+- Two paraphrases of real corpus entries scored 0.39 and 0.36. The corpus stores the claims its generator wrote, which condense the text and drop details, for example the time zones in entry #37. A restated detail therefore looks novel. The fix is to re-extract corpus claims with the same prompt used at scoring time.
+- One novel review scored 0.50. Extraction turned "It showed us that most requests from free-plan users were about onboarding" into a claim without the product as its subject, and the relevance judge gave it 0.
+
+These are left unfixed on purpose. Tuning against the held-out set would make it a second tuning set; a fix needs new held-out cases to verify it.
 
 ### Load test
 
@@ -229,14 +256,16 @@ The whole run cost $0.113, with no degraded responses and no retries. Traces sho
 
 - Novelty is not truthfulness; a fabricated claim can be novel and relevant.
 - Synthetic corpus content comes from the same model family used for extraction, which can introduce shared blind spots.
-- Relevance and coverage depend on an LLM judge and can reflect model bias or inconsistent judgments. The judge sometimes calls a close paraphrase `partial` when it only adds wording, which lets some paraphrases earn half credit (the worst eval paraphrase scores 0.424).
+- Relevance and coverage depend on an LLM judge and can reflect model bias or inconsistent judgments. The judge sometimes calls a close paraphrase `partial` when it only adds wording, which lets some paraphrases earn part credit (0.36–0.44 on the evals).
+- Corpus claims come from the generator, not the scoring-time extractor, so paraphrases of details the generator dropped look novel (see the held-out results).
+- One native crash (`double free or corruption`) happened once during a live, uncached eval run; it did not reproduce in 6 reruns or in hundreds of load-test requests. The cause is unknown (likely the embedding library under threads).
 - Degraded-mode relevance (embedding similarity to the reference text) is coarse. On the eval set it keeps about 80% of relevant claims and rejects about 80% of off-topic ones, so degraded scores are flagged as provisional and never enter the corpus.
 - There is no hedging of slow upstream calls; one slow provider response sets the request's tail latency (see the load test).
-- Thresholds were compared with a 25-case labeled set and are not robustly calibrated for every product or corpus.
+- Thresholds were tuned on a 25-case set and checked on a 15-case held-out set; that is not broad calibration for every product or corpus.
 - Partial credit is a fixed fraction, not a measure of how much is new.
 - Harness state (`/stats`, breaker, in-memory index) is per process; see the single-process note above.
-- `POST /corpus/regenerate` is unauthenticated and makes paid calls. Keep the API on a trusted network, or add auth before exposing it.
+- `/score` has no authentication or per-client rate limit; only a global in-flight cap.
 
 ## Make targets
 
-`make setup`, `make gen-corpus`, `make test`, `make eval`, `make smoke`, `make load`, and `make dev` cover installation, corpus creation, tests, evaluation, live smoke checks, load testing, and local development.
+`make setup`, `make gen-corpus`, `make test`, `make eval`, `make holdout`, `make smoke`, `make load`, and `make dev` cover installation, corpus creation, tests, tuning-set and held-out evaluation, live smoke checks, load testing, and local development.

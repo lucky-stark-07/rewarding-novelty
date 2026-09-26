@@ -1,27 +1,29 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Header } from "./components/Header";
+import { Header, TabType } from "./components/Header";
 import { ReferenceBanner } from "./components/ReferenceBanner";
 import { ReviewForm } from "./components/ReviewForm";
 import { ScoreGauge } from "./components/ScoreGauge";
 import { FieldBreakdown } from "./components/FieldBreakdown";
 import { CorpusInspector } from "./components/CorpusInspector";
 import { ArchitectureVisualizer } from "./components/ArchitectureVisualizer";
-import { DegradedBadge, TracePanel } from "./components/TracePanel";
+import { DegradedBadge } from "./components/TracePanel";
+import { TraceModal } from "./components/TraceModal";
 import { ScoreResult, CorpusEntry } from "./types";
-import { Sparkles, Layers, RefreshCw, AlertCircle, Award } from "lucide-react";
+import { Sparkles, Layers, Cpu } from "lucide-react";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<"evaluator" | "corpus" | "architecture">("evaluator");
+  const [activeTab, setActiveTab] = useState<TabType>("evaluator");
   const [apiHealth, setApiHealth] = useState<"checking" | "online" | "offline">("checking");
   const [result, setResult] = useState<ScoreResult | null>(null);
   const [corpus, setCorpus] = useState<CorpusEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingCorpus, setLoadingCorpus] = useState(false);
   const [error, setError] = useState("");
+  const [isTraceOpen, setIsTraceOpen] = useState(false);
 
   const checkHealth = async () => {
     setApiHealth("checking");
@@ -49,9 +51,21 @@ export default function Home() {
     }
   };
 
+  const [regenerateEnabled, setRegenerateEnabled] = useState(false);
+
+  const fetchRegenerateFlag = async () => {
+    try {
+      const res = await fetch(`${API}/stats`, { cache: "no-store" });
+      if (res.ok) setRegenerateEnabled(Boolean((await res.json()).config?.corpus_regenerate_enabled));
+    } catch {
+      setRegenerateEnabled(false);
+    }
+  };
+
   useEffect(() => {
     checkHealth();
     fetchCorpus();
+    fetchRegenerateFlag();
   }, []);
 
   const handleSubmit = async (
@@ -98,15 +112,30 @@ export default function Home() {
   };
 
   const handleRegenerateCorpus = async () => {
+    const confirmed = window.confirm(
+      `Replace all ${corpus.length} comparison reviews with 50 newly generated ones?\n\n` +
+        "Every future score will change, reviews added from this UI will be lost, and this makes paid model calls."
+    );
+    if (!confirmed) return;
+    // Asked for on each use and never stored in the browser.
+    const token = window.prompt("Admin token (ADMIN_TOKEN on the server):");
+    if (!token) return;
     setLoadingCorpus(true);
     try {
       const res = await fetch(`${API}/corpus/regenerate`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-admin-token": token },
       });
-      if (!res.ok) throw new Error(await res.text());
-      const updatedCorpus = await res.json();
-      setCorpus(updatedCorpus);
+      if (!res.ok) {
+        let detail = await res.text();
+        try {
+          detail = JSON.parse(detail).detail ?? detail;
+        } catch {
+          // Non-JSON error body; show it as-is.
+        }
+        throw new Error(`${detail} (HTTP ${res.status})`);
+      }
+      setCorpus(await res.json());
     } catch (err) {
       alert(err instanceof Error ? err.message : "Failed to regenerate corpus");
     } finally {
@@ -114,7 +143,6 @@ export default function Home() {
     }
   };
 
-  // Calculate totals from claims assessment
   const allAssessments = result?.field_scores?.flatMap((f) => f.claims) || [];
   const novelCount = allAssessments.filter((c) => c.novelty_status === "novel").length;
   const coveredCount = allAssessments.filter((c) => c.novelty_status === "covered").length;
@@ -131,36 +159,31 @@ export default function Home() {
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-6">
         {/* Evaluator Tab */}
         {activeTab === "evaluator" && (
           <div className="space-y-6">
-            {/* Reference Product Banner */}
-            <ReferenceBanner />
-
-            {/* Main Side-by-Side Ergonomic Workspace */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-              {/* Left 5 Columns: Review Input Form & Presets */}
-              <div className="lg:col-span-5 space-y-6">
+            {/* ROW 1: Submit Form (70% / 8 cols) & Score Card (30% / 4 cols) side-by-side */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+              {/* Left: Review Submission Form */}
+              <div className="lg:col-span-8 w-full">
                 <ReviewForm onSubmit={handleSubmit} loading={loading} error={error} />
               </div>
 
-              {/* Right 7 Columns: Complete Scoring & Claims Console */}
-              <div className="lg:col-span-7 space-y-6">
+              {/* Right: Score Card (30% width) */}
+              <div className="lg:col-span-4 w-full flex flex-col justify-stretch">
                 {result ? (
-                  <div className="space-y-6">
-                    {/* Degraded mode warning if applicable */}
+                  <div className="space-y-3 h-full flex flex-col justify-between">
                     {result.degraded && (
-                      <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-200 flex items-start gap-2">
+                      <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-2.5 text-xs text-amber-200 flex items-start gap-2">
                         <DegradedBadge reason={result.degraded_reason} />
-                        <span>
-                          The LLM judge was unavailable, so this score used embedding similarity only and is provisional.
-                          {result.degraded_reason ? ` (${result.degraded_reason})` : ""}
+                        <span className="text-[11px]">
+                          LLM judge unavailable; used embedding similarity.
                         </span>
                       </div>
                     )}
 
-                    {/* Overall Score Radial Gauge */}
+                    {/* Compact Score Gauge Card */}
                     <ScoreGauge
                       score={result.submission_score}
                       scoringMode={result.scoring_mode}
@@ -169,64 +192,68 @@ export default function Home() {
                       totalClaimsCount={allAssessments.length}
                       novelClaimsCount={novelCount}
                       coveredClaimsCount={coveredCount}
+                      onShowTrace={result.meta ? () => setIsTraceOpen(true) : undefined}
+                      latencyMs={result.meta?.total_latency_ms}
                     />
 
-                    {/* Corpus Add Callouts */}
+                    {/* Corpus Add Callout */}
                     {result.added_to_corpus && (
-                      <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-center text-xs text-emerald-200">
-                        Added to the comparison corpus. Future scores may change.
+                      <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-2.5 text-center text-xs text-emerald-200 font-medium">
+                        Added to baseline comparison corpus.
                       </div>
                     )}
-                    {result.add_to_corpus_requested && !result.added_to_corpus && (
-                      <div className="rounded-xl border border-slate-700 bg-slate-900 p-3 text-center text-xs text-slate-300">
-                        Not added to the comparison corpus. It was already present, did not meet the acceptance threshold, or was scored in degraded mode.
-                      </div>
-                    )}
-
-                    {/* Execution Telemetry Trace */}
-                    {result.meta && <TracePanel meta={result.meta} />}
-
-                    {/* Field-by-Field Claims Assessment Grid */}
-                    <FieldBreakdown fieldScores={result.field_scores} />
                   </div>
                 ) : (
-                  <div className="glass-card rounded-2xl p-8 border border-slate-800 text-center space-y-6">
-                    <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center mx-auto animate-float">
-                      <Sparkles className="w-8 h-8" />
+                  <div className="glass-card rounded-2xl p-6 border border-slate-800 text-center space-y-4 h-full flex flex-col items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center mx-auto animate-float">
+                      <Sparkles className="w-6 h-6" />
                     </div>
                     <div>
-                      <h3 className="text-base font-bold text-slate-200">Evaluation Console Ready</h3>
-                      <p className="text-xs text-slate-400 leading-relaxed max-w-sm mx-auto mt-1">
-                        Fill out the 3 review fields on the left or select a quick preset template, then click &ldquo;Evaluate Review Novelty & Relevance&rdquo;.
+                      <h3 className="text-sm font-bold text-slate-200">Evaluation Console Ready</h3>
+                      <p className="text-[11px] text-slate-400 leading-relaxed max-w-xs mx-auto mt-0.5">
+                        Submit a product review or select a preset to evaluate novelty & relevance score.
                       </p>
                     </div>
 
-                    <div className="pt-4 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-400 text-left">
-                      <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-                        <span className="font-semibold text-cyan-300 block">1. Atomic Claim Extraction</span>
-                        <p className="text-[11px] text-slate-400">
-                          Decomposes text into discrete proposition claims using fast OpenRouter model.
-                        </p>
+                    <div className="pt-3 border-t border-slate-800/80 space-y-2 text-left w-full text-[11px] text-slate-400">
+                      <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 flex items-start gap-2">
+                        <Layers className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                        <div>
+                          <span className="font-semibold text-cyan-300 block">Atomic Claim Extraction</span>
+                          <span className="text-[10px]">Decomposes text into discrete proposition claims.</span>
+                        </div>
                       </div>
-                      <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-                        <span className="font-semibold text-purple-300 block">2. Local Vector & LLM Judge</span>
-                        <p className="text-[11px] text-slate-400">
-                          Compares claims with 50 baseline reviews & evaluates semantic entailment.
-                        </p>
+                      <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 flex items-start gap-2">
+                        <Cpu className="w-3.5 h-3.5 text-purple-400 shrink-0 mt-0.5" />
+                        <div>
+                          <span className="font-semibold text-purple-300 block">Vector Search & Judge</span>
+                          <span className="text-[10px]">Compares claims with 50 baseline reviews.</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 )}
               </div>
             </div>
+
+            {/* ROW 2: Field-by-Field Claim Assessment cards below */}
+            {result && (
+              <div className="pt-4 border-t border-slate-800/80">
+                <FieldBreakdown fieldScores={result.field_scores} />
+              </div>
+            )}
           </div>
         )}
+
+        {/* Reference Product Tab */}
+        {activeTab === "reference" && <ReferenceBanner />}
 
         {/* Corpus Tab */}
         {activeTab === "corpus" && (
           <CorpusInspector
             corpus={corpus}
             onRegenerateCorpus={handleRegenerateCorpus}
+            regenerateEnabled={regenerateEnabled}
             loadingRegen={loadingCorpus}
           />
         )}
@@ -235,12 +262,21 @@ export default function Home() {
         {activeTab === "architecture" && <ArchitectureVisualizer />}
       </main>
 
+      {/* Pop-up Execution Trace Modal Window */}
+      {result?.meta && (
+        <TraceModal
+          isOpen={isTraceOpen}
+          onClose={() => setIsTraceOpen(false)}
+          meta={result.meta}
+        />
+      )}
+
       {/* Footer */}
-      <footer className="w-full glass-panel border-t border-slate-800/80 py-6 mt-12">
+      <footer className="w-full glass-panel border-t border-slate-800/80 py-5 mt-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex items-center gap-2">
             <span className="font-bold text-slate-200">NoveltyLens</span>
-            <span>— review novelty &amp; relevance scoring</span>
+            <span>— Hackathon Theme 3</span>
           </div>
 
           <div className="flex items-center gap-4">

@@ -1,5 +1,8 @@
 {
   "extraction": {
+    "what_you_like|It's good.": [{"field":"what_you_like","text":"It's good."}],
+    "what_you_dislike|Could be better.": [],
+    "problem_solved|Helps the team.": [{"field":"problem_solved","text":"Helps the team."}],
     "what_you_like|Release notes can be matched back to the roadmap decision and the original customer problem.": [{"field":"what_you_like","text":"Release notes can be matched back to the roadmap decision."},{"field":"what_you_like","text":"Release notes can be matched back to the original customer problem."}],
     "what_you_dislike|The tool does not measure whether a published release note reaches the customers who requested the feature.": [{"field":"what_you_dislike","text":"The tool does not measure whether published release notes reach customers who requested the feature."}],
     "problem_solved|It connects product decisions to later customer communication without losing the original context.": [{"field":"problem_solved","text":"Product decisions connect to later customer communication with their original context."}],
@@ -46,6 +49,8 @@
     ]
   },
   "relevance": {
+    "It's good.": {"relevance_score":0.25,"reason":"Generic praise that names nothing concrete."},
+    "Helps the team.": {"relevance_score":0.25,"reason":"Generic benefit that could describe almost any product."},
     "The coffee machine makes espresso quickly.": {"relevance_score":0.0,"reason":"Coffee equipment is unrelated to the product."},
     "The grinder is loud.": {"relevance_score":0.0,"reason":"A coffee grinder is unrelated to the product."},
     "The product helps our office make coffee.": {"relevance_score":0.0,"reason":"Making coffee is unrelated to product planning."},

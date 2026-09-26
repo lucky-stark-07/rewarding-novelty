@@ -24,7 +24,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to customer feedback and roadmap reviews, which aligns perfectly with the product's purpose and the field intent.",
+          "relevance_reason": "The claim describes a specific positive capability related to customer feedback and roadmaps, which aligns perfectly with the product's purpose of centralizing these aspects for product teams.",
           "similarity": 0.6206281185150146,
           "status": "novel"
         },
@@ -49,7 +49,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to customer feedback and roadmap reviews, which aligns perfectly with the product's purpose and the field intent.",
+          "relevance_reason": "The claim describes a specific positive capability related to customer feedback and roadmaps, which aligns perfectly with the product's purpose of centralizing these aspects for product teams.",
           "similarity": 0.5584809184074402,
           "status": "novel"
         },
@@ -73,8 +73,8 @@
               "text": "Feedback form customization options are limited."
             }
           ],
-          "relevance": 0.25,
-          "relevance_reason": "The claim discusses customer quotations, which are not directly related to the product's core functions of project planning, feedback, roadmaps, and release notes, making it tangential.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim discusses customer quotations, which is not a feature or concept related to a product collaboration platform.",
           "similarity": 0.2611432373523712,
           "status": "novel"
         },
@@ -99,7 +99,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim directly addresses a limitation regarding visibility rules for internal roadmap notes, which is a core feature of the product and fits the field intent perfectly.",
+          "relevance_reason": "The claim describes a missing capability related to visibility rules for internal roadmap notes, which is highly relevant to a product collaboration platform that centralizes roadmaps.",
           "similarity": 0.4178094267845154,
           "status": "novel"
         },
@@ -124,19 +124,19 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific problem (tracking release status for escalations) that the product, as a collaboration platform for product teams, would plausibly solve by centralizing release notes and communication.",
+          "relevance_reason": "The claim describes a specific problem solved for a support team related to release tracking, which aligns with the product's function of centralizing project planning and release notes.",
           "similarity": 0.47836926579475403,
           "status": "novel"
         }
       ],
       "field_scores": {
         "problem_solved": 1.0,
-        "what_you_dislike": 0.625,
+        "what_you_dislike": 0.5,
         "what_you_like": 1.0
       },
       "id": "nr1",
       "origin": "handwritten",
-      "score": 0.875,
+      "score": 0.8333333333333334,
       "submission": {
         "problem_solved": "It helps support teams see whether the release addressing their escalations has actually shipped.",
         "what_you_dislike": "We cannot set separate visibility rules for customer quotations and internal roadmap notes.",
@@ -166,8 +166,8 @@
               "text": "Aggregates customer feedback from multiple sources."
             }
           ],
-          "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to handling customer feedback, which aligns with the product's purpose of centralizing customer feedback and the field's intent for concrete positive capabilities.",
+          "relevance": 0.75,
+          "relevance_reason": "The claim describes a specific capability related to customer feedback, which is a core feature of the product, but it's a very specific edge case that isn't explicitly mentioned in the product description.",
           "similarity": 0.46581554412841797,
           "status": "novel"
         },
@@ -192,7 +192,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "This claim describes a specific limitation related to how the product handles customer feedback and prioritization, which directly aligns with the product's stated capabilities and the field's intent.",
+          "relevance_reason": "The claim describes a specific missing capability related to priority modeling within a product collaboration platform, directly aligning with the field intent.",
           "similarity": 0.3785989582538605,
           "status": "novel"
         },
@@ -217,7 +217,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "This claim describes a specific problem the product solves related to understanding customer feedback and prioritizing requests, which aligns with the 'customer feedback' and 'project planning' aspects of the product.",
+          "relevance_reason": "The claim describes a specific problem solved by the product related to customer feedback and prioritization, which aligns with the field intent.",
           "similarity": 0.4383809566497803,
           "status": "novel"
         },
@@ -242,7 +242,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "This claim describes a specific problem the product solves related to understanding the breadth of user demand for a request, which aligns with the 'customer feedback' and 'project planning' aspects of the product.",
+          "relevance_reason": "The claim describes a specific problem solved by the product related to understanding the true demand behind requests, which aligns with the field intent of prioritizing customer feedback.",
           "similarity": 0.44665613770484924,
           "status": "partial"
         }
@@ -250,11 +250,11 @@
       "field_scores": {
         "problem_solved": 0.75,
         "what_you_dislike": 1.0,
-        "what_you_like": 1.0
+        "what_you_like": 0.75
       },
       "id": "nr2",
       "origin": "handwritten",
-      "score": 0.9166666666666666,
+      "score": 0.8333333333333334,
       "submission": {
         "problem_solved": "It exposes when a highly ranked request comes from one customer rather than broad user demand.",
         "what_you_dislike": "The tool cannot model how a priority changes when one large customer's votes are excluded.",
@@ -285,7 +285,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to linking roadmap changes to customer feedback, which aligns perfectly with the product's purpose and the field intent.",
+          "relevance_reason": "The claim describes a specific positive capability of the product related to linking roadmap changes to customer interviews, which aligns perfectly with the field intent of a concrete positive capability.",
           "similarity": 0.44100672006607056,
           "status": "novel"
         },
@@ -384,8 +384,8 @@
               "text": "Saved time by reducing manual feedback aggregation."
             }
           ],
-          "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific problem (stale requests in priority reviews) that the product, as a collaboration platform for product teams, could plausibly solve by helping manage and prioritize tasks.",
+          "relevance": 0.75,
+          "relevance_reason": "The claim describes a specific outcome related to managing requests and priorities, which aligns with the product's function of centralizing project planning and aligning priorities, though it's not explicitly stated as a feature.",
           "similarity": 0.5028818845748901,
           "status": "novel"
         },
@@ -410,19 +410,19 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific problem (stale requests based on old customer confirmation) that the product, as a collaboration platform for product teams, could plausibly solve by helping manage and prioritize tasks, especially given its focus on customer feedback.",
+          "relevance_reason": "The claim describes a specific problem solved by the product, detailing a concrete mechanism (removing stale requests based on old customer confirmation) that directly relates to managing project planning and customer feedback, which are core functions of the product.",
           "similarity": 0.3771893382072449,
           "status": "partial"
         }
       ],
       "field_scores": {
-        "problem_solved": 0.75,
+        "problem_solved": 0.625,
         "what_you_dislike": 1.0,
         "what_you_like": 1.0
       },
       "id": "nr3",
       "origin": "handwritten",
-      "score": 0.9166666666666666,
+      "score": 0.875,
       "submission": {
         "problem_solved": "It helps remove stale requests from priority reviews when the last customer confirmation is old.",
         "what_you_dislike": "Feedback with missing account, segment, or collection-date details is not flagged for review.",
@@ -453,7 +453,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to release notes and roadmaps, which are core features of the product.",
+          "relevance_reason": "The claim describes a specific positive capability of the product related to release notes and roadmap decisions, which aligns with the product's function of centralizing these aspects.",
           "similarity": 0.643729567527771,
           "status": "partial"
         },
@@ -478,7 +478,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to release notes and customer problems, which aligns with the product's focus on customer feedback.",
+          "relevance_reason": "The claim describes a specific positive capability of the product related to release notes and customer problems, which aligns with the product's function of centralizing customer feedback and release notes.",
           "similarity": 0.6541681289672852,
           "status": "novel"
         },
@@ -503,7 +503,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a missing capability related to release notes, which is a core feature of the product, and fits the field intent of a concrete limitation or improvement request.",
+          "relevance_reason": "The claim describes a missing capability related to release notes, which is a core feature of the product, and fits the intent of a limitation or improvement request.",
           "similarity": 0.2965562343597412,
           "status": "novel"
         },
@@ -528,7 +528,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes how the product helps connect product decisions to customer communication, which is a concrete problem it solves for product teams.",
+          "relevance_reason": "The claim describes a specific problem solved by connecting product decisions to customer communication, which aligns with the product's function of communicating product decisions.",
           "similarity": 0.6303867101669312,
           "status": "novel"
         },
@@ -553,7 +553,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim states that the product preserves the original context of product decisions, which is a specific problem it solves related to communication and alignment.",
+          "relevance_reason": "The claim describes a specific problem solved by preserving the original context of product decisions, which is a concrete outcome for a collaboration platform.",
           "similarity": 0.6728576421737671,
           "status": "novel"
         }
@@ -596,7 +596,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "This claim describes a specific positive capability of the product's audit trail feature related to roadmap management, which aligns with the product's purpose of centralizing project planning and roadmaps.",
+          "relevance_reason": "The claim describes a specific positive capability of the product related to roadmap priority and an audit trail, which aligns with the product's function of centralizing project planning and aligning priorities.",
           "similarity": 0.4273490309715271,
           "status": "novel"
         },
@@ -621,7 +621,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "This claim describes a specific positive capability of the product's audit trail feature related to roadmap management, which aligns with the product's purpose of centralizing project planning and roadmaps.",
+          "relevance_reason": "The claim describes a specific positive capability of the product related to roadmap priority and an audit trail, which aligns with the product's function of centralizing project planning and aligning priorities.",
           "similarity": 0.412541925907135,
           "status": "novel"
         },
@@ -646,7 +646,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a missing capability related to handling customer feedback, which is a core function of the product, and fits the field intent of a concrete limitation or improvement request.",
+          "relevance_reason": "The claim describes a specific missing capability related to handling customer feedback, which is a core feature of the product.",
           "similarity": 0.2631426751613617,
           "status": "novel"
         },
@@ -671,7 +671,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific problem related to product leadership, delayed commitments, and customer evidence, which directly aligns with the product's purpose of centralizing project planning and customer feedback for product teams.",
+          "relevance_reason": "The claim describes a specific problem solved by the product, tracing delayed commitments to customer evidence, which aligns with the product's purpose of centralizing project planning and customer feedback for product teams.",
           "similarity": 0.5932485461235046,
           "status": "novel"
         }
@@ -1009,7 +1009,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to roadmap visuals, which aligns with the product's function of centralizing roadmaps.",
+          "relevance_reason": "The claim describes a specific positive capability of the product related to roadmap visuals, which aligns with the product's function of centralizing roadmaps and helping explain the plan.",
           "similarity": 0.6788952350616455,
           "status": "covered"
         },
@@ -1034,7 +1034,7 @@
             }
           ],
           "relevance": 0.75,
-          "relevance_reason": "The claim states a limitation of custom reports, which are a plausible feature for a collaboration platform, but it is vague about the specific limitation.",
+          "relevance_reason": "The claim mentions a concrete feature ('Custom reports') and a general limitation ('basic') relevant to a collaboration platform, but lacks specific detail about the limitation.",
           "similarity": 0.8021337985992432,
           "status": "covered"
         },
@@ -1059,7 +1059,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim specifies a concrete limitation of custom reports related to tracking feature adoption, which is a relevant capability for a product team collaboration platform.",
+          "relevance_reason": "The claim specifies a concrete feature ('Custom reports') and a detailed limitation ('basic for following feature adoption over time') that is highly relevant to a product team's needs within a collaboration platform.",
           "similarity": 0.6990803480148315,
           "status": "partial"
         },
@@ -1084,7 +1084,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific problem (scattered information) that the product solves by centralizing customer feedback, which is a core feature.",
+          "relevance_reason": "The claim describes a specific problem solved by the product, which centralizes customer feedback to reduce scattered information.",
           "similarity": 0.8973965644836426,
           "status": "covered"
         },
@@ -1109,7 +1109,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific problem (scattered information) that the product solves by sharing roadmaps, which is a core feature.",
+          "relevance_reason": "The claim describes a specific problem solved by the product, which centralizes roadmaps to reduce scattered information.",
           "similarity": 0.6723918914794922,
           "status": "partial"
         },
@@ -1134,7 +1134,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific outcome (improved department alignment) achieved by bringing feedback together, which directly relates to the product's purpose of aligning distributed teams.",
+          "relevance_reason": "The claim describes a specific problem solved by the product, which helps distributed teams align on priorities by bringing feedback together.",
           "similarity": 0.4412637948989868,
           "status": "partial"
         }
@@ -1177,7 +1177,7 @@
             }
           ],
           "relevance": 0.75,
-          "relevance_reason": "The claim describes a positive capability of the product, but 'ideation' is a bit vague compared to the more specific features mentioned in the product description.",
+          "relevance_reason": "The claim mentions 'ideation' as a positive capability, which is related to 'project planning' in the reference, but 'ideation' is a more general term.",
           "similarity": 0.6359017491340637,
           "status": "covered"
         },
@@ -1202,7 +1202,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim directly states a positive capability of the product that aligns with 'customer feedback' being centralized, as mentioned in the product description.",
+          "relevance_reason": "The claim directly states the platform is a common source for 'user feedback', which aligns perfectly with 'customer feedback' mentioned in the reference product description.",
           "similarity": 0.6813790798187256,
           "status": "partial"
         },
@@ -1227,7 +1227,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim directly states a positive capability of the product that aligns with 'project planning' and 'roadmaps' being centralized, as mentioned in the product description.",
+          "relevance_reason": "The claim states the platform is a common source for 'product plans', which directly corresponds to 'project planning' mentioned in the reference product description.",
           "similarity": 0.5529552102088928,
           "status": "covered"
         },
@@ -1252,7 +1252,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete limitation related to the product's pricing model as a company scales, which is a valid frustration or improvement request for a collaboration platform.",
+          "relevance_reason": "The claim directly addresses a concrete limitation of the product (pricing) that becomes problematic with company growth, fitting the field intent for dislikes.",
           "similarity": 0.6376243829727173,
           "status": "partial"
         },
@@ -1276,8 +1276,8 @@
               "text": "Eliminated fragmented planning by centralizing information."
             }
           ],
-          "relevance": 1.0,
-          "relevance_reason": "The claim directly states a problem solved by the product, which is centralizing decisions and information, aligning with the product's description of centralizing project planning and communication.",
+          "relevance": 0.75,
+          "relevance_reason": "The claim describes a positive outcome of using the product, aligning with the field intent of a problem solved, but in general terms.",
           "similarity": 0.4372853636741638,
           "status": "covered"
         },
@@ -1302,7 +1302,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim directly states a problem solved by the product, which is preventing users from switching between multiple tools, aligning with the product's description of not switching between many tools.",
+          "relevance_reason": "The claim directly states a specific problem the product solves, which is explicitly mentioned in the reference product description.",
           "similarity": 0.4132058620452881,
           "status": "covered"
         }
@@ -1345,7 +1345,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to project planning and alignment, which fits the field intent.",
+          "relevance_reason": "The claim describes a specific positive capability of the product related to project planning and aligning priorities, which fits the field intent.",
           "similarity": 0.5486546158790588,
           "status": "covered"
         },
@@ -1395,7 +1395,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific limitation of the product's analytics view regarding sentiment trends, which is a concrete missing capability relevant to a collaboration platform that centralizes customer feedback.",
+          "relevance_reason": "The claim specifies a missing capability in the analytics view regarding sentiment trends, which is a concrete limitation relevant to a collaboration platform.",
           "similarity": 0.6649016737937927,
           "status": "covered"
         },
@@ -1420,7 +1420,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a frustration with the current workflow, implying a missing capability for automated analysis within the product, which is relevant to a platform designed to centralize and streamline product team activities.",
+          "relevance_reason": "The claim describes a workflow limitation where manual analysis of exports is still required, indicating a missing or insufficient automation feature in the product.",
           "similarity": 0.3816641569137573,
           "status": "covered"
         },
@@ -1445,7 +1445,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific problem the product solves, which is providing a structured way to select product work, aligning with the product's function of centralizing project planning and aligning priorities.",
+          "relevance_reason": "The claim describes a specific outcome of using the product, providing a structured way to select product work, which aligns with the field intent of solving a problem or improving a workflow.",
           "similarity": 0.5629810094833374,
           "status": "covered"
         },
@@ -1470,7 +1470,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific problem the product solves, which is providing an objective way to select product work, aligning with the product's function of centralizing project planning and aligning priorities.",
+          "relevance_reason": "The claim describes a specific outcome of using the product, providing an objective way to select product work, which aligns with the field intent of solving a problem or improving a workflow.",
           "similarity": 0.6065637469291687,
           "status": "partial"
         },
@@ -1495,7 +1495,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific problem the product solves, which is using strategy and customer input to select product work, aligning with the product's function of centralizing project planning and customer feedback.",
+          "relevance_reason": "The claim describes a specific outcome of using the product, using strategy and customer input to select product work, which aligns with the field intent of solving a problem or improving a workflow.",
           "similarity": 0.5498666167259216,
           "status": "covered"
         }
@@ -1538,7 +1538,7 @@
             }
           ],
           "relevance": 0.75,
-          "relevance_reason": "The claim describes a positive user experience related to the product's ease of use, which is a relevant but generic positive capability.",
+          "relevance_reason": "The claim describes a positive user experience related to the product's usability, which is a concrete benefit, though general.",
           "similarity": 0.3912164270877838,
           "status": "covered"
         },
@@ -1563,7 +1563,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete positive outcome directly related to the product's core functionalities of handling feedback and roadmaps, and its efficiency.",
+          "relevance_reason": "The claim describes a specific positive outcome directly related to the product's core functions (feedback and roadmap) and its efficiency.",
           "similarity": 0.6454681754112244,
           "status": "novel"
         },
@@ -1588,7 +1588,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific limitation of using the product's roadmap feature on a mobile device, which directly aligns with the field intent of a concrete limitation or frustration.",
+          "relevance_reason": "The claim describes a specific limitation related to editing roadmaps on a mobile device, which is a core feature of the product.",
           "similarity": 0.5229747295379639,
           "status": "covered"
         },
@@ -1613,7 +1613,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific limitation of using the product's feedback review feature on a mobile device, which directly aligns with the field intent of a concrete limitation or frustration.",
+          "relevance_reason": "The claim describes a specific limitation related to reviewing detailed feedback on a mobile device, which is a core feature of the product.",
           "similarity": 0.509334921836853,
           "status": "covered"
         },
@@ -1638,7 +1638,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim directly states a problem solved by the product: keeping a group aligned on the product vision, which aligns with the product's description of helping distributed teams align on priorities.",
+          "relevance_reason": "The claim describes a specific outcome of using the product, aligning the group on the product vision, which directly relates to the product's purpose of helping distributed teams align on priorities.",
           "similarity": 0.6518470048904419,
           "status": "covered"
         },
@@ -1663,7 +1663,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim directly states a problem solved by the product: helping communicate the product vision, which aligns with the product's description of communicating product decisions.",
+          "relevance_reason": "The claim describes a specific outcome of using the product, communicating the product vision, which directly relates to the product's purpose of helping teams communicate product decisions.",
           "similarity": 0.4735037088394165,
           "status": "partial"
         }
@@ -1706,7 +1706,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product, enabling a particular team (Marketing) to contribute to product strategy, which aligns with the product's goal of centralizing project planning and aligning teams.",
+          "relevance_reason": "The claim describes a specific positive capability of the product, allowing a particular team (Marketing) to contribute to product strategy, which aligns with the product's goal of centralizing project planning and aligning priorities.",
           "similarity": 0.5968800783157349,
           "status": "partial"
         },
@@ -1731,7 +1731,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product, enabling a particular team (Sales) to contribute to product strategy, which aligns with the product's goal of centralizing project planning and aligning teams.",
+          "relevance_reason": "The claim describes a specific positive capability of the product, allowing a particular team (Sales) to contribute to product strategy, which aligns with the product's goal of centralizing project planning and aligning priorities.",
           "similarity": 0.7177764773368835,
           "status": "novel"
         },
@@ -1756,7 +1756,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product, enabling a particular team (Engineering) to contribute to product strategy, which aligns with the product's goal of centralizing project planning and aligning teams.",
+          "relevance_reason": "The claim describes a specific positive capability of the product, allowing a particular team (Engineering) to contribute to product strategy, which aligns with the product's goal of centralizing project planning and aligning priorities.",
           "similarity": 0.6705808639526367,
           "status": "novel"
         },
@@ -1780,8 +1780,8 @@
               "text": "Feedback trend analytics could be more sophisticated."
             }
           ],
-          "relevance": 0.75,
-          "relevance_reason": "The claim is about finding past comments, which is a generic collaboration platform feature, but not explicitly mentioned as a core function like 'customer feedback' or 'product decisions' in the reference.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific limitation regarding finding past comments within the product, which is a concrete frustration relevant to a collaboration platform.",
           "similarity": 0.42835766077041626,
           "status": "partial"
         },
@@ -1806,7 +1806,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim directly addresses a limitation in finding 'roadmap decisions,' which is a core function of the reference product as a cloud collaboration platform for product teams that centralizes roadmaps and helps communicate product decisions.",
+          "relevance_reason": "The claim describes a specific limitation regarding finding roadmap decisions, which is a concrete frustration relevant to a product roadmap feature in a collaboration platform.",
           "similarity": 0.4752955436706543,
           "status": "partial"
         },
@@ -1831,7 +1831,7 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete problem (communication barriers) that the product, as a collaboration platform, is designed to solve.",
+          "relevance_reason": "The claim describes a concrete problem solved by the product, aligning with its purpose of improving communication and alignment for product teams.",
           "similarity": 0.4759711027145386,
           "status": "covered"
         },
@@ -1856,19 +1856,19 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete problem (lack of shared view of priorities) that the product, as a collaboration platform for product teams, is designed to solve.",
+          "relevance_reason": "The claim directly states a concrete outcome of using the product, which is to provide a shared view of product priorities, aligning with the product's description of helping teams align on priorities.",
           "similarity": 0.7002078294754028,
           "status": "covered"
         }
       ],
       "field_scores": {
         "problem_solved": 0.0,
-        "what_you_dislike": 0.4375,
+        "what_you_dislike": 0.5,
         "what_you_like": 0.8333333333333334
       },
       "id": "pp5",
       "origin": "handwritten",
-      "score": 0.42361111111111116,
+      "score": 0.4444444444444445,
       "submission": {
         "problem_solved": "It reduced interdepartmental communication barriers and gave teams a shared view of product priorities.",
         "what_you_dislike": "Finding past comments or roadmap decisions takes too much filtering and searching.",
@@ -1974,7 +1974,7 @@
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim about preparing coffee is completely unrelated to a cloud collaboration platform for product teams and does not address any problem it would solve.",
+          "relevance_reason": "The claim about preparing coffee is completely unrelated to a cloud collaboration platform for product teams.",
           "similarity": 0.3162354528903961,
           "status": "novel"
         }
@@ -2067,7 +2067,7 @@
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about commuting and public transport, which is completely unrelated to a cloud collaboration platform for product teams.",
+          "relevance_reason": "The claim about making a commute easier due to public transport delays is completely unrelated to a cloud collaboration platform for product teams.",
           "similarity": 0.3141581416130066,
           "status": "novel"
         }
@@ -2135,7 +2135,7 @@
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a ceramic pot's weight, which is completely irrelevant to a cloud collaboration platform.",
+          "relevance_reason": "The claim is about a ceramic pot's weight, which is completely unrelated to a cloud collaboration platform for product teams.",
           "similarity": 0.15792444348335266,
           "status": "novel"
         },
@@ -2203,7 +2203,7 @@
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a hiking tent, which is a completely different product from a cloud collaboration platform.",
+          "relevance_reason": "The claim is about a hiking tent, which is a different product from a cloud collaboration platform.",
           "similarity": 0.16060081124305725,
           "status": "novel"
         },
@@ -2228,7 +2228,7 @@
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a hiking tent, which is a completely different product from a cloud collaboration platform.",
+          "relevance_reason": "The claim is about a hiking tent, which is a different product from a cloud collaboration platform.",
           "similarity": 0.1794731616973877,
           "status": "novel"
         },
@@ -2253,7 +2253,7 @@
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a zipper catching on wet fabric, which is completely irrelevant to a cloud collaboration platform for product teams.",
+          "relevance_reason": "The claim describes a problem with a zipper and wet fabric, which is completely unrelated to a cloud collaboration platform.",
           "similarity": 0.04305853322148323,
           "status": "novel"
         },
@@ -2346,7 +2346,7 @@
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim discusses a display and dim light, which is irrelevant to a cloud collaboration platform.",
+          "relevance_reason": "The claim describes a display issue, which is irrelevant to a cloud collaboration platform.",
           "similarity": 0.2611558139324188,
           "status": "novel"
         },
@@ -2371,7 +2371,7 @@
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about baking sourdough, which is completely unrelated to a cloud collaboration platform for product teams.",
+          "relevance_reason": "The claim is about baking sourdough loaves, which is completely unrelated to a cloud collaboration platform for product teams.",
           "similarity": 0.2630261480808258,
           "status": "novel"
         }
@@ -2492,29 +2492,29 @@
   },
   "degraded_cases": {},
   "llm_usage": {
-    "attempts": 34,
+    "attempts": 45,
     "budget_usd": null,
     "cache_enabled": true,
-    "cache_hit_rate": 0.7554,
+    "cache_hit_rate": 0.6763,
     "cached_tokens": 0,
-    "calls": 34,
+    "calls": 45,
     "circuit_breaker": {
       "consecutive_failures": 0,
       "state": "closed",
       "times_opened": 0
     },
-    "completion_tokens": 8355,
-    "cost_usd": 0.027422,
-    "disk_hits": 105,
+    "completion_tokens": 5040,
+    "cost_usd": 0.018115,
+    "disk_hits": 94,
     "inflight_dedup": 0,
     "max_concurrency": 8,
     "memory_cache_entries": 139,
     "memory_hits": 0,
-    "prompt_tokens": 21780,
+    "prompt_tokens": 18384,
     "repairs": 0,
     "retries": 0,
     "served_models": {
-      "google/gemini-2.5-flash": 34
+      "google/gemini-2.5-flash": 45
     },
     "upstream_failures": 0
   },
@@ -2534,13 +2534,13 @@
     "novel_relevant": {
       "count": 5,
       "max": 1.0,
-      "mean": 0.925,
-      "min": 0.875
+      "mean": 0.8916666666666666,
+      "min": 0.8333333333333334
     },
     "paraphrase": {
       "count": 5,
-      "max": 0.42361111111111116,
-      "mean": 0.22916666666666666,
+      "max": 0.4444444444444445,
+      "mean": 0.23333333333333334,
       "min": 0.05555555555555555
     },
     "redundant": {
@@ -2550,6 +2550,7 @@
       "min": 0.0
     }
   },
+  "roc_auc_excluding_exact_duplicates": 1.0,
   "roc_auc_rewarded_vs_rest": 1.0,
   "scoring_config": {
     "combination": "mean(novelty \u00d7 relevance) per claim",
@@ -2558,7 +2559,7 @@
     "low_threshold": 0.35,
     "partial_novelty_credit": 0.5
   },
-  "separation_margin": 0.45138888888888884,
+  "separation_margin": 0.3888888888888889,
   "threshold_sweep": {
     "candidates": [
       {

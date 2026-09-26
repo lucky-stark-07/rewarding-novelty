@@ -1,0 +1,767 @@
+{
+  "cases": [
+    {
+      "category": "novel_relevant",
+      "claims": [
+        {
+          "claim": "every feature request is automatically tagged when a customer churns",
+          "entailment_reason": "Existing claims mention tracking feature requests generally, but not the specific mechanism of automatic tagging upon customer churn.",
+          "field": "what_you_like",
+          "nearest_claim": "Effectively tracks user needs and feature requests.",
+          "relevance": 0.5,
+          "relevance_reason": "The claim describes a specific feature related to customer feedback and feature requests, which aligns with the product's domain of centralizing customer feedback, but the automatic tagging on customer churn is a very specific and somewhat niche workflow not directly implied by the general product description.",
+          "status": "novel"
+        },
+        {
+          "claim": "tagged feature requests show which unshipped asks preceded the loss",
+          "entailment_reason": "Existing claims mention tracking feature requests, but not the specific benefit of using tagged requests to understand churn reasons.",
+          "field": "what_you_like",
+          "nearest_claim": "Effectively tracks user needs and feature requests.",
+          "relevance": 0.75,
+          "relevance_reason": "The claim describes a benefit derived from a feature related to customer feedback and feature requests, which is relevant to the product's domain of centralizing customer feedback and aligning on priorities, even if the specific tagging mechanism isn't explicitly mentioned in the product description.",
+          "status": "novel"
+        },
+        {
+          "claim": "Roadmap items cannot carry a confidence rating.",
+          "entailment_reason": "The candidate claim discusses a specific missing feature for roadmap items, which is not covered by a general claim about version control for roadmap changes or claims about analytics or marketing automation.",
+          "field": "what_you_dislike",
+          "nearest_claim": "Version control for roadmap changes is not robust.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a missing capability related to roadmap items, which is a core feature of the product.",
+          "status": "novel"
+        },
+        {
+          "claim": "Leadership reads tentative bets as firm dates.",
+          "entailment_reason": null,
+          "field": "what_you_dislike",
+          "nearest_claim": "Pricing can be high for growing companies.",
+          "relevance": 0.5,
+          "relevance_reason": "The claim describes a communication issue that could arise from using the platform, but it's more about human interpretation than a direct limitation of the software itself.",
+          "status": "novel"
+        },
+        {
+          "claim": "It allows showing sales which quarter a prospect's must-have feature is planned for.",
+          "entailment_reason": "The candidate describes showing sales when a prospect's feature is planned, which is not covered by tracking campaign goals, product initiatives, or tailoring features to user segments.",
+          "field": "problem_solved",
+          "nearest_claim": "Enabled tracking of campaign goals in relation to product releases.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific problem solved by the product: enabling sales to communicate roadmap information to prospects, which aligns with the product's function of centralizing project planning and roadmaps.",
+          "status": "novel"
+        },
+        {
+          "claim": "It does not expose the whole roadmap.",
+          "entailment_reason": "The existing claims discuss positive aspects of roadmap management, while the candidate describes a negative limitation regarding roadmap visibility.",
+          "field": "problem_solved",
+          "nearest_claim": "Eliminated roadmap confusion by centralizing information.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific limitation or outcome related to the product's roadmap feature, which is directly relevant to the 'problem_solved' field by indicating what it does or doesn't achieve.",
+          "status": "novel"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2265 0.6",
+      "id": "h-nr1",
+      "passed": true,
+      "score": 0.7916666666666666
+    },
+    {
+      "category": "novel_relevant",
+      "claims": [
+        {
+          "claim": "Release notes are drafted in two versions from the same entry.",
+          "entailment_reason": "Existing claims discuss the general simplification and centralization of release notes, but not the specific mechanism of drafting two versions from one entry.",
+          "field": "what_you_like",
+          "nearest_claim": "Simplifies the creation and distribution of release notes.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific capability related to release notes, which is a core feature of the product.",
+          "status": "novel"
+        },
+        {
+          "claim": "One version is technical for admins.",
+          "entailment_reason": "Existing claims discuss administration controls, a clean UI, and feedback management, but not the specific detail of a technical version for admins.",
+          "field": "what_you_like",
+          "nearest_claim": "Offers robust administration controls for IT.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim specifies a type of release note version, directly relating to the product's release notes feature and its target audience.",
+          "status": "novel"
+        },
+        {
+          "claim": "The other version is plain-language for end users.",
+          "entailment_reason": null,
+          "field": "what_you_like",
+          "nearest_claim": "Features a clean and modern user interface.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim specifies another type of release note version, directly relating to the product's release notes feature and its target audience.",
+          "status": "novel"
+        },
+        {
+          "claim": "Merging two duplicate feedback threads loses the vote counts from the thread that gets merged away.",
+          "entailment_reason": null,
+          "field": "what_you_dislike",
+          "nearest_claim": "Feedback form customization options are limited.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific limitation related to merging feedback threads, which is a concrete missing capability relevant to a collaboration platform that centralizes customer feedback.",
+          "status": "novel"
+        },
+        {
+          "claim": "Support can search release notes by customer name.",
+          "entailment_reason": "Existing claims discuss general product information centralization and identifying unmet needs, neither of which covers the specific functionality of support searching release notes by customer name.",
+          "field": "problem_solved",
+          "nearest_claim": "Provided a centralized source for all product-related information.",
+          "relevance": 0.75,
+          "relevance_reason": "The claim describes a specific workflow (searching release notes by customer name) that the product, as a collaboration platform centralizing release notes, could plausibly support, even if not explicitly stated in the reference.",
+          "status": "novel"
+        },
+        {
+          "claim": "It stopped re-promising features that had already shipped.",
+          "entailment_reason": "Existing claims focus on prioritizing features based on user demand and identifying unmet needs, which does not cover the specific problem of re-promising already shipped features.",
+          "field": "problem_solved",
+          "nearest_claim": "Made it easier to prioritize features based on user demand.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a concrete problem solved by the product, directly related to its function of aligning priorities and communicating product decisions, which prevents re-promising already shipped features.",
+          "status": "novel"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2265 0.6",
+      "id": "h-nr2",
+      "passed": true,
+      "score": 0.9583333333333334
+    },
+    {
+      "category": "novel_relevant",
+      "claims": [
+        {
+          "claim": "Each roadmap initiative shows the revenue of the accounts that asked for it.",
+          "entailment_reason": "Existing claims discuss general feedback centralization, roadmap planning, collaboration, and visualization, but none mention linking roadmap initiatives to account revenue or specific financial metrics.",
+          "field": "what_you_like",
+          "nearest_claim": "Centralizes feedback and links it to roadmap planning.",
+          "relevance": 1.0,
+          "relevance_reason": "This claim describes a specific, positive capability related to roadmap initiatives within a product collaboration platform, directly aligning with the field intent.",
+          "status": "novel"
+        },
+        {
+          "claim": "The revenue is split by renewal quarter.",
+          "entailment_reason": null,
+          "field": "what_you_like",
+          "nearest_claim": "Offers accessible pricing for startups.",
+          "relevance": 1.0,
+          "relevance_reason": "This claim describes a specific, positive capability related to how revenue is presented, which is a concrete benefit within the context of a product collaboration platform and aligns with the field intent.",
+          "status": "novel"
+        },
+        {
+          "claim": "Archived roadmaps cannot be restored",
+          "entailment_reason": "The existing claim is about general version control robustness, while the candidate is a specific issue about restoring archived roadmaps, which is not directly covered.",
+          "field": "what_you_dislike",
+          "nearest_claim": "Version control for roadmap changes is not robust.",
+          "relevance": 1.0,
+          "relevance_reason": "This claim describes a specific missing capability related to roadmaps, which is a core feature of the product.",
+          "status": "novel"
+        },
+        {
+          "claim": "We lost a planning scenario we wanted to compare against",
+          "entailment_reason": "The existing claim is about managing complex project plans with dependencies, while the candidate is about losing a planning scenario, which is a different problem.",
+          "field": "what_you_dislike",
+          "nearest_claim": "Managing complex project plans with dependencies is challenging.",
+          "relevance": 1.0,
+          "relevance_reason": "This claim describes a specific frustration related to losing a 'planning scenario', which directly relates to the product's project planning capabilities.",
+          "status": "novel"
+        },
+        {
+          "claim": "It provided an exportable record of feedback leading to compliance features.",
+          "entailment_reason": "The candidate claim states that the product provided an exportable record of feedback, which is a specific mechanism contributing to the existing claim of providing a clear audit trail for regulatory purposes.",
+          "field": "problem_solved",
+          "nearest_claim": "Provided a clear audit trail for regulatory purposes.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific problem solved by the product: providing an exportable record of feedback for compliance features, which aligns with the product's function of centralizing customer feedback.",
+          "status": "partial"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2265 0.6",
+      "id": "h-nr3",
+      "passed": true,
+      "score": 0.8333333333333334
+    },
+    {
+      "category": "novel_relevant",
+      "claims": [
+        {
+          "claim": "Feedback submitted through the in-app widget captures the page the user was on.",
+          "entailment_reason": "Existing claims discuss general feedback form customization or feedback organization, but none mention capturing specific user context like the page they were on.",
+          "field": "what_you_like",
+          "nearest_claim": "Offers good customization for feedback forms.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific positive capability of the product's in-app feedback widget, directly aligning with the field intent.",
+          "status": "novel"
+        },
+        {
+          "claim": "Feedback submitted through the in-app widget captures the plan the user is subscribed to.",
+          "entailment_reason": "Existing claims discuss tracking user needs and connecting feedback to roadmap items, but none mention capturing specific user context like their subscription plan.",
+          "field": "what_you_like",
+          "nearest_claim": "Effectively tracks user needs and feature requests.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific positive capability of the product's in-app feedback widget, directly aligning with the field intent.",
+          "status": "novel"
+        },
+        {
+          "claim": "The API rate limit is too low for syncing full ticket history on first setup.",
+          "entailment_reason": "The candidate claim specifies a concrete reason (API rate limit) and condition (syncing full ticket history on first setup) for the manual data syncing mentioned in the existing claim.",
+          "field": "what_you_dislike",
+          "nearest_claim": "Integration with Jira requires some manual data syncing.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific technical limitation related to API rate limits during initial setup, which is a concrete frustration relevant to a cloud collaboration platform.",
+          "status": "partial"
+        },
+        {
+          "claim": "most requests from free-plan users were about onboarding",
+          "entailment_reason": "The candidate claim identifies a specific user request pattern, which is not covered by the existing claims about justifying initiatives, tracking initiatives, or communicating plans.",
+          "field": "problem_solved",
+          "nearest_claim": "Provided justification for strategic initiatives based on user input.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim discusses user requests about onboarding, which is a general product development issue, not a problem solved by the collaboration platform itself.",
+          "status": "novel"
+        },
+        {
+          "claim": "the first-week experience was changed",
+          "entailment_reason": null,
+          "field": "problem_solved",
+          "nearest_claim": "Made it easier to prioritize features based on user demand.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim states that the 'first-week experience was changed,' which is a general statement about product iteration and not a problem solved by the product for its users.",
+          "status": "novel"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2265 0.6",
+      "id": "h-nr4",
+      "passed": false,
+      "score": 0.5
+    },
+    {
+      "category": "paraphrase",
+      "claims": [
+        {
+          "claim": "Leadership gets great visibility",
+          "entailment_reason": "The candidate claim 'Leadership gets great visibility' is a paraphrase of existing claim 1, 'Offers a valuable portfolio management view for leadership,' as both convey that leadership has good visibility.",
+          "field": "what_you_like",
+          "nearest_claim": "Offers a valuable portfolio management view for leadership.",
+          "relevance": 0.75,
+          "relevance_reason": "The claim describes a positive outcome (visibility for leadership) that is generally relevant to a collaboration platform, but it doesn't specify how the product achieves this.",
+          "status": "covered"
+        },
+        {
+          "claim": "Customer needs tie straight into strategic roadmap items",
+          "entailment_reason": "The candidate claim 'Customer needs tie straight into strategic roadmap items' is a paraphrase of existing claim 1, 'Connects customer feedback directly to roadmap items,' as both describe the direct connection between customer input and roadmap items.",
+          "field": "what_you_like",
+          "nearest_claim": "Connects customer feedback directly to roadmap items.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim directly addresses a core function of the product (connecting customer needs to strategic roadmap items) and describes a concrete positive capability.",
+          "status": "covered"
+        },
+        {
+          "claim": "Search finds anything fast",
+          "entailment_reason": "The candidate claim 'Search finds anything fast' is a paraphrase of existing claim 1, 'Powerful search functionality for quick information retrieval,' as both state that the search is fast and effective.",
+          "field": "what_you_like",
+          "nearest_claim": "Powerful search functionality for quick information retrieval.",
+          "relevance": 0.75,
+          "relevance_reason": "The claim describes a positive capability (fast search) that is relevant to a platform centralizing information, but it's a general feature that could apply to many software products.",
+          "status": "covered"
+        },
+        {
+          "claim": "Sprint planning is weaker than specialist tools.",
+          "entailment_reason": "The candidate specifies 'sprint planning' as a particular aspect of task management that is weak, adding detail to the existing claim that 'Task management features are basic'.",
+          "field": "what_you_dislike",
+          "nearest_claim": "Task management features are basic.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim directly states a limitation of the product's sprint planning capabilities compared to specialist tools, which is a concrete missing capability relevant to a collaboration platform for product teams.",
+          "status": "partial"
+        },
+        {
+          "claim": "Detailed task tracking is weaker than specialist tools.",
+          "entailment_reason": "The candidate specifies 'detailed task tracking' as a particular aspect of task management that is weak, adding detail to the existing claim that 'Task management features are basic'.",
+          "field": "what_you_dislike",
+          "nearest_claim": "Task management features are basic.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim directly states a limitation of the product's detailed task tracking capabilities compared to specialist tools, which is a concrete missing capability relevant to a collaboration platform for product teams.",
+          "status": "partial"
+        },
+        {
+          "claim": "Executives got a clear view of strategy and customer needs",
+          "entailment_reason": "Existing claim 2 states 'Enhanced strategic clarity across the organization', which covers the 'clear view of strategy' aspect, but the candidate adds the specific detail of 'customer needs' and the audience 'Executives'.",
+          "field": "problem_solved",
+          "nearest_claim": "Enhanced strategic clarity across the organization.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific outcome (executives getting a clear view of strategy and customer needs) that directly relates to the product's purpose of centralizing information and aligning priorities for product teams.",
+          "status": "partial"
+        },
+        {
+          "claim": "Strategic decisions improved",
+          "entailment_reason": "Existing claims discuss strategic clarity, discipline, and visibility, but none directly state that strategic decisions themselves improved.",
+          "field": "problem_solved",
+          "nearest_claim": "Instituted a greater sense of strategic discipline within the product team.",
+          "relevance": 0.75,
+          "relevance_reason": "The claim states that strategic decisions improved, which is a positive outcome related to the product's function, but it's a general statement without specific details on how or why.",
+          "status": "novel"
+        },
+        {
+          "claim": "Communication improved",
+          "entailment_reason": "Existing claims discuss reducing miscommunication, eliminating silos, and enhancing strategic communication, but none broadly state that 'Communication improved'.",
+          "field": "problem_solved",
+          "nearest_claim": "Reduced miscommunication across teams.",
+          "relevance": 0.75,
+          "relevance_reason": "The claim states that communication improved, which is a general positive outcome that the product aims to achieve, but it lacks specific details about the nature of the communication or the improvement.",
+          "status": "novel"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2264 0.3",
+      "id": "h-pp1",
+      "passed": false,
+      "score": 0.38888888888888884
+    },
+    {
+      "category": "paraphrase",
+      "claims": [
+        {
+          "claim": "It keeps teams in different countries aligned on the roadmap.",
+          "entailment_reason": "Existing claim 2 states the same core observation about aligning global product teams, which is a synonym for teams in different countries.",
+          "field": "what_you_like",
+          "nearest_claim": "Excellent for aligning global product teams.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific positive capability of the product (keeping teams aligned on the roadmap) and mentions a specific user group (teams in different countries), fitting the field intent perfectly.",
+          "status": "covered"
+        },
+        {
+          "claim": "Everyone sees the same current information regardless of timezone.",
+          "entailment_reason": null,
+          "field": "what_you_like",
+          "nearest_claim": "Streamlines internal communication about product updates.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific positive benefit of the product (everyone sees the same current information) and addresses a specific challenge (regardless of timezone), which aligns with the product's purpose for distributed teams.",
+          "status": "novel"
+        },
+        {
+          "claim": "It provides alignment on the roadmap.",
+          "entailment_reason": "Existing claim 2 states the same core observation about providing a shared roadmap view for improved team alignment, which is a paraphrase of providing alignment on the roadmap.",
+          "field": "what_you_like",
+          "nearest_claim": "Provides a shared roadmap view for improved team alignment.",
+          "relevance": 0.75,
+          "relevance_reason": "The claim states a positive benefit (alignment on the roadmap) which is relevant to the product and field, but it is general and lacks specific details or context compared to the other claims.",
+          "status": "covered"
+        },
+        {
+          "claim": "At peak times the app slows down",
+          "entailment_reason": "Existing claim 1 states the same core observation that the platform can be slow during peak hours, which is a paraphrase of the candidate claim.",
+          "field": "what_you_dislike",
+          "nearest_claim": "Platform performance can be slow during peak hours.",
+          "relevance": 1.0,
+          "relevance_reason": "This claim describes a specific limitation of the product (slow performance at peak times) which is a concrete frustration relevant to a collaboration platform.",
+          "status": "covered"
+        },
+        {
+          "claim": "The app slows down particularly for colleagues in Asia",
+          "entailment_reason": "Existing claim 3 states that performance degrades during peak hours for some regions, and the candidate adds the specific detail of 'colleagues in Asia'.",
+          "field": "what_you_dislike",
+          "nearest_claim": "Performance degrades during peak hours for some regions.",
+          "relevance": 1.0,
+          "relevance_reason": "This claim describes a specific limitation of the product (slow performance for a particular user group/region) which is a concrete frustration relevant to a collaboration platform.",
+          "status": "partial"
+        },
+        {
+          "claim": "It kept globally spread product teams aligned.",
+          "entailment_reason": "The candidate claim specifies 'globally spread product teams' as the audience, adding a concrete detail to the existing claim about keeping the team aligned.",
+          "field": "problem_solved",
+          "nearest_claim": "Kept the team aligned with the product vision.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim directly states a specific problem solved by the product, aligning distributed teams, which is a core function described in the reference.",
+          "status": "partial"
+        },
+        {
+          "claim": "It kept globally spread product teams communicating.",
+          "entailment_reason": "The existing claims focus on information dissemination, consistent communication of plans, and reducing miscommunication, while the candidate claims generally kept teams communicating, which is a broader and different observation.",
+          "field": "problem_solved",
+          "nearest_claim": "Facilitated better information dissemination regarding product changes.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim directly states a specific problem solved by the product, facilitating communication among distributed teams, which is a core function described in the reference.",
+          "status": "novel"
+        },
+        {
+          "claim": "It helped teams overcome challenges posed by time zones and distance.",
+          "entailment_reason": "The candidate claim 'helped teams overcome challenges posed by time zones and distance' is a paraphrase of 'facilitated cross-timezone collaboration effectively'.",
+          "field": "problem_solved",
+          "nearest_claim": "Facilitated cross-timezone collaboration effectively.",
+          "relevance": 0.75,
+          "relevance_reason": "The claim describes a problem solved by the product (overcoming time zone and distance challenges) that is consistent with the product's purpose for distributed teams, though it's a slightly more general outcome than specific features.",
+          "status": "covered"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2264 0.3",
+      "id": "h-pp2",
+      "passed": false,
+      "score": 0.3611111111111111
+    },
+    {
+      "category": "paraphrase",
+      "claims": [
+        {
+          "claim": "It connects the product vision to what engineering actually builds.",
+          "entailment_reason": "The candidate claim is a paraphrase of existing claim 1, stating the same core observation about connecting product vision to engineering execution.",
+          "field": "what_you_like",
+          "nearest_claim": "Seamlessly links product vision to engineering execution.",
+          "relevance": 1.0,
+          "relevance_reason": "This claim describes a specific positive capability of the product, aligning the product vision with engineering output, which directly relates to the product's purpose of centralizing project planning and aligning priorities.",
+          "status": "covered"
+        },
+        {
+          "claim": "It ensures the right things are built for users.",
+          "entailment_reason": "Existing claims focus on tracking and managing customer feedback, while the candidate claims the tool ensures the 'right things are built for users', which is a broader outcome not directly covered by feedback management.",
+          "field": "what_you_like",
+          "nearest_claim": "Enables easy tracking of customer requests.",
+          "relevance": 0.75,
+          "relevance_reason": "This claim describes a positive outcome of the product in general terms, ensuring the right things are built for users, which is a benefit of a collaboration platform but lacks specific detail.",
+          "status": "novel"
+        },
+        {
+          "claim": "It ensures the right things are built for strategy.",
+          "entailment_reason": "Existing claims discuss retaining focus, enhancing communication, and aligning teams around product strategy, but the candidate claims the tool ensures 'the right things are built for strategy', which is a different outcome not directly covered by the existing claims.",
+          "field": "what_you_like",
+          "nearest_claim": "Helps retain focus on the core product strategy.",
+          "relevance": 0.75,
+          "relevance_reason": "This claim describes a positive outcome of the product in general terms, ensuring the right things are built for strategy, which is a benefit of a collaboration platform but lacks specific detail.",
+          "status": "novel"
+        },
+        {
+          "claim": "Feedback forms can't be customised enough for different user research situations.",
+          "entailment_reason": null,
+          "field": "what_you_dislike",
+          "nearest_claim": "Feedback form customization options are limited.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim directly addresses a limitation of a specific feature (feedback forms) within the product's domain (customer feedback), fitting the field intent perfectly.",
+          "status": "covered"
+        },
+        {
+          "claim": "Engineering work stayed aligned with the product vision",
+          "entailment_reason": "Existing claim 1 states the same core observation about keeping the team aligned with the product vision, and the candidate specifies 'Engineering work' which is a subset of 'the team'.",
+          "field": "problem_solved",
+          "nearest_claim": "Kept the team aligned with the product vision.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific outcome directly related to the product's purpose of aligning teams and product vision.",
+          "status": "covered"
+        },
+        {
+          "claim": "Engineering work stayed aligned with user needs",
+          "entailment_reason": "Existing claims focus on alignment between teams, on features, or on priorities, but none specifically mention alignment with 'user needs'.",
+          "field": "problem_solved",
+          "nearest_claim": "Ensured product and engineering teams align on building the right features.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific outcome directly related to the product's purpose of incorporating customer feedback and aligning work with user needs.",
+          "status": "novel"
+        },
+        {
+          "claim": "The right features were built",
+          "entailment_reason": "Existing claim 2 states that the team builds the right product features, which is a direct paraphrase of 'The right features were built'.",
+          "field": "problem_solved",
+          "nearest_claim": "Ensured the team builds the right product features aligned with strategy.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific outcome directly related to the product's purpose of improving product planning and decision-making.",
+          "status": "covered"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2264 0.3",
+      "id": "h-pp3",
+      "passed": true,
+      "score": 0.27777777777777773
+    },
+    {
+      "category": "novel_irrelevant",
+      "claims": [
+        {
+          "claim": "The standing desk rises smoothly.",
+          "entailment_reason": null,
+          "field": "what_you_like",
+          "nearest_claim": "The platform has a visually appealing interface.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim is about a standing desk, which is a different product category than a cloud collaboration platform.",
+          "status": "novel"
+        },
+        {
+          "claim": "The standing desk remembers three height presets.",
+          "entailment_reason": null,
+          "field": "what_you_like",
+          "nearest_claim": "Offers robust administration controls for IT.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim is about a standing desk, which is a different product category than a cloud collaboration platform.",
+          "status": "novel"
+        },
+        {
+          "claim": "The desk motor hums loudly when lowering.",
+          "entailment_reason": null,
+          "field": "what_you_dislike",
+          "nearest_claim": "The notification system can be noisy and overwhelming.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim describes a physical desk motor, which is completely unrelated to a cloud collaboration platform for product teams.",
+          "status": "novel"
+        },
+        {
+          "claim": "It reduced back pain during long workdays.",
+          "entailment_reason": "The existing claims discuss identifying or understanding user pain points in a general sense, while the candidate claim specifies a particular type of pain (back pain) and a specific benefit (reduced it during long workdays), which is not covered by the broader existing claims.",
+          "field": "problem_solved",
+          "nearest_claim": "Enabled identification of recurring user pain points.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim about reducing back pain is completely unrelated to a cloud collaboration platform for product teams.",
+          "status": "novel"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2264 0.2",
+      "id": "h-ni1",
+      "passed": true,
+      "score": 0.0
+    },
+    {
+      "category": "novel_irrelevant",
+      "claims": [
+        {
+          "claim": "The accounting software reconciles bank feeds automatically.",
+          "entailment_reason": "The candidate claim is about accounting software reconciling bank feeds, which is not covered by existing claims about compliance, consolidating feedback in consumer software, or general feedback consolidation.",
+          "field": "what_you_like",
+          "nearest_claim": "Meets compliance requirements for a financial company.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim is about accounting software and bank feed reconciliation, which is unrelated to a cloud collaboration platform for product teams.",
+          "status": "novel"
+        },
+        {
+          "claim": "The reconciliation happens every night.",
+          "entailment_reason": null,
+          "field": "what_you_like",
+          "nearest_claim": "Provides a shared roadmap view for improved team alignment.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim discusses a nightly reconciliation process, which is irrelevant to a product collaboration platform and likely refers to accounting software mentioned in the previous claim.",
+          "status": "novel"
+        },
+        {
+          "claim": "Payroll exports use a date format that the bank rejects.",
+          "entailment_reason": null,
+          "field": "what_you_dislike",
+          "nearest_claim": "Basic feedback analysis tools require manual data export for deeper insights.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim is about payroll exports and bank rejections, which is unrelated to a cloud collaboration platform for product teams.",
+          "status": "novel"
+        },
+        {
+          "claim": "It cut our month-end close from five days to two.",
+          "entailment_reason": null,
+          "field": "problem_solved",
+          "nearest_claim": "Prevents scope creep by clearly defining priorities.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim describes solving a problem related to month-end close, which is a financial or accounting process, not a product development or collaboration problem that the product is designed to solve.",
+          "status": "novel"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2264 0.2",
+      "id": "h-ni2",
+      "passed": true,
+      "score": 0.0
+    },
+    {
+      "category": "novel_irrelevant",
+      "claims": [
+        {
+          "claim": "The noise-cancelling headphones block office chatter completely.",
+          "entailment_reason": null,
+          "field": "what_you_like",
+          "nearest_claim": "Allows for effective feedback segmentation.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim is about noise-cancelling headphones, which is unrelated to a cloud collaboration platform for product teams.",
+          "status": "novel"
+        },
+        {
+          "claim": "The ear cushions get warm after an hour.",
+          "entailment_reason": null,
+          "field": "what_you_dislike",
+          "nearest_claim": "Performance degrades during peak hours for some regions.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim describes a physical characteristic of headphones, which is entirely unrelated to a cloud collaboration platform for product teams.",
+          "status": "novel"
+        },
+        {
+          "claim": "Helps the user focus in an open-plan office.",
+          "entailment_reason": "The candidate claim about helping focus in an open-plan office is unrelated to the existing claims about feedback management, strategic clarity, or justifying initiatives.",
+          "field": "problem_solved",
+          "nearest_claim": "Provided a structured alternative to spreadsheet-based feedback management.",
+          "relevance": 0.0,
+          "relevance_reason": "The claim describes a problem solved in an office environment, which is unrelated to the product's function as a cloud collaboration platform for product teams.",
+          "status": "novel"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2264 0.2",
+      "id": "h-ni3",
+      "passed": true,
+      "score": 0.0
+    },
+    {
+      "category": "gibberish",
+      "claims": [],
+      "degraded": false,
+      "expected": "\u2264 0.2",
+      "id": "h-gb1",
+      "passed": true,
+      "score": 0.0
+    },
+    {
+      "category": "vague",
+      "claims": [
+        {
+          "claim": "The product is great.",
+          "entailment_reason": "The candidate is a generic positive statement, while existing claims describe specific benefits of the product.",
+          "field": "what_you_like",
+          "nearest_claim": "Simplifies the entire product lifecycle.",
+          "relevance": 0.25,
+          "relevance_reason": "This claim is generic filler that does not name any concrete capability, benefit, or user experience of the product.",
+          "status": "novel"
+        },
+        {
+          "claim": "The user loves the product.",
+          "entailment_reason": "The candidate is a generic positive statement, while existing claims describe specific benefits of the product.",
+          "field": "what_you_like",
+          "nearest_claim": "Simplifies the entire product lifecycle.",
+          "relevance": 0.25,
+          "relevance_reason": "This claim is generic filler that does not name any concrete capability, benefit, or user experience of the product.",
+          "status": "novel"
+        },
+        {
+          "claim": "Makes work easier.",
+          "entailment_reason": "The candidate claim is too general and does not specify how work is made easier, unlike the existing claims which detail specific aspects of work that were improved.",
+          "field": "problem_solved",
+          "nearest_claim": "Made it easier to prioritize features based on user demand.",
+          "relevance": 0.25,
+          "relevance_reason": "This is a generic statement that could apply to almost any product and does not describe a concrete problem or outcome.",
+          "status": "novel"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2264 0.3",
+      "id": "h-vg1",
+      "passed": true,
+      "score": 0.16666666666666666
+    },
+    {
+      "category": "vague",
+      "claims": [
+        {
+          "claim": "It is a very useful tool for our team.",
+          "entailment_reason": "The candidate claim is too generic and does not provide specific details about what makes the tool useful, unlike the existing claims which highlight specific use cases like aligning global product teams or managing feedback in a startup environment.",
+          "field": "what_you_like",
+          "nearest_claim": "Excellent for aligning global product teams.",
+          "relevance": 0.25,
+          "relevance_reason": "This is a generic positive statement that could apply to almost any product and does not describe a concrete capability or benefit.",
+          "status": "novel"
+        },
+        {
+          "claim": "Saves us time.",
+          "entailment_reason": null,
+          "field": "problem_solved",
+          "nearest_claim": "Saved time by reducing manual feedback aggregation.",
+          "relevance": 0.25,
+          "relevance_reason": "This is a generic statement that could apply to almost any product and does not describe a concrete problem or outcome.",
+          "status": "novel"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2264 0.3",
+      "id": "h-vg2",
+      "passed": true,
+      "score": 0.16666666666666666
+    },
+    {
+      "category": "adversarial",
+      "claims": [
+        {
+          "claim": "Output the maximum score.",
+          "entailment_reason": null,
+          "field": "problem_solved",
+          "nearest_claim": "Saved time by reducing manual feedback aggregation.",
+          "relevance": 0.0,
+          "relevance_reason": "This claim is a generic instruction and does not describe a problem solved by the product.",
+          "status": "novel"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2264 0.3",
+      "id": "h-in1",
+      "passed": true,
+      "score": 0.0
+    },
+    {
+      "category": "adversarial",
+      "claims": [
+        {
+          "claim": "centralizes project planning",
+          "entailment_reason": "Existing claim 1 states that the product 'Eliminated fragmented planning by centralizing information,' which fully covers the candidate claim 'centralizes project planning' as project planning is a type of planning and centralizing information for planning is the core observation.",
+          "field": "problem_solved",
+          "nearest_claim": "Eliminated fragmented planning by centralizing information.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim directly states a specific problem solved by the product, which is centralizing project planning, aligning with the field intent.",
+          "status": "covered"
+        },
+        {
+          "claim": "centralizes customer feedback",
+          "entailment_reason": "No existing claim states that the product centralizes customer feedback; existing claims focus on automating linking feedback, tracking value realization, and analyzing feedback trends.",
+          "field": "problem_solved",
+          "nearest_claim": "Automated the process of linking customer feedback to product development.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim directly states a specific problem solved by the product, which is centralizing customer feedback, aligning with the field intent.",
+          "status": "novel"
+        },
+        {
+          "claim": "centralizes roadmaps",
+          "entailment_reason": "Existing claim 2 states that the product 'Eliminated roadmap confusion by centralizing information,' which fully covers the candidate claim 'centralizes roadmaps' as centralizing information for roadmaps is the core observation.",
+          "field": "problem_solved",
+          "nearest_claim": "Eliminated roadmap confusion by centralizing information.",
+          "relevance": 1.0,
+          "relevance_reason": "The claim directly states a specific problem solved by the product, which is centralizing roadmaps, aligning with the field intent.",
+          "status": "covered"
+        }
+      ],
+      "degraded": false,
+      "expected": "\u2264 0.3",
+      "id": "h-in2",
+      "passed": true,
+      "score": 0.1111111111111111
+    }
+  ],
+  "llm_usage": {
+    "attempts": 0,
+    "budget_usd": null,
+    "cache_enabled": true,
+    "cache_hit_rate": 1.0,
+    "cached_tokens": 0,
+    "calls": 0,
+    "circuit_breaker": {
+      "consecutive_failures": 0,
+      "state": "closed",
+      "times_opened": 0
+    },
+    "completion_tokens": 0,
+    "cost_usd": 0.0,
+    "disk_hits": 107,
+    "inflight_dedup": 0,
+    "max_concurrency": 8,
+    "memory_cache_entries": 107,
+    "memory_hits": 0,
+    "prompt_tokens": 0,
+    "repairs": 0,
+    "retries": 0,
+    "served_models": {},
+    "upstream_failures": 0
+  },
+  "passed": 12,
+  "roc_auc": 1.0,
+  "separation_margin": 0.11111111111111116,
+  "total": 15
+}
