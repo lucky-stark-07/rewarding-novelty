@@ -10,7 +10,7 @@ from contextlib import contextmanager
 from pathlib import Path
 import numpy as np
 from .config import get_settings
-from .embeddings import cosine_sim
+from .embeddings import normalize_rows, run_embedder
 from .schemas import Claim, CorpusEntry, FieldName, Submission
 
 
@@ -57,72 +57,83 @@ def submission_key(submission: Submission) -> tuple[str, ...]:
     return tuple(" ".join(submission.field_text(field).casefold().split()) for field in FieldName)
 
 
+FIELD_ORDER = list(FieldName)
+
+
 class CorpusIndex:
-    """Corpus claims with their embeddings, held in memory per field and built once at startup.
+    """Every corpus claim embedded once at startup into one L2-normalised (N × d) matrix.
 
-    Scoring only embeds the new claims; corpus vectors are reused across requests and updated
-    incrementally when an accepted submission is appended."""
+    Nearest-neighbour search for all of a submission's claims is a single matmul, with other
+    fields masked out. Accepted submissions are appended incrementally."""
 
-    def __init__(self, store: CorpusStore, embedder: Callable[[list[str]], np.ndarray]) -> None:
+    def __init__(self, store: CorpusStore, embedder: Callable[[list[str]], np.ndarray], reference_text: str | None = None) -> None:
         self.store = store
         self.embedder = embedder
+        self.reference_text = reference_text
+        self.reference_vector: np.ndarray | None = None
         self.entries: list[CorpusEntry] = []
-        self.claims: dict[FieldName, list[Claim]] = {field: [] for field in FieldName}
-        self.vectors: dict[FieldName, np.ndarray | None] = {field: None for field in FieldName}
+        self.claims: list[Claim] = []
+        self.matrix: np.ndarray | None = None
+        self.field_ids = np.empty(0, dtype=np.int8)
         self._keys: dict[tuple[str, ...], CorpusEntry] = {}
         self._write_lock = asyncio.Lock()
 
     @classmethod
-    async def create(cls, store: CorpusStore, embedder: Callable[[list[str]], np.ndarray]) -> CorpusIndex:
-        index = cls(store, embedder)
+    async def create(cls, store: CorpusStore, embedder: Callable[[list[str]], np.ndarray], reference_text: str | None = None) -> CorpusIndex:
+        index = cls(store, embedder, reference_text)
+        if reference_text:
+            index.reference_vector = normalize_rows(await run_embedder(embedder, [reference_text]))[0]
         await index.reload()
         return index
+
+    async def embed(self, texts: list[str]) -> np.ndarray:
+        """One encode call for all texts, off the event loop; rows are L2-normalised."""
+        return normalize_rows(await run_embedder(self.embedder, texts))
 
     async def reload(self) -> None:
         entries = await asyncio.to_thread(self.store.list)
         await self._rebuild(entries)
 
     async def _rebuild(self, entries: list[CorpusEntry]) -> None:
-        claims = {field: [claim for entry in entries for claim in entry.claims if claim.field == field] for field in FieldName}
-        texts = [claim.text for field in FieldName for claim in claims[field]]
-        matrix = await asyncio.to_thread(self.embedder, texts) if texts else None
-        vectors: dict[FieldName, np.ndarray | None] = {}
-        offset = 0
-        for field in FieldName:
-            count = len(claims[field])
-            vectors[field] = matrix[offset:offset + count] if matrix is not None and count else None
-            offset += count
-        self.entries, self.claims, self.vectors = entries, claims, vectors
+        claims = [claim for entry in entries for claim in entry.claims]
+        matrix = await self.embed([claim.text for claim in claims]) if claims else None
+        self.entries, self.claims, self.matrix = entries, claims, matrix
+        self.field_ids = np.array([FIELD_ORDER.index(claim.field) for claim in claims], dtype=np.int8)
         self._keys = {submission_key(entry.submission): entry for entry in entries}
 
     def find_duplicate(self, submission: Submission) -> CorpusEntry | None:
         return self._keys.get(submission_key(submission))
 
+    def search(self, vectors: np.ndarray, fields: list[FieldName], k: int) -> list[list[tuple[Claim, float]]]:
+        """Top-k same-field neighbours for each row of `vectors` (already normalised)."""
+        if self.matrix is None or not fields:
+            return [[] for _ in fields]
+        similarities = vectors @ self.matrix.T
+        wanted = np.array([FIELD_ORDER.index(field) for field in fields], dtype=np.int8)
+        similarities = np.where(self.field_ids[None, :] == wanted[:, None], similarities, -np.inf)
+        results = []
+        for row in similarities:
+            top = [int(i) for i in np.argsort(-row)[:k] if np.isfinite(row[int(i)])]
+            results.append([(self.claims[i], float(row[i])) for i in top])
+        return results
+
     def neighbors(self, field: FieldName, vector: np.ndarray, k: int) -> list[tuple[Claim, float]]:
-        matrix = self.vectors[field]
-        if matrix is None:
-            return []
-        similarities = cosine_sim(vector, matrix)[0]
-        top = np.argsort(-similarities)[:k]
-        return [(self.claims[field][int(i)], float(similarities[int(i)])) for i in top]
+        return self.search(normalize_rows(vector), [field], k)[0]
 
     @property
     def claim_count(self) -> int:
-        return sum(len(items) for items in self.claims.values())
+        return len(self.claims)
 
     async def add(self, entry: CorpusEntry) -> None:
         async with self._write_lock:
             if self.find_duplicate(entry.submission):
                 return
             await asyncio.to_thread(self.store.append, entry)
-            new_vectors = await asyncio.to_thread(self.embedder, [claim.text for claim in entry.claims]) if entry.claims else None
-            for field in FieldName:
-                rows = [i for i, claim in enumerate(entry.claims) if claim.field == field]
-                if not rows or new_vectors is None:
-                    continue
-                current = self.vectors[field]
-                self.vectors[field] = new_vectors[rows] if current is None else np.vstack([current, new_vectors[rows]])
-                self.claims[field] = [*self.claims[field], *(entry.claims[i] for i in rows)]
+            if entry.claims:
+                new_vectors = await self.embed([claim.text for claim in entry.claims])
+                self.matrix = new_vectors if self.matrix is None else np.vstack([self.matrix, new_vectors])
+                self.field_ids = np.concatenate([self.field_ids, np.array([FIELD_ORDER.index(claim.field) for claim in entry.claims], dtype=np.int8)])
+                self.claims = [*self.claims, *entry.claims]
             self.entries = [*self.entries, entry]
             self._keys[submission_key(entry.submission)] = entry
 

@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 import pytest
 from backend.config import Settings
@@ -41,7 +42,7 @@ def test_no_extractable_claims_returns_typed_zero_result(tmp_path: Path) -> None
 
 
 class ExplodingLLM:
-    async def complete_json(self, **_kwargs):
+    async def complete_json(self, *_args, **_kwargs):
         raise AssertionError("exact duplicates must not call the LLM")
 
 
@@ -104,24 +105,52 @@ def test_ambiguous_claim_is_judged_against_top_k_neighbours_in_one_batch(roadmap
     claim = result.field_scores[0].claims[0]
     assert claim.novelty_status == "covered"
     assert len(claim.neighbors) == 3
-    coverage_prompts = [prompt for name, prompt in llm.calls if name == "llm.judge_coverage"]
-    assert len(coverage_prompts) == 1
-    assert all(text in coverage_prompts[0] for text in ("Roadmaps are shared", "Customer feedback is linked", "It centralizes product planning"))
+    coverage_items = [variables["items"] for name, variables in llm.calls if name == "judge_coverage"]
+    assert len(coverage_items) == 1
+    assert all(text in coverage_items[0] for text in ("Roadmaps are shared", "Customer feedback is linked", "It centralizes product planning"))
+    # User text comes last: the candidate follows the corpus claims inside each item.
+    item = json.loads(coverage_items[0])[0]
+    assert list(item) == ["id", "existing", "candidate"]
 
 
-def test_judging_is_batched_regardless_of_claim_count(corpus: CorpusStore) -> None:
+def test_ambiguous_claims_in_one_field_share_one_coverage_call(roadmap_corpus: CorpusStore) -> None:
+    llm = FixtureLLM()
+    result = run_score(Submission(what_you_like="Two ambiguous review"), roadmap_corpus, llm=llm, settings=Settings(low_threshold=0.30, high_threshold=0.70))
+    assert all(claim.entailment_judged for claim in result.field_scores[0].claims)
+    coverage_calls = [json.loads(variables["items"]) for name, variables in llm.calls if name == "judge_coverage"]
+    assert len(coverage_calls) == 1 and len(coverage_calls[0]) == 2
+
+
+def test_extraction_and_judging_run_once_per_field(corpus: CorpusStore) -> None:
     llm = FixtureLLM()
     result = run_score(Submission.model_validate(FIXTURES["paraphrase"]), corpus, llm=llm, settings=BANDED)
     assert sum(len(field.claims) for field in result.field_scores) == 3
-    assert sorted(name for name, _ in llm.calls) == ["llm.extract_claims", "llm.judge_coverage", "llm.judge_relevance"]
+    by_prompt: dict[str, list[str]] = {}
+    for name, variables in llm.calls:
+        by_prompt.setdefault(name, []).append(variables["field"])
+    assert sorted(by_prompt["extract_claims"]) == sorted(field.value for field in FieldName)
+    assert sorted(by_prompt["judge_relevance"]) == sorted(field.value for field in FieldName)
+    assert len(by_prompt.get("judge_coverage", [])) == len(set(by_prompt.get("judge_coverage", [])))
 
 
-def test_result_meta_includes_trace_spans(corpus: CorpusStore) -> None:
+def test_field_extractions_run_concurrently(corpus: CorpusStore) -> None:
+    import time
+    llm = FixtureLLM(delay=0.2)
+    started = time.perf_counter()
+    run_score(Submission.model_validate(FIXTURES["novel_relevant"]), corpus, llm=llm, settings=BANDED)
+    # 3 extractions then up to 6 judge calls, each 0.2 s: sequential would take ≥ 1.8 s.
+    assert time.perf_counter() - started < 1.0
+
+
+def test_result_meta_has_trace_contract(corpus: CorpusStore) -> None:
     result = run_score(Submission.model_validate(FIXTURES["novel_relevant"]), corpus, settings=BANDED, request_id="trace-test")
-    names = {span["name"] for span in result.meta["trace"]}
-    assert {"corpus.duplicate_check", "embed.claims", "retrieval.knn", "judge.batch"} <= names
-    assert result.meta["request_id"] == "trace-test"
-    assert result.meta["stage_latency_seconds"]["total"] > 0
+    meta = result.meta
+    assert {"trace_id", "total_latency_ms", "total_cost", "llm_calls", "cache_hits", "degraded", "spans"} <= set(meta)
+    assert meta["trace_id"] == "trace-test" and meta["total_latency_ms"] > 0 and meta["degraded"] is False
+    names = {span["name"] for span in meta["spans"]}
+    assert {"dedupe", "extract", "embed", "search", "relevance", "aggregate"} <= names
+    for span in meta["spans"]:
+        assert {"duration_ms", "tokens", "cost_usd", "cache_hit", "served_model"} <= set(span)
 
 
 def test_opted_in_accepted_submission_is_added_to_corpus(tmp_path: Path) -> None:

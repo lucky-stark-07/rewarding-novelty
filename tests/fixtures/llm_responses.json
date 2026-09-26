@@ -30,6 +30,10 @@
     "what_you_like|Partial detail review": [
       {"field":"what_you_like","text":"Planning lives in one place and each team gets its own approval queue."}
     ],
+    "what_you_like|Two ambiguous review": [
+      {"field":"what_you_like","text":"Planning lives in one place and each team gets its own approval queue."},
+      {"field":"what_you_like","text":"The roadmap can be shared with executives through a read-only link."}
+    ],
     "what_you_like|Top k review": [
       {"field":"what_you_like","text":"The roadmap can be shared with executives through a read-only link."}
     ],

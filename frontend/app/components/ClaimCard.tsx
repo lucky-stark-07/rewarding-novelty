@@ -121,7 +121,7 @@ export const ClaimCard: React.FC<ClaimCardProps> = ({ assessment, index }) => {
             <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all duration-500 ${
-                  entailment_judged ? "bg-purple-400" : isNovel ? "bg-emerald-400" : "bg-rose-400"
+                  entailment_judged ? "bg-purple-400" : isNovel ? "bg-emerald-400" : isPartial ? "bg-amber-400" : "bg-rose-400"
                 }`}
                 style={{ width: `${simPercent}%` }}
               />
@@ -131,6 +131,8 @@ export const ClaimCard: React.FC<ClaimCardProps> = ({ assessment, index }) => {
                 ? "Ambiguous band: LLM judged coverage against the closest corpus claims"
                 : isNovel
                 ? "Below the low threshold: novel without a judge call"
+                : isPartial
+                ? "Ambiguous band, not judged (degraded mode): partial credit"
                 : "Above the high threshold: covered without a judge call"}
             </p>
           </div>

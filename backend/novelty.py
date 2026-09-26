@@ -3,40 +3,18 @@ import asyncio
 import json
 import uuid
 from typing import Any
+import numpy as np
 from .claims import extract_claims
 from .config import Settings, get_settings
 from .corpus import CorpusIndex
-from .llm_client import LLMClient
+from .llm_client import LLM_UNAVAILABLE, LLMClient
+from .prompts import FIELD_INTENTS, JUDGE_COVERAGE, JUDGE_RELEVANCE
 from .reference import REFERENCE_PRODUCT_DESCRIPTION
 from .schemas import Claim, ClaimAssessment, CorpusEntry, Coverage, CoverageBatchResponse, CoverageJudgment, FieldName, FieldScore, Neighbor, RelevanceBatchResponse, RelevanceJudgment, ScoreResult, Submission
 from .telemetry import RequestTrace, current_trace, span
 
 SCORING_MODE = "mean(novelty × relevance) per claim"
-FIELD_INTENTS = {
-    FieldName.WHAT_YOU_LIKE: "a concrete positive capability, benefit, or user experience of the product",
-    FieldName.WHAT_YOU_DISLIKE: "a concrete limitation, frustration, missing capability, or improvement request",
-    FieldName.PROBLEM_SOLVED: "a concrete problem, workflow, or outcome the product solves for its users",
-}
-RELEVANCE_SYSTEM = (
-    "You are a relevance judge for product reviews. For each claim, rate its relevance to the reference product and to its review field.\n"
-    "Rubric:\n"
-    "1.0 - a specific statement about this product's use, capabilities, limitations, or outcomes that fits the field intent.\n"
-    "0.75 - relevant to the product and field, but vague or generic.\n"
-    "0.5 - about the product's domain but only loosely fits the field intent.\n"
-    "0.25 - tangential: touches the domain but is mostly about something else.\n"
-    "0.0 - gibberish, off-topic, about a different product, or keyword-stuffed text whose subject is not this product.\n"
-    "A claim does NOT need to be mentioned in the reference description. Reviewers report specific features, edge cases, "
-    "user groups, and workflows beyond it; those are relevant when they plausibly concern this product. Judge the claim's subject, not keyword overlap.\n"
-    'Return JSON only as {"results":[{"id":"...","relevance_score":number,"reason":"one sentence"}]} with exactly one result per input id.'
-)
-COVERAGE_SYSTEM = (
-    "You decide whether existing product-review claims already cover a candidate claim. For each item, compare the candidate with its numbered existing claims.\n"
-    "full - an existing claim states the same underlying observation (a paraphrase, synonym, or more general version of it) and the candidate adds nothing material.\n"
-    "partial - an existing claim covers the core observation, but the candidate adds a concrete new detail such as a specific mechanism, condition, audience, or consequence.\n"
-    "none - no existing claim states the same observation. Claims that are merely on a related topic are not coverage.\n"
-    'Return JSON only as {"results":[{"id":"...","coverage":"full|partial|none","matched_existing":number|null,"reason":"one sentence"}]} '
-    "with exactly one result per input id. matched_existing is the 1-based number of the closest existing claim, or null for none."
-)
+Neighbors = list[tuple[Claim, float]]
 
 
 def _expect_ids(expected: set[str]):
@@ -47,28 +25,28 @@ def _expect_ids(expected: set[str]):
     return check
 
 
-async def judge_relevance(claims: list[Claim], llm: LLMClient, settings: Settings) -> list[RelevanceJudgment]:
-    """One judge call for every claim. Batch ids are positional so identical submissions reuse the cache."""
+async def judge_relevance(field: FieldName, claims: list[Claim], llm: LLMClient, settings: Settings) -> list[RelevanceJudgment]:
+    """One judge call for all of a field's claims. Positional ids keep identical submissions cacheable."""
     if not claims:
         return []
-    items = [{"id": f"r{i}", "field": claim.field.value, "field_intent": FIELD_INTENTS[claim.field], "claim": claim.text} for i, claim in enumerate(claims)]
+    items = [{"id": f"r{i}", "claim": claim.text} for i, claim in enumerate(claims)]
     data = await llm.complete_json(
+        JUDGE_RELEVANCE,
         model=settings.judge_model,
-        system=RELEVANCE_SYSTEM,
-        prompt=f"Reference product:\n{REFERENCE_PRODUCT_DESCRIPTION}\n\nClaims:\n{json.dumps(items, indent=1)}",
+        variables={"reference": REFERENCE_PRODUCT_DESCRIPTION, "field": field.value, "field_intent": FIELD_INTENTS[field.value], "claims": json.dumps(items, indent=1)},
         response_model=RelevanceBatchResponse,
         check=_expect_ids({item["id"] for item in items}),
-        span_name="llm.judge_relevance",
     )
     by_id = {item.id: item for item in data.results}
     return [by_id[f"r{i}"] for i in range(len(claims))]
 
 
-async def judge_coverage(items: list[tuple[Claim, list[tuple[Claim, float]]]], llm: LLMClient, settings: Settings) -> list[CoverageJudgment]:
-    """One judge call covering every ambiguous claim against its top-k corpus neighbours."""
+async def judge_coverage(field: FieldName, items: list[tuple[Claim, Neighbors]], llm: LLMClient, settings: Settings) -> list[CoverageJudgment]:
+    """One judge call for all of a field's ambiguous claims against their top-k corpus neighbours."""
     if not items:
         return []
-    payload = [{"id": f"e{i}", "candidate": claim.text, "existing": [{"n": n + 1, "text": neighbor.text} for n, (neighbor, _) in enumerate(neighbors)]} for i, (claim, neighbors) in enumerate(items)]
+    # Corpus text before the user's candidate, so user text comes last in the prompt.
+    payload = [{"id": f"e{i}", "existing": [{"n": n + 1, "text": neighbor.text} for n, (neighbor, _) in enumerate(neighbors)], "candidate": claim.text} for i, (claim, neighbors) in enumerate(items)]
 
     def check(data: CoverageBatchResponse) -> None:
         _expect_ids({item["id"] for item in payload})(data)
@@ -78,12 +56,11 @@ async def judge_coverage(items: list[tuple[Claim, list[tuple[Claim, float]]]], l
                 raise ValueError(f"{result.id}: matched_existing {result.matched_existing} exceeds {limit} existing claims")
 
     data = await llm.complete_json(
+        JUDGE_COVERAGE,
         model=settings.judge_model,
-        system=COVERAGE_SYSTEM,
-        prompt=f"Items:\n{json.dumps(payload, indent=1)}",
+        variables={"field": field.value, "items": json.dumps(payload, indent=1)},
         response_model=CoverageBatchResponse,
         check=check,
-        span_name="llm.judge_coverage",
     )
     by_id = {item.id: item for item in data.results}
     return [by_id[f"e{i}"] for i in range(len(items))]
@@ -91,6 +68,64 @@ async def judge_coverage(items: list[tuple[Claim, list[tuple[Claim, float]]]], l
 
 def _clamp(similarity: float) -> float:
     return max(-1.0, min(1.0, similarity))
+
+
+def _degrade(stage: str, exc: BaseException, attrs: dict[str, Any]) -> None:
+    reason = f"{stage}:{type(exc).__name__}"
+    attrs.update(degraded=True, degraded_reason=reason)
+    if (trace := current_trace.get()) is not None:
+        trace.degrade(reason)
+
+
+async def _judge_field(field: FieldName, indices: list[int], claims: list[Claim], vectors: np.ndarray, neighbor_lists: list[Neighbors], ambiguous: set[int], index: CorpusIndex, llm: LLMClient, settings: Settings) -> tuple[dict[int, tuple[float, str]], dict[int, CoverageJudgment | None]]:
+    """Relevance and coverage for one field, run concurrently. On LLM failure, fall back to
+    embedding-only judgments for this field: relevance = similarity to the reference text
+    passes a threshold; ambiguous-band coverage = partial."""
+    field_claims = [claims[i] for i in indices]
+    field_ambiguous = [i for i in indices if i in ambiguous]
+    coverage_items = [(claims[i], [(c, s) for c, s in neighbor_lists[i] if s > settings.low_threshold]) for i in field_ambiguous]
+
+    async def relevance() -> dict[int, tuple[float, str]]:
+        with span("relevance", field=field.value, claims=len(field_claims)) as attrs:
+            try:
+                judged = await judge_relevance(field, field_claims, llm, settings)
+                return {i: (item.relevance_score, item.reason) for i, item in zip(indices, judged)}
+            except LLM_UNAVAILABLE as exc:
+                _degrade("relevance", exc, attrs)
+                if index.reference_vector is None:
+                    return {i: (1.0, "Degraded: relevance not judged (no reference embedding).") for i in indices}
+                similarity = vectors[indices] @ index.reference_vector
+                return {i: (1.0 if s >= settings.degraded_relevance_threshold else 0.0, f"Degraded: embedding similarity to the reference text is {s:.2f} (threshold {settings.degraded_relevance_threshold:.2f}).") for i, s in zip(indices, similarity)}
+
+    async def coverage() -> dict[int, CoverageJudgment | None]:
+        if not coverage_items:
+            return {}
+        with span("entail", field=field.value, ambiguous=len(coverage_items), k=settings.entailment_top_k) as attrs:
+            try:
+                judged = await judge_coverage(field, coverage_items, llm, settings)
+                return dict(zip(field_ambiguous, judged))
+            except LLM_UNAVAILABLE as exc:
+                _degrade("entail", exc, attrs)
+                return {i: None for i in field_ambiguous}
+
+    return await asyncio.gather(relevance(), coverage())
+
+
+def _assess(claim: Claim, neighbors: Neighbors, relevance: tuple[float, str], judgment: CoverageJudgment | None, judged_neighbors: Neighbors | None, settings: Settings) -> ClaimAssessment:
+    base: dict[str, Any] = {"claim": claim, "relevance_score": relevance[0], "relevance_reason": relevance[1], "neighbors": [Neighbor(claim=item, similarity=_clamp(sim)) for item, sim in neighbors]}
+    if neighbors:
+        base.update(nearest_claim=neighbors[0][0], nearest_similarity=_clamp(neighbors[0][1]))
+    if not neighbors or neighbors[0][1] <= settings.low_threshold:
+        return ClaimAssessment(**base, novelty_status="novel", novelty_score=1.0)
+    if neighbors[0][1] >= settings.high_threshold:
+        return ClaimAssessment(**base, novelty_status="covered", novelty_score=0.0)
+    if judgment is None:
+        return ClaimAssessment(**base, novelty_status="partial", novelty_score=settings.partial_novelty_credit, entailment_reason="Degraded: ambiguous similarity band was not judged; partial credit applied.")
+    if judgment.matched_existing is not None and judged_neighbors:
+        matched, similarity = judged_neighbors[judgment.matched_existing - 1]
+        base.update(nearest_claim=matched, nearest_similarity=_clamp(similarity))
+    status, novelty = {Coverage.FULL: ("covered", 0.0), Coverage.PARTIAL: ("partial", settings.partial_novelty_credit), Coverage.NONE: ("novel", 1.0)}[judgment.coverage]
+    return ClaimAssessment(**base, novelty_status=status, novelty_score=novelty, entailment_judged=True, entailment_reason=judgment.reason)
 
 
 def _field_scores(assessments: list[ClaimAssessment]) -> list[FieldScore]:
@@ -107,7 +142,7 @@ def _field_scores(assessments: list[ClaimAssessment]) -> list[FieldScore]:
 
 
 async def score_submission(submission: Submission, index: CorpusIndex, llm: LLMClient, *, settings: Settings | None = None, request_id: str | None = None, add_to_corpus: bool = False) -> ScoreResult:
-    """Score a submission against the in-memory corpus index using batched LLM judgments."""
+    """Score a submission against the in-memory corpus index. Uses the active request trace, or opens one."""
     trace = current_trace.get()
     token = None
     if trace is None:
@@ -120,8 +155,14 @@ async def score_submission(submission: Submission, index: CorpusIndex, llm: LLMC
             current_trace.reset(token)
 
 
+def _result(trace: RequestTrace, index: CorpusIndex, **fields: Any) -> ScoreResult:
+    extra = fields.pop("meta_extra", {})
+    reason = "; ".join(trace.degraded_reasons) or None
+    return ScoreResult(**fields, degraded=trace.degraded, degraded_reason=reason, meta=request_meta(trace, index, **extra))
+
+
 async def _score(submission: Submission, index: CorpusIndex, llm: LLMClient, settings: Settings, trace: RequestTrace, add_to_corpus: bool) -> ScoreResult:
-    with span("corpus.duplicate_check", corpus_entries=len(index.entries)):
+    with span("dedupe", corpus_entries=len(index.entries)):
         duplicate = index.find_duplicate(submission)
     if duplicate:
         fields = []
@@ -132,86 +173,71 @@ async def _score(submission: Submission, index: CorpusIndex, llm: LLMClient, set
             assessment = ClaimAssessment(claim=claim, novelty_status="covered", novelty_score=0.0, relevance_score=1.0, relevance_reason="The exact submission already exists in the comparison corpus.", nearest_claim=matching, nearest_similarity=1.0 if matching else None)
             fields.append(FieldScore(field=field, score=0.0, novelty_fraction=0.0, relevance_gate=1.0, claims=[assessment] if raw_text else []))
         populated = [field for field in FieldName if submission.field_text(field).strip()]
-        meta = _request_meta(trace, index, claims_per_field={field.value: int(field in populated) for field in FieldName}, decisions={"covered": len(populated), "partial": 0, "novel": 0, "ambiguous_judged": 0})
-        return ScoreResult(submission_score=0.0, field_scores=fields, scoring_mode=SCORING_MODE, message="This submission matches an existing corpus entry.", meta=meta, add_to_corpus_requested=add_to_corpus)
+        return _result(trace, index, submission_score=0.0, field_scores=fields, scoring_mode=SCORING_MODE, message="This submission matches an existing corpus entry.", add_to_corpus_requested=add_to_corpus,
+                       meta_extra={"claims_per_field": {field.value: int(field in populated) for field in FieldName}, "decisions": {"covered": len(populated), "partial": 0, "novel": 0, "ambiguous_judged": 0}})
 
-    new_claims = await extract_claims(submission, llm)
-    if not new_claims:
-        meta = _request_meta(trace, index, claims_per_field={field.value: 0 for field in FieldName}, decisions={"covered": 0, "partial": 0, "novel": 0, "ambiguous_judged": 0})
-        return ScoreResult(submission_score=0.0, field_scores=[FieldScore(field=field, score=0.0, novelty_fraction=0.0, relevance_gate=0.0) for field in FieldName], scoring_mode=SCORING_MODE, reason="no extractable claims", message="No product claims could be extracted from the submission.", meta=meta, add_to_corpus_requested=add_to_corpus)
+    claims = await extract_claims(submission, llm, settings)
+    if not claims:
+        return _result(trace, index, submission_score=0.0, field_scores=[FieldScore(field=field, score=0.0, novelty_fraction=0.0, relevance_gate=0.0) for field in FieldName], scoring_mode=SCORING_MODE, reason="no extractable claims", message="No product claims could be extracted from the submission.", add_to_corpus_requested=add_to_corpus,
+                       meta_extra={"claims_per_field": {field.value: 0 for field in FieldName}, "decisions": {"covered": 0, "partial": 0, "novel": 0, "ambiguous_judged": 0}})
 
-    with span("embed.claims", claims=len(new_claims)):
-        vectors = await asyncio.to_thread(index.embedder, [claim.text for claim in new_claims])
-    k = settings.entailment_top_k
-    with span("retrieval.knn", k=k, corpus_claims=index.claim_count):
-        neighbor_lists = [index.neighbors(claim.field, vectors[i], k) for i, claim in enumerate(new_claims)]
-    ambiguous: list[int] = []
-    for i, neighbors in enumerate(neighbor_lists):
-        if neighbors and settings.low_threshold < neighbors[0][1] < settings.high_threshold:
-            ambiguous.append(i)
-    coverage_items = [(new_claims[i], [(claim, sim) for claim, sim in neighbor_lists[i] if sim > settings.low_threshold]) for i in ambiguous]
-    with span("judge.batch", claims=len(new_claims), ambiguous=len(ambiguous)):
-        relevance, coverage = await asyncio.gather(judge_relevance(new_claims, llm, settings), judge_coverage(coverage_items, llm, settings))
-    coverage_by_index = dict(zip(ambiguous, coverage))
+    with span("embed", claims=len(claims)):
+        vectors = await index.embed([claim.text for claim in claims])
+    with span("search", k=settings.entailment_top_k, corpus_claims=index.claim_count):
+        neighbor_lists = index.search(vectors, [claim.field for claim in claims], settings.entailment_top_k)
+    ambiguous = {i for i, neighbors in enumerate(neighbor_lists) if neighbors and settings.low_threshold < neighbors[0][1] < settings.high_threshold}
 
-    assessments = []
-    for i, claim in enumerate(new_claims):
-        neighbors = neighbor_lists[i]
-        base: dict[str, Any] = {
-            "claim": claim,
-            "relevance_score": relevance[i].relevance_score,
-            "relevance_reason": relevance[i].reason,
-            "neighbors": [Neighbor(claim=item, similarity=_clamp(sim)) for item, sim in neighbors],
-        }
-        if neighbors:
-            base.update(nearest_claim=neighbors[0][0], nearest_similarity=_clamp(neighbors[0][1]))
-        if not neighbors or neighbors[0][1] <= settings.low_threshold:
-            assessments.append(ClaimAssessment(**base, novelty_status="novel", novelty_score=1.0))
-        elif neighbors[0][1] >= settings.high_threshold:
-            assessments.append(ClaimAssessment(**base, novelty_status="covered", novelty_score=0.0))
-        else:
-            judgment = coverage_by_index[i]
-            judged_neighbors = coverage_items[ambiguous.index(i)][1]
-            if judgment.matched_existing is not None:
-                matched, similarity = judged_neighbors[judgment.matched_existing - 1]
-                base.update(nearest_claim=matched, nearest_similarity=_clamp(similarity))
-            status, novelty = {Coverage.FULL: ("covered", 0.0), Coverage.PARTIAL: ("partial", settings.partial_novelty_credit), Coverage.NONE: ("novel", 1.0)}[judgment.coverage]
-            assessments.append(ClaimAssessment(**base, novelty_status=status, novelty_score=novelty, entailment_judged=True, entailment_reason=judgment.reason))
+    fields_present = [field for field in FieldName if any(claim.field == field for claim in claims)]
+    judged = await asyncio.gather(*(_judge_field(field, [i for i, claim in enumerate(claims) if claim.field == field], claims, vectors, neighbor_lists, ambiguous, index, llm, settings) for field in fields_present))
+    relevance: dict[int, tuple[float, str]] = {}
+    coverage: dict[int, CoverageJudgment | None] = {}
+    for field_relevance, field_coverage in judged:
+        relevance.update(field_relevance)
+        coverage.update(field_coverage)
 
-    fields = _field_scores(assessments)
-    active_fields = [item.score for item in fields if item.claims]
-    submission_score = sum(active_fields) / len(active_fields)
+    with span("aggregate", claims=len(claims)) as attrs:
+        assessments = [_assess(claim, neighbor_lists[i], relevance[i], coverage.get(i), [(c, s) for c, s in neighbor_lists[i] if s > settings.low_threshold] if i in ambiguous else None, settings) for i, claim in enumerate(claims)]
+        fields = _field_scores(assessments)
+        active_fields = [item.score for item in fields if item.claims]
+        submission_score = sum(active_fields) / len(active_fields)
+        attrs["submission_score"] = round(submission_score, 4)
+
     added_to_corpus = False
-    if add_to_corpus and submission_score >= settings.corpus_acceptance_threshold:
+    # Degraded judgments are provisional; never let them change the comparison baseline.
+    if add_to_corpus and not trace.degraded and submission_score >= settings.corpus_acceptance_threshold:
         entry_id = str(uuid.uuid4())
-        stored_claims = [claim.model_copy(update={"source_submission_id": entry_id}) for claim in new_claims]
-        with span("corpus.append"):
+        stored_claims = [claim.model_copy(update={"source_submission_id": entry_id}) for claim in claims]
+        with span("corpus_append"):
             await index.add(CorpusEntry(id=entry_id, submission=submission, claims=stored_claims))
         added_to_corpus = True
-    meta = _request_meta(
-        trace, index,
-        claims_per_field={field.value: sum(1 for claim in new_claims if claim.field == field) for field in FieldName},
-        decisions={status: sum(1 for item in assessments if item.novelty_status == status) for status in ("covered", "partial", "novel")} | {"ambiguous_judged": len(ambiguous)},
-        corpus_update="added" if added_to_corpus else "not_added",
+
+    message = "Each claim's novelty is multiplied by its relevance, so off-topic claims stay low-scoring."
+    if trace.degraded:
+        message = "Scored in degraded mode (embedding similarity only, no LLM judge); treat this score as provisional."
+    return _result(
+        trace, index, submission_score=submission_score, field_scores=fields, scoring_mode=SCORING_MODE, message=message, add_to_corpus_requested=add_to_corpus, added_to_corpus=added_to_corpus,
+        meta_extra={
+            "claims_per_field": {field.value: sum(1 for claim in claims if claim.field == field) for field in FieldName},
+            "decisions": {status: sum(1 for item in assessments if item.novelty_status == status) for status in ("covered", "partial", "novel")} | {"ambiguous_judged": sum(1 for item in assessments if item.entailment_judged)},
+            "corpus_update": "added" if added_to_corpus else "not_added",
+        },
     )
-    return ScoreResult(submission_score=submission_score, field_scores=fields, scoring_mode=SCORING_MODE, message="Each claim's novelty is multiplied by its relevance, so off-topic claims stay low-scoring.", meta=meta, add_to_corpus_requested=add_to_corpus, added_to_corpus=added_to_corpus)
 
 
-STAGES = {"claim_extraction": "llm.extract_claims", "embeddings": "embed.claims", "retrieval": "retrieval.knn", "judging": "judge.batch", "corpus_append": "corpus.append"}
-
-
-def _request_meta(trace: RequestTrace, index: CorpusIndex, **extra: Any) -> dict[str, Any]:
-    spans = trace.sorted_spans()
-    durations = {name: sum(item["duration_ms"] for item in spans if item["name"] == span_name) / 1000 for name, span_name in STAGES.items()}
+def request_meta(trace: RequestTrace, index: CorpusIndex, **extra: Any) -> dict[str, Any]:
+    totals = trace.totals
     return {
-        "request_id": trace.request_id,
-        "stage_latency_seconds": {**durations, "total": trace.elapsed_seconds()},
-        "llm_calls": int(trace.usage["calls"]),
-        "llm_cache_hits": int(trace.usage["cache_hits"]),
-        "prompt_tokens": int(trace.usage["prompt_tokens"]),
-        "completion_tokens": int(trace.usage["completion_tokens"]),
-        "estimated_cost_usd": trace.usage["estimated_cost_usd"],
+        "trace_id": trace.trace_id,
+        "total_latency_ms": round(trace.elapsed_ms(), 2),
+        "total_cost": round(totals.cost_usd, 8),
+        "llm_calls": totals.llm_calls,
+        "cache_hits": totals.cache_hits,
+        "prompt_tokens": totals.prompt_tokens,
+        "completion_tokens": totals.completion_tokens,
+        "cached_tokens": totals.cached_tokens,
+        "degraded": trace.degraded,
+        "degraded_reason": "; ".join(trace.degraded_reasons) or None,
         "corpus_entries": len(index.entries),
-        "trace": spans,
+        "spans": trace.span_dicts(),
         **extra,
     }

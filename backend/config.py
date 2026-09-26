@@ -3,6 +3,11 @@ from pathlib import Path
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+
+def _split(value: str) -> list[str]:
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     openrouter_api_key: SecretStr | None = Field(default=None, repr=False)
@@ -10,12 +15,15 @@ class Settings(BaseSettings):
     frontend_origin: str = "http://localhost:3000"
     fast_model: str = "google/gemini-2.5-flash-lite"
     judge_model: str = "google/gemini-2.5-flash"
+    # Comma-separated; sent to OpenRouter as extra_body.models so it fails over server-side.
+    fast_model_fallbacks: str = ""
+    judge_model_fallbacks: str = ""
     high_threshold: float = 0.75
     low_threshold: float = 0.35
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     cache_dir: Path = Path("backend/.cache")
     corpus_path: Path = Path("backend/corpus.json")
-    fallback_model: str | None = None
+    trace_log_path: Path | None = Path("logs/traces.jsonl")
     llm_timeout_seconds: float = 45.0
     max_field_length: int = 4000
     corpus_acceptance_threshold: float = 0.60
@@ -26,10 +34,24 @@ class Settings(BaseSettings):
     entailment_top_k: int = Field(default=3, ge=1, le=10)
     partial_novelty_credit: float = Field(default=0.5, ge=0, le=1)
     llm_max_concurrency: int = Field(default=8, ge=1)
+    llm_max_attempts: int = Field(default=3, ge=1)
+    llm_max_retry_after_seconds: float = Field(default=20.0, ge=0)
     max_inflight_requests: int = Field(default=32, ge=1)
-    breaker_failure_threshold: int = Field(default=5, ge=1)
+    breaker_failure_threshold: int = Field(default=3, ge=1)
     breaker_cooldown_seconds: float = Field(default=30.0, gt=0)
+    # Lifetime upstream spend cap for this process; once reached, scoring degrades to embedding-only.
+    llm_budget_usd: float | None = Field(default=None, ge=0)
+    # Degraded mode only: a claim counts as relevant when its cosine similarity to the reference text reaches this.
+    # On the eval set, relevant claims average 0.19 and off-topic/gibberish 0.04; 0.10 keeps ~80% / rejects ~80%.
+    degraded_relevance_threshold: float = Field(default=0.10, ge=-1, le=1)
+    cache_enabled: bool = True
+    llm_memory_cache_size: int = Field(default=1024, ge=0)
     embedding_cache_size: int = Field(default=4096, ge=0)
+
+    def fallbacks_for(self, model: str) -> list[str]:
+        raw = self.fast_model_fallbacks if model == self.fast_model else self.judge_model_fallbacks if model == self.judge_model else ""
+        return [item for item in _split(raw) if item != model]
+
 
 @lru_cache
 def get_settings() -> Settings:

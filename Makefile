@@ -20,9 +20,9 @@ eval:
 smoke:
 	.venv/bin/python -m scripts.smoke_live
 
-# Requires a running API (make dev). Cached fixtures by default: no model spend after the first pass.
+# Starts its own servers (cold: caches off, warm: primed). Paid; capped at $0.50. Writes reports/load.md.
 load:
-	.venv/bin/python -m scripts.load_test --url http://localhost:$(BACKEND_PORT)
+	.venv/bin/python -m scripts.load_test
 
 dev:
 	FRONTEND_ORIGIN=http://localhost:$(FRONTEND_PORT) .venv/bin/uvicorn backend.main:app --reload --port $(BACKEND_PORT) & backend_pid=$$!; FRONTEND_ORIGIN=http://localhost:$(FRONTEND_PORT) NEXT_PUBLIC_API_URL=http://localhost:$(BACKEND_PORT) npm --prefix frontend run dev -- --port $(FRONTEND_PORT) & frontend_pid=$$!; trap 'kill $$backend_pid $$frontend_pid 2>/dev/null || true' EXIT INT TERM; wait $$frontend_pid

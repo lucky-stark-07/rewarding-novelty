@@ -4,64 +4,114 @@
       "category": "novel_relevant",
       "claim_decisions": [
         {
-          "claim": "A version comparison marks which customer-feedback themes were added or removed between quarterly roadmap reviews.",
+          "claim": "A version comparison marks which customer-feedback themes were added between quarterly roadmap reviews.",
           "entailment_judged": true,
-          "entailment_reason": "The existing claims discuss linking feedback to roadmap items generally, but none specifically mention comparing versions or tracking themes added or removed between roadmap reviews.",
+          "entailment_reason": "Existing claims discuss linking feedback to roadmap items, but none mention version comparison or tracking changes in feedback themes between reviews.",
           "field": "what_you_like",
           "nearest_claim": "Links customer feedback directly to roadmap items.",
           "neighbors": [
             {
-              "similarity": 0.5800052881240845,
+              "similarity": 0.6206281185150146,
               "text": "Links customer feedback directly to roadmap items."
             },
             {
-              "similarity": 0.5205827355384827,
+              "similarity": 0.5573962330818176,
               "text": "Connects customer feedback directly to roadmap items."
             },
             {
-              "similarity": 0.4594060182571411,
-              "text": "Centralizes ideation, feedback, roadmaps, and release notes."
+              "similarity": 0.4774739146232605,
+              "text": "Centralizes feedback and links it to roadmap planning."
             }
           ],
           "relevance": 1.0,
           "relevance_reason": "The claim describes a specific positive capability of the product related to customer feedback and roadmap reviews, which aligns perfectly with the product's purpose and the field intent.",
-          "similarity": 0.5800052881240845,
+          "similarity": 0.6206281185150146,
           "status": "novel"
         },
         {
-          "claim": "We cannot set separate visibility rules for customer quotations and internal roadmap notes.",
+          "claim": "A version comparison marks which customer-feedback themes were removed between quarterly roadmap reviews.",
+          "entailment_judged": true,
+          "entailment_reason": "Existing claims discuss linking feedback to roadmap items, but none mention version comparison or tracking changes in feedback themes between reviews, specifically removals.",
+          "field": "what_you_like",
+          "nearest_claim": "Links customer feedback directly to roadmap items.",
+          "neighbors": [
+            {
+              "similarity": 0.5584809184074402,
+              "text": "Links customer feedback directly to roadmap items."
+            },
+            {
+              "similarity": 0.49123379588127136,
+              "text": "Connects customer feedback directly to roadmap items."
+            },
+            {
+              "similarity": 0.4237351417541504,
+              "text": "Centralizes feedback and links it to roadmap planning."
+            }
+          ],
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific positive capability of the product related to customer feedback and roadmap reviews, which aligns perfectly with the product's purpose and the field intent.",
+          "similarity": 0.5584809184074402,
+          "status": "novel"
+        },
+        {
+          "claim": "Cannot set separate visibility rules for customer quotations.",
           "entailment_judged": false,
           "entailment_reason": null,
           "field": "what_you_dislike",
           "nearest_claim": "Dashboard customization options are limited.",
           "neighbors": [
             {
-              "similarity": 0.3483555316925049,
+              "similarity": 0.2611432373523712,
               "text": "Dashboard customization options are limited."
             },
             {
-              "similarity": 0.3202953040599823,
+              "similarity": 0.20508386194705963,
+              "text": "Feedback form customization options are limited."
+            },
+            {
+              "similarity": 0.20508386194705963,
+              "text": "Feedback form customization options are limited."
+            }
+          ],
+          "relevance": 0.25,
+          "relevance_reason": "The claim discusses customer quotations, which are not directly related to the product's core functions of project planning, feedback, roadmaps, and release notes, making it tangential.",
+          "similarity": 0.2611432373523712,
+          "status": "novel"
+        },
+        {
+          "claim": "Cannot set separate visibility rules for internal roadmap notes.",
+          "entailment_judged": true,
+          "entailment_reason": "The candidate claim is about visibility rules for internal notes, which is a specific feature request, while the existing claim is a general statement about the robustness of version control for roadmap changes.",
+          "field": "what_you_dislike",
+          "nearest_claim": "Version control for roadmap changes is not robust.",
+          "neighbors": [
+            {
+              "similarity": 0.4178094267845154,
               "text": "Version control for roadmap changes is not robust."
             },
             {
-              "similarity": 0.2918432354927063,
-              "text": "Mobile app functionality is limited for editing and viewing details."
+              "similarity": 0.3275853991508484,
+              "text": "Dashboard customization options are limited."
+            },
+            {
+              "similarity": 0.2913033068180084,
+              "text": "Struggles with rendering complex roadmap visualizations."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim identifies a specific limitation regarding visibility rules for customer quotations and internal roadmap notes, directly addressing a missing capability within the product's domain and fitting the field intent.",
-          "similarity": 0.3483555316925049,
+          "relevance_reason": "The claim directly addresses a limitation regarding visibility rules for internal roadmap notes, which is a core feature of the product and fits the field intent perfectly.",
+          "similarity": 0.4178094267845154,
           "status": "novel"
         },
         {
           "claim": "It helps support teams see whether the release addressing their escalations has actually shipped.",
           "entailment_judged": true,
-          "entailment_reason": "The existing claims discuss tracking campaign goals, reducing miscommunication, and improving release communication efficiency, but none specifically address support teams tracking whether a release addressing their escalations has shipped.",
+          "entailment_reason": "The candidate claim focuses on support teams verifying release shipments for escalations, which is not covered by existing claims about tracking campaign goals, reducing miscommunication, or improving release process communication efficiency.",
           "field": "problem_solved",
           "nearest_claim": "Enabled tracking of campaign goals in relation to product releases.",
           "neighbors": [
             {
-              "similarity": 0.47836923599243164,
+              "similarity": 0.47836926579475403,
               "text": "Enabled tracking of campaign goals in relation to product releases."
             },
             {
@@ -74,19 +124,19 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete problem the product solves for support teams regarding release tracking, which is a direct outcome and benefit of using a product collaboration platform and aligns with the field intent.",
-          "similarity": 0.47836923599243164,
+          "relevance_reason": "The claim describes a specific problem (tracking release status for escalations) that the product, as a collaboration platform for product teams, would plausibly solve by centralizing release notes and communication.",
+          "similarity": 0.47836926579475403,
           "status": "novel"
         }
       ],
       "field_scores": {
         "problem_solved": 1.0,
-        "what_you_dislike": 1.0,
+        "what_you_dislike": 0.625,
         "what_you_like": 1.0
       },
       "id": "nr1",
       "origin": "handwritten",
-      "score": 1.0,
+      "score": 0.875,
       "submission": {
         "problem_solved": "It helps support teams see whether the release addressing their escalations has actually shipped.",
         "what_you_dislike": "We cannot set separate visibility rules for customer quotations and internal roadmap notes.",
@@ -99,7 +149,7 @@
         {
           "claim": "It notices when one parent company submits the same feature request through several linked customer accounts.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claims discuss tracking requests and aggregating feedback, but none specifically mention identifying duplicate feature requests from a single parent company across multiple linked accounts.",
+          "entailment_reason": "The candidate describes a specific, advanced feature for identifying duplicate requests from linked accounts, which is not covered by general statements about tracking or aggregating requests.",
           "field": "what_you_like",
           "nearest_claim": "Enables easy tracking of customer requests.",
           "neighbors": [
@@ -108,7 +158,7 @@
               "text": "Enables easy tracking of customer requests."
             },
             {
-              "similarity": 0.42636749148368835,
+              "similarity": 0.42636746168136597,
               "text": "Effectively tracks user needs and feature requests."
             },
             {
@@ -117,19 +167,19 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to handling customer feedback, which aligns with the product's function of centralizing customer feedback and the field intent.",
+          "relevance_reason": "The claim describes a specific positive capability of the product related to handling customer feedback, which aligns with the product's purpose of centralizing customer feedback and the field's intent for concrete positive capabilities.",
           "similarity": 0.46581554412841797,
           "status": "novel"
         },
         {
           "claim": "The tool cannot model how a priority changes when one large customer's votes are excluded.",
           "entailment_judged": true,
-          "entailment_reason": "The existing claim discusses version control for roadmap changes, which is unrelated to modeling priority changes when excluding specific customer votes.",
+          "entailment_reason": "The existing claim is about version control for roadmap changes, while the candidate claim is about the tool's inability to model priority changes based on customer votes, which are distinct issues.",
           "field": "what_you_dislike",
           "nearest_claim": "Version control for roadmap changes is not robust.",
           "neighbors": [
             {
-              "similarity": 0.3785989284515381,
+              "similarity": 0.3785989582538605,
               "text": "Version control for roadmap changes is not robust."
             },
             {
@@ -137,49 +187,74 @@
               "text": "Integrated task management features are not robust enough for development teams."
             },
             {
-              "similarity": 0.29349812865257263,
+              "similarity": 0.29349809885025024,
               "text": "The analytics dashboard lacks depth for trend analysis."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific limitation of the product related to modeling priority changes based on customer input, which aligns with the product's function of centralizing customer feedback and roadmaps and the field intent.",
-          "similarity": 0.3785989284515381,
+          "relevance_reason": "This claim describes a specific limitation related to how the product handles customer feedback and prioritization, which directly aligns with the product's stated capabilities and the field's intent.",
+          "similarity": 0.3785989582538605,
           "status": "novel"
         },
         {
-          "claim": "It exposes when a highly ranked request comes from one customer rather than broad user demand.",
+          "claim": "It exposes when a highly ranked request comes from one customer.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 1 states the tool helps prioritize features based on user demand, and the candidate adds a specific mechanism for how it does this by exposing when a highly ranked request comes from a single customer versus broad demand.",
+          "entailment_reason": "Existing claims discuss prioritizing features, linking customer needs to roadmap, and influencing marketing, but none specifically address identifying when a highly ranked request originates from a single customer.",
           "field": "problem_solved",
           "nearest_claim": "Made it easier to prioritize features based on user demand.",
           "neighbors": [
             {
-              "similarity": 0.49697938561439514,
+              "similarity": 0.4383809566497803,
               "text": "Made it easier to prioritize features based on user demand."
             },
             {
-              "similarity": 0.4229366183280945,
-              "text": "Influenced marketing strategy by providing direct customer insights."
+              "similarity": 0.4314567744731903,
+              "text": "Linked customer needs directly to strategic roadmap items."
             },
             {
-              "similarity": 0.40448442101478577,
-              "text": "Linked customer needs directly to strategic roadmap items."
+              "similarity": 0.42852914333343506,
+              "text": "Influenced marketing strategy by providing direct customer insights."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific problem the product solves related to understanding the source of highly ranked requests, which aligns with the product's function of centralizing customer feedback and roadmaps and the field intent.",
-          "similarity": 0.49697938561439514,
+          "relevance_reason": "This claim describes a specific problem the product solves related to understanding customer feedback and prioritizing requests, which aligns with the 'customer feedback' and 'project planning' aspects of the product.",
+          "similarity": 0.4383809566497803,
+          "status": "novel"
+        },
+        {
+          "claim": "It exposes when a highly ranked request does not come from broad user demand.",
+          "entailment_judged": true,
+          "entailment_reason": "Existing claim 1 states the product makes it easier to prioritize features based on user demand, and the candidate adds the specific detail of exposing when a highly ranked request does not come from broad user demand, which is a concrete condition related to user demand.",
+          "field": "problem_solved",
+          "nearest_claim": "Made it easier to prioritize features based on user demand.",
+          "neighbors": [
+            {
+              "similarity": 0.44665613770484924,
+              "text": "Made it easier to prioritize features based on user demand."
+            },
+            {
+              "similarity": 0.3596152067184448,
+              "text": "Prevents scope creep by clearly defining priorities."
+            },
+            {
+              "similarity": 0.340370237827301,
+              "text": "Enables tailoring features to specific user segments."
+            }
+          ],
+          "relevance": 1.0,
+          "relevance_reason": "This claim describes a specific problem the product solves related to understanding the breadth of user demand for a request, which aligns with the 'customer feedback' and 'project planning' aspects of the product.",
+          "similarity": 0.44665613770484924,
           "status": "partial"
         }
       ],
       "field_scores": {
-        "problem_solved": 0.5,
+        "problem_solved": 0.75,
         "what_you_dislike": 1.0,
         "what_you_like": 1.0
       },
       "id": "nr2",
       "origin": "handwritten",
-      "score": 0.8333333333333334,
+      "score": 0.9166666666666666,
       "submission": {
         "problem_solved": "It exposes when a highly ranked request comes from one customer rather than broad user demand.",
         "what_you_dislike": "The tool cannot model how a priority changes when one large customer's votes are excluded.",
@@ -192,16 +267,16 @@
         {
           "claim": "A change record links each roadmap priority shift to the new customer interviews that caused it.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claims cover linking customer feedback to roadmap items, but the candidate adds the specific detail of linking priority shifts to new customer interviews via a change record.",
+          "entailment_reason": "The existing claims discuss linking customer feedback to roadmap items generally, but the candidate specifies linking a 'roadmap priority shift' to 'new customer interviews' via a 'change record', which is a more specific and detailed process not covered by the broader existing claims.",
           "field": "what_you_like",
           "nearest_claim": "Links customer feedback directly to roadmap items.",
           "neighbors": [
             {
-              "similarity": 0.44100669026374817,
+              "similarity": 0.44100672006607056,
               "text": "Links customer feedback directly to roadmap items."
             },
             {
-              "similarity": 0.4407670795917511,
+              "similarity": 0.44076699018478394,
               "text": "Connects customer feedback directly to roadmap items."
             },
             {
@@ -210,69 +285,144 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to tracking changes in roadmap priorities and linking them to customer feedback, which aligns perfectly with the product's purpose of centralizing project planning and customer feedback.",
-          "similarity": 0.44100669026374817,
-          "status": "partial"
+          "relevance_reason": "The claim describes a specific positive capability of the product related to linking roadmap changes to customer feedback, which aligns perfectly with the product's purpose and the field intent.",
+          "similarity": 0.44100672006607056,
+          "status": "novel"
         },
         {
-          "claim": "Feedback with missing account, segment, or collection-date details is not flagged for review.",
+          "claim": "Feedback with missing account details is not flagged for review.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claims discuss general feedback reporting enhancement or form customization limitations, but none specifically address the flagging of feedback based on missing account, segment, or collection-date details.",
+          "entailment_reason": "Existing claims discuss general reporting enhancement and form customization, neither of which covers the specific issue of unflagged feedback with missing account details.",
           "field": "what_you_dislike",
           "nearest_claim": "Feedback reporting detail could be enhanced.",
           "neighbors": [
             {
-              "similarity": 0.3938065469264984,
+              "similarity": 0.3947398066520691,
               "text": "Feedback reporting detail could be enhanced."
             },
             {
-              "similarity": 0.3534415364265442,
+              "similarity": 0.3762795627117157,
               "text": "Feedback form customization options are limited."
             },
             {
-              "similarity": 0.3534415364265442,
+              "similarity": 0.3762795627117157,
               "text": "Feedback form customization options are limited."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific limitation or missing capability related to customer feedback, which is a core function of the product as a cloud collaboration platform for product teams that centralizes customer feedback.",
-          "similarity": 0.3938065469264984,
+          "relevance_reason": "The claim describes a specific missing capability related to customer feedback, which is a core function of the product.",
+          "similarity": 0.3947398066520691,
           "status": "novel"
         },
         {
-          "claim": "It helps remove stale requests from priority reviews when the last customer confirmation is old.",
+          "claim": "Feedback with missing segment details is not flagged for review.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claims discuss general prioritization improvements or time savings, but none specifically mention removing stale requests based on the age of customer confirmation.",
+          "entailment_reason": "Existing claims discuss general reporting enhancement and form customization, neither of which covers the specific issue of unflagged feedback with missing segment details.",
+          "field": "what_you_dislike",
+          "nearest_claim": "Feedback reporting detail could be enhanced.",
+          "neighbors": [
+            {
+              "similarity": 0.4122518301010132,
+              "text": "Feedback reporting detail could be enhanced."
+            },
+            {
+              "similarity": 0.37567389011383057,
+              "text": "Feedback form customization options are limited."
+            },
+            {
+              "similarity": 0.37567389011383057,
+              "text": "Feedback form customization options are limited."
+            }
+          ],
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific missing capability related to customer feedback, which is a core function of the product.",
+          "similarity": 0.4122518301010132,
+          "status": "novel"
+        },
+        {
+          "claim": "Feedback with missing collection-date details is not flagged for review.",
+          "entailment_judged": true,
+          "entailment_reason": "The existing claim is about general feedback reporting detail enhancement, which does not cover the specific issue of unflagged feedback with missing collection-date details.",
+          "field": "what_you_dislike",
+          "nearest_claim": "Feedback reporting detail could be enhanced.",
+          "neighbors": [
+            {
+              "similarity": 0.3695909380912781,
+              "text": "Feedback reporting detail could be enhanced."
+            },
+            {
+              "similarity": 0.3443380296230316,
+              "text": "Feedback form customization options are limited."
+            },
+            {
+              "similarity": 0.3443380296230316,
+              "text": "Feedback form customization options are limited."
+            }
+          ],
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific missing capability related to customer feedback, which is a core function of the product.",
+          "similarity": 0.3695909380912781,
+          "status": "novel"
+        },
+        {
+          "claim": "It helps remove stale requests from priority reviews.",
+          "entailment_judged": true,
+          "entailment_reason": "Existing claims focus on prioritizing features, preventing scope creep, and saving time on feedback aggregation, none of which directly address the removal of stale requests from priority reviews.",
           "field": "problem_solved",
           "nearest_claim": "Made it easier to prioritize features based on user demand.",
           "neighbors": [
             {
-              "similarity": 0.5036120414733887,
+              "similarity": 0.5028818845748901,
               "text": "Made it easier to prioritize features based on user demand."
             },
             {
-              "similarity": 0.4468868672847748,
-              "text": "Brought clarity to the product prioritization process."
+              "similarity": 0.45964938402175903,
+              "text": "Prevents scope creep by clearly defining priorities."
             },
             {
-              "similarity": 0.4015519917011261,
+              "similarity": 0.4502934515476227,
               "text": "Saved time by reducing manual feedback aggregation."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific problem the product solves related to managing and prioritizing customer requests, which directly aligns with the product's purpose of centralizing customer feedback and helping teams align on priorities.",
-          "similarity": 0.5036120414733887,
+          "relevance_reason": "The claim describes a specific problem (stale requests in priority reviews) that the product, as a collaboration platform for product teams, could plausibly solve by helping manage and prioritize tasks.",
+          "similarity": 0.5028818845748901,
           "status": "novel"
+        },
+        {
+          "claim": "It removes stale requests when the last customer confirmation is old.",
+          "entailment_judged": true,
+          "entailment_reason": "The candidate claim specifies a mechanism (last customer confirmation is old) for removing stale requests, which contributes to ensuring the product evolves based on user demand, as mentioned in existing claim 1.",
+          "field": "problem_solved",
+          "nearest_claim": "Ensured the product evolves based on user demand.",
+          "neighbors": [
+            {
+              "similarity": 0.3771893382072449,
+              "text": "Ensured the product evolves based on user demand."
+            },
+            {
+              "similarity": 0.3675229251384735,
+              "text": "Made it easier to prioritize features based on user demand."
+            },
+            {
+              "similarity": 0.32204240560531616,
+              "text": "Helped identify unmet user needs for the product."
+            }
+          ],
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific problem (stale requests based on old customer confirmation) that the product, as a collaboration platform for product teams, could plausibly solve by helping manage and prioritize tasks, especially given its focus on customer feedback.",
+          "similarity": 0.3771893382072449,
+          "status": "partial"
         }
       ],
       "field_scores": {
-        "problem_solved": 1.0,
+        "problem_solved": 0.75,
         "what_you_dislike": 1.0,
-        "what_you_like": 0.5
+        "what_you_like": 1.0
       },
       "id": "nr3",
       "origin": "handwritten",
-      "score": 0.8333333333333334,
+      "score": 0.9166666666666666,
       "submission": {
         "problem_solved": "It helps remove stale requests from priority reviews when the last customer confirmation is old.",
         "what_you_dislike": "Feedback with missing account, segment, or collection-date details is not flagged for review.",
@@ -285,7 +435,7 @@
         {
           "claim": "Release notes can be matched back to the roadmap decision.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 2 mentions centralizing release notes and roadmaps, which implies a connection, but the candidate specifies the ability to 'match back' release notes to roadmap decisions, adding a concrete detail about traceability.",
+          "entailment_reason": "Existing claim 2 mentions centralizing roadmaps and release notes, and the candidate adds the specific detail of matching release notes back to roadmap decisions.",
           "field": "what_you_like",
           "nearest_claim": "Centralizes ideation, feedback, roadmaps, and release notes.",
           "neighbors": [
@@ -294,23 +444,23 @@
               "text": "Simplifies the creation and distribution of release notes."
             },
             {
-              "similarity": 0.6437294483184814,
+              "similarity": 0.643729567527771,
               "text": "Centralizes ideation, feedback, roadmaps, and release notes."
             },
             {
-              "similarity": 0.4922001361846924,
+              "similarity": 0.4922000765800476,
               "text": "Links UX research findings directly to roadmap items."
             }
           ],
           "relevance": 1.0,
           "relevance_reason": "The claim describes a specific positive capability of the product related to release notes and roadmaps, which are core features of the product.",
-          "similarity": 0.6437294483184814,
+          "similarity": 0.643729567527771,
           "status": "partial"
         },
         {
           "claim": "Release notes can be matched back to the original customer problem.",
           "entailment_judged": true,
-          "entailment_reason": "None of the existing claims mention connecting release notes to the original customer problem; they focus on creation, centralization, or internal communication of release notes.",
+          "entailment_reason": "No existing claim mentions linking release notes to customer problems.",
           "field": "what_you_like",
           "nearest_claim": "Simplifies the creation and distribution of release notes.",
           "neighbors": [
@@ -328,69 +478,94 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to release notes and customer feedback, which are core features of the product.",
+          "relevance_reason": "The claim describes a specific positive capability of the product related to release notes and customer problems, which aligns with the product's focus on customer feedback.",
           "similarity": 0.6541681289672852,
           "status": "novel"
         },
         {
-          "claim": "The tool does not measure whether a published release note reaches the customers who requested the feature.",
+          "claim": "The tool does not measure whether a published release note reaches customers who requested the feature.",
           "entailment_judged": false,
           "entailment_reason": null,
           "field": "what_you_dislike",
-          "nearest_claim": "Basic feedback analysis tools require manual data export for deeper insights.",
+          "nearest_claim": "The analytics dashboard lacks depth for trend analysis.",
           "neighbors": [
             {
-              "similarity": 0.3041822016239166,
+              "similarity": 0.2965562343597412,
+              "text": "The analytics dashboard lacks depth for trend analysis."
+            },
+            {
+              "similarity": 0.2964096665382385,
               "text": "Basic feedback analysis tools require manual data export for deeper insights."
             },
             {
-              "similarity": 0.2983006238937378,
-              "text": "Version control for roadmap changes is not robust."
-            },
-            {
-              "similarity": 0.29398441314697266,
-              "text": "The analytics dashboard lacks depth for trend analysis."
+              "similarity": 0.2889193296432495,
+              "text": "Reporting features for non-profits need development."
             }
           ],
-          "relevance": 0.75,
-          "relevance_reason": "The claim describes a missing capability related to release notes and customer communication, which is relevant to the product's domain but not explicitly stated as a core function.",
-          "similarity": 0.3041822016239166,
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a missing capability related to release notes, which is a core feature of the product, and fits the field intent of a concrete limitation or improvement request.",
+          "similarity": 0.2965562343597412,
           "status": "novel"
         },
         {
-          "claim": "It connects product decisions to later customer communication without losing the original context.",
+          "claim": "It connects product decisions to later customer communication.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 2 talks about consistent communication of product plans, which is related to customer communication, but the candidate adds the crucial detail of connecting product decisions to this communication while preserving original context.",
+          "entailment_reason": "The existing claims focus on communication of plans, direction, and changes, while the candidate claim focuses on connecting product decisions to customer communication, which is a different aspect.",
           "field": "problem_solved",
           "nearest_claim": "Enabled consistent communication of product plans.",
           "neighbors": [
             {
-              "similarity": 0.6035767793655396,
-              "text": "Brought clarity to the product prioritization process."
-            },
-            {
-              "similarity": 0.590690553188324,
+              "similarity": 0.6303867101669312,
               "text": "Enabled consistent communication of product plans."
             },
             {
-              "similarity": 0.5799877643585205,
+              "similarity": 0.6163533926010132,
+              "text": "Enhanced strategic communication regarding product direction."
+            },
+            {
+              "similarity": 0.6078290939331055,
               "text": "Facilitated better information dissemination regarding product changes."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete problem solved by the product, connecting product decisions to customer communication and maintaining context, which aligns with the product's purpose of aligning teams and communicating decisions.",
-          "similarity": 0.590690553188324,
-          "status": "partial"
+          "relevance_reason": "The claim describes how the product helps connect product decisions to customer communication, which is a concrete problem it solves for product teams.",
+          "similarity": 0.6303867101669312,
+          "status": "novel"
+        },
+        {
+          "claim": "It preserves the original context of product decisions.",
+          "entailment_judged": true,
+          "entailment_reason": "The existing claims discuss clarity in prioritization, information dissemination, and articulating business cases, none of which directly address preserving the original context of product decisions.",
+          "field": "problem_solved",
+          "nearest_claim": "Brought clarity to the product prioritization process.",
+          "neighbors": [
+            {
+              "similarity": 0.6728576421737671,
+              "text": "Brought clarity to the product prioritization process."
+            },
+            {
+              "similarity": 0.5609170198440552,
+              "text": "Facilitated better information dissemination regarding product changes."
+            },
+            {
+              "similarity": 0.5410416126251221,
+              "text": "Facilitated articulation and defense of the business case for product features."
+            }
+          ],
+          "relevance": 1.0,
+          "relevance_reason": "The claim states that the product preserves the original context of product decisions, which is a specific problem it solves related to communication and alignment.",
+          "similarity": 0.6728576421737671,
+          "status": "novel"
         }
       ],
       "field_scores": {
-        "problem_solved": 0.5,
-        "what_you_dislike": 0.75,
+        "problem_solved": 1.0,
+        "what_you_dislike": 1.0,
         "what_you_like": 0.75
       },
       "id": "nr4",
       "origin": "handwritten",
-      "score": 0.6666666666666666,
+      "score": 0.9166666666666666,
       "submission": {
         "problem_solved": "It connects product decisions to later customer communication without losing the original context.",
         "what_you_dislike": "The tool does not measure whether a published release note reaches the customers who requested the feature.",
@@ -403,51 +578,51 @@
         {
           "claim": "The audit trail records who approved an exception to normal roadmap priority.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claims discuss general roadmap planning and linking feedback/research, but none mention an audit trail for exceptions or approvals to roadmap priority.",
+          "entailment_reason": "The existing claims discuss general roadmap planning and linking feedback/research to it, but do not mention audit trails or tracking approvals for exceptions to roadmap priority.",
           "field": "what_you_like",
           "nearest_claim": "Centralizes feedback and links it to roadmap planning.",
           "neighbors": [
             {
-              "similarity": 0.4273490011692047,
+              "similarity": 0.4273490309715271,
               "text": "Centralizes feedback and links it to roadmap planning."
             },
             {
-              "similarity": 0.39124855399131775,
+              "similarity": 0.3912486135959625,
               "text": "Offers robust roadmap planning capabilities."
             },
             {
-              "similarity": 0.38781607151031494,
+              "similarity": 0.38781604170799255,
               "text": "Links UX research findings directly to roadmap items."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to project planning and roadmaps, which aligns with the product's purpose and the field intent.",
-          "similarity": 0.4273490011692047,
+          "relevance_reason": "This claim describes a specific positive capability of the product's audit trail feature related to roadmap management, which aligns with the product's purpose of centralizing project planning and roadmaps.",
+          "similarity": 0.4273490309715271,
           "status": "novel"
         },
         {
-          "claim": "The audit trail records the evidence for overriding normal roadmap priority.",
+          "claim": "The audit trail records the evidence for overriding an exception to normal roadmap priority.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claims discuss general roadmap planning and linking feedback/research, but none mention an audit trail for evidence related to overriding roadmap priority.",
+          "entailment_reason": "The existing claims discuss general roadmap planning and linking feedback to it, but do not mention audit trails or tracking evidence for overriding exceptions to roadmap priority.",
           "field": "what_you_like",
           "nearest_claim": "Centralizes feedback and links it to roadmap planning.",
           "neighbors": [
             {
-              "similarity": 0.5507705211639404,
+              "similarity": 0.412541925907135,
               "text": "Centralizes feedback and links it to roadmap planning."
             },
             {
-              "similarity": 0.43261080980300903,
+              "similarity": 0.3504561483860016,
               "text": "Offers robust roadmap planning capabilities."
             },
             {
-              "similarity": 0.43050092458724976,
-              "text": "Links UX research findings directly to roadmap items."
+              "similarity": 0.3480060398578644,
+              "text": "Centralizes ideation, feedback, roadmaps, and release notes."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to project planning and roadmaps, which aligns with the product's purpose and the field intent.",
-          "similarity": 0.5507705211639404,
+          "relevance_reason": "This claim describes a specific positive capability of the product's audit trail feature related to roadmap management, which aligns with the product's purpose of centralizing project planning and roadmaps.",
+          "similarity": 0.412541925907135,
           "status": "novel"
         },
         {
@@ -458,27 +633,27 @@
           "nearest_claim": "Feedback reporting detail could be enhanced.",
           "neighbors": [
             {
-              "similarity": 0.2631426453590393,
+              "similarity": 0.2631426751613617,
               "text": "Feedback reporting detail could be enhanced."
             },
             {
-              "similarity": 0.26186925172805786,
+              "similarity": 0.2618692219257355,
               "text": "Feedback form customization options are limited."
             },
             {
-              "similarity": 0.26186925172805786,
+              "similarity": 0.2618692219257355,
               "text": "Feedback form customization options are limited."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific missing capability related to customer feedback, which is a core function of the product and aligns with the field intent.",
-          "similarity": 0.2631426453590393,
+          "relevance_reason": "The claim describes a missing capability related to handling customer feedback, which is a core function of the product, and fits the field intent of a concrete limitation or improvement request.",
+          "similarity": 0.2631426751613617,
           "status": "novel"
         },
         {
           "claim": "It lets product leaders trace a delayed commitment to the change in customer evidence behind it.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claims discuss information dissemination, visibility, and clarity in prioritization, but none specifically mention tracing delayed commitments to changes in customer evidence.",
+          "entailment_reason": "The candidate claim describes tracing a delayed commitment to customer evidence, which is a specific problem-solving aspect not covered by general claims about information dissemination, update visibility, or prioritization clarity.",
           "field": "problem_solved",
           "nearest_claim": "Facilitated better information dissemination regarding product changes.",
           "neighbors": [
@@ -491,12 +666,12 @@
               "text": "Enhanced product update visibility across the company."
             },
             {
-              "similarity": 0.5553260445594788,
+              "similarity": 0.5553261041641235,
               "text": "Brought clarity to the product prioritization process."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific problem the product solves related to tracing commitments and customer evidence, which aligns with the product's purpose of centralizing customer feedback and project planning.",
+          "relevance_reason": "The claim describes a specific problem related to product leadership, delayed commitments, and customer evidence, which directly aligns with the product's purpose of centralizing project planning and customer feedback for product teams.",
           "similarity": 0.5932485461235046,
           "status": "novel"
         }
@@ -789,53 +964,53 @@
       "category": "paraphrase",
       "claim_decisions": [
         {
-          "claim": "Feedback from several channels is gathered in a manageable feed.",
+          "claim": "Feedback from several channels is gathered in a manageable feed",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 1 states the same underlying observation that feedback from multiple sources is consolidated effectively, which is a paraphrase of gathering feedback from several channels in a manageable feed.",
+          "entailment_reason": "The candidate claim is a paraphrase of existing claim 2, stating that feedback from multiple sources is aggregated.",
           "field": "what_you_like",
-          "nearest_claim": "Consolidates feedback from multiple sources effectively.",
+          "nearest_claim": "Aggregates customer feedback from multiple sources.",
           "neighbors": [
             {
-              "similarity": 0.6442590951919556,
+              "similarity": 0.6092249751091003,
               "text": "Consolidates feedback from multiple sources effectively."
             },
             {
-              "similarity": 0.5885429978370667,
-              "text": "Provides a dedicated and organized feedback repository."
+              "similarity": 0.537638783454895,
+              "text": "Aggregates customer feedback from multiple sources."
             },
             {
-              "similarity": 0.5679864287376404,
-              "text": "Aggregates customer feedback from multiple sources."
+              "similarity": 0.4941561818122864,
+              "text": "Provides a dedicated and organized feedback repository."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim directly states a positive capability of the product, gathering feedback from several channels into a manageable feed, which aligns with the product's function of centralizing customer feedback.",
-          "similarity": 0.6442590951919556,
+          "relevance_reason": "The claim describes a specific positive capability of the product related to gathering feedback, which aligns with the product's function of centralizing customer feedback.",
+          "similarity": 0.537638783454895,
           "status": "covered"
         },
         {
-          "claim": "Roadmap visuals help explain the plan.",
+          "claim": "Roadmap visuals help explain the plan",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 3 states the same underlying observation that the roadmap visualization is excellent, which covers the idea that roadmap visuals help explain the plan.",
+          "entailment_reason": "The candidate claim is a paraphrase of existing claim 3, stating that roadmap visuals are helpful for explaining the plan.",
           "field": "what_you_like",
           "nearest_claim": "Provides an excellent roadmap visualization.",
           "neighbors": [
             {
-              "similarity": 0.7155681848526001,
-              "text": "Centralizes feedback and links it to roadmap planning."
-            },
-            {
-              "similarity": 0.6908097267150879,
+              "similarity": 0.707863986492157,
               "text": "Features a fantastic visual roadmap builder."
             },
             {
-              "similarity": 0.6779390573501587,
+              "similarity": 0.7038228511810303,
+              "text": "Centralizes feedback and links it to roadmap planning."
+            },
+            {
+              "similarity": 0.6788952350616455,
               "text": "Provides an excellent roadmap visualization."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a positive feature of the product, roadmap visuals, which directly relates to the product's function of centralizing roadmaps and helping teams align on priorities.",
-          "similarity": 0.6779390573501587,
+          "relevance_reason": "The claim describes a specific positive capability of the product related to roadmap visuals, which aligns with the product's function of centralizing roadmaps.",
+          "similarity": 0.6788952350616455,
           "status": "covered"
         },
         {
@@ -850,25 +1025,25 @@
               "text": "Reporting capabilities are somewhat basic."
             },
             {
-              "similarity": 0.7149912118911743,
+              "similarity": 0.7149911522865295,
               "text": "Reporting flexibility needs improvement for custom reports."
             },
             {
-              "similarity": 0.6188530921936035,
+              "similarity": 0.6188531517982483,
               "text": "Reporting features for non-profits need development."
             }
           ],
           "relevance": 0.75,
-          "relevance_reason": "The claim identifies a limitation of the product regarding custom reports, which is a plausible feature for a collaboration platform, but it is generic and lacks specific detail about how it relates to the product's core functions.",
+          "relevance_reason": "The claim states a limitation of custom reports, which are a plausible feature for a collaboration platform, but it is vague about the specific limitation.",
           "similarity": 0.8021337985992432,
           "status": "covered"
         },
         {
           "claim": "Custom reports are basic for following feature adoption over time.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 2 states the same underlying observation that reporting capabilities are somewhat basic, which covers the idea that custom reports are basic.",
+          "entailment_reason": "Existing claim 1 states that reporting flexibility needs improvement for custom reports, and the candidate adds the specific detail that custom reports are basic for following feature adoption over time.",
           "field": "what_you_dislike",
-          "nearest_claim": "Reporting capabilities are somewhat basic.",
+          "nearest_claim": "Reporting flexibility needs improvement for custom reports.",
           "neighbors": [
             {
               "similarity": 0.6990803480148315,
@@ -884,9 +1059,9 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim specifies a limitation of the product's custom reports in the context of tracking feature adoption, which is a concrete and relevant detail for a product team collaboration platform.",
-          "similarity": 0.6906274557113647,
-          "status": "covered"
+          "relevance_reason": "The claim specifies a concrete limitation of custom reports related to tracking feature adoption, which is a relevant capability for a product team collaboration platform.",
+          "similarity": 0.6990803480148315,
+          "status": "partial"
         },
         {
           "claim": "Bringing feedback together reduced scattered information.",
@@ -896,32 +1071,32 @@
           "nearest_claim": "Reduced scattered information by consolidating feedback.",
           "neighbors": [
             {
-              "similarity": 0.8973966240882874,
+              "similarity": 0.8973965644836426,
               "text": "Reduced scattered information by consolidating feedback."
             },
             {
-              "similarity": 0.5689760446548462,
+              "similarity": 0.5689761638641357,
               "text": "Saved time by reducing manual feedback aggregation."
             },
             {
-              "similarity": 0.48931440711021423,
+              "similarity": 0.48931434750556946,
               "text": "Eliminated fragmented planning by centralizing information."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a problem solved by the product, reducing scattered information by bringing feedback together, which directly aligns with the product's goal of centralizing customer feedback and helping distributed teams align.",
-          "similarity": 0.8973966240882874,
+          "relevance_reason": "The claim describes a specific problem (scattered information) that the product solves by centralizing customer feedback, which is a core feature.",
+          "similarity": 0.8973965644836426,
           "status": "covered"
         },
         {
           "claim": "Sharing the roadmap reduced scattered information.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 1 states the same underlying observation that roadmap confusion was eliminated by centralizing information, which is a paraphrase of sharing the roadmap reducing scattered information.",
+          "entailment_reason": "The candidate claim states the core observation of reducing scattered information, which is present in existing claim 2, and adds the specific mechanism of 'sharing the roadmap'.",
           "field": "problem_solved",
-          "nearest_claim": "Eliminated roadmap confusion by centralizing information.",
+          "nearest_claim": "Reduced scattered information by consolidating feedback.",
           "neighbors": [
             {
-              "similarity": 0.6864949464797974,
+              "similarity": 0.6864948868751526,
               "text": "Eliminated roadmap confusion by centralizing information."
             },
             {
@@ -929,74 +1104,49 @@
               "text": "Reduced scattered information by consolidating feedback."
             },
             {
-              "similarity": 0.6134265661239624,
+              "similarity": 0.6134268045425415,
               "text": "Improved roadmap management by providing structure and visibility."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a problem solved by the product, reducing scattered information by sharing the roadmap, which directly aligns with the product's goal of centralizing roadmaps and helping distributed teams align.",
-          "similarity": 0.6864949464797974,
-          "status": "covered"
+          "relevance_reason": "The claim describes a specific problem (scattered information) that the product solves by sharing roadmaps, which is a core feature.",
+          "similarity": 0.6723918914794922,
+          "status": "partial"
         },
         {
           "claim": "Bringing feedback together improved department alignment.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 2 states the same underlying observation that priority alignment was ensured across different teams and projects, which is a paraphrase of bringing feedback together improving department alignment.",
+          "entailment_reason": "The candidate claim states the core observation of improved alignment, which is present in existing claim 2, and adds the specific mechanism of 'bringing feedback together' and specifies 'department alignment'.",
           "field": "problem_solved",
           "nearest_claim": "Ensured priority alignment across different teams and projects.",
           "neighbors": [
             {
-              "similarity": 0.45417940616607666,
+              "similarity": 0.4541792869567871,
               "text": "Enhanced strategic clarity across the organization."
             },
             {
-              "similarity": 0.44126370549201965,
+              "similarity": 0.4412637948989868,
               "text": "Ensured priority alignment across different teams and projects."
             },
             {
-              "similarity": 0.421921968460083,
+              "similarity": 0.4219220280647278,
               "text": "Provided justification for strategic initiatives based on user input."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a problem solved by the product, improving department alignment by bringing feedback together, which directly aligns with the product's goal of centralizing customer feedback and helping distributed teams align on priorities.",
-          "similarity": 0.44126370549201965,
-          "status": "covered"
-        },
-        {
-          "claim": "Sharing the roadmap improved department alignment.",
-          "entailment_judged": true,
-          "entailment_reason": "Existing claim 1 states the same underlying observation that priority alignment was ensured across different teams and projects, which is a paraphrase of sharing the roadmap improving department alignment.",
-          "field": "problem_solved",
-          "nearest_claim": "Ensured priority alignment across different teams and projects.",
-          "neighbors": [
-            {
-              "similarity": 0.5025599002838135,
-              "text": "Ensured priority alignment across different teams and projects."
-            },
-            {
-              "similarity": 0.4796290397644043,
-              "text": "Improved roadmap management by providing structure and visibility."
-            },
-            {
-              "similarity": 0.4757879376411438,
-              "text": "Eliminated roadmap confusion by centralizing information."
-            }
-          ],
-          "relevance": 1.0,
-          "relevance_reason": "The claim describes a problem solved by the product, improving department alignment by sharing the roadmap, which directly aligns with the product's goal of centralizing roadmaps and helping distributed teams align on priorities.",
-          "similarity": 0.5025599002838135,
-          "status": "covered"
+          "relevance_reason": "The claim describes a specific outcome (improved department alignment) achieved by bringing feedback together, which directly relates to the product's purpose of aligning distributed teams.",
+          "similarity": 0.4412637948989868,
+          "status": "partial"
         }
       ],
       "field_scores": {
-        "problem_solved": 0.0,
-        "what_you_dislike": 0.0,
+        "problem_solved": 0.3333333333333333,
+        "what_you_dislike": 0.25,
         "what_you_like": 0.0
       },
       "id": "pp1",
       "origin": "handwritten",
-      "score": 0.0,
+      "score": 0.19444444444444442,
       "submission": {
         "problem_solved": "Bringing feedback together and sharing the roadmap reduced scattered information and improved department alignment.",
         "what_you_dislike": "Custom reports are basic, especially for following feature adoption over time.",
@@ -1007,139 +1157,114 @@
       "category": "paraphrase",
       "claim_decisions": [
         {
-          "claim": "The platform is the common source for ideation.",
+          "claim": "The platform is the common source for ideation",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 1 states that the platform 'Centralizes ideation', which fully covers the candidate claim that the platform is the common source for ideation.",
+          "entailment_reason": "Existing claim 1 states that the platform centralizes ideation, which is the same core observation as being the common source for ideation.",
           "field": "what_you_like",
           "nearest_claim": "Centralizes ideation, feedback, roadmaps, and release notes.",
           "neighbors": [
             {
-              "similarity": 0.6365258693695068,
+              "similarity": 0.6359017491340637,
               "text": "Centralizes ideation, feedback, roadmaps, and release notes."
             },
             {
-              "similarity": 0.5204753875732422,
+              "similarity": 0.5323944091796875,
               "text": "The platform has a visually appealing interface."
             },
             {
-              "similarity": 0.4275965094566345,
+              "similarity": 0.40960830450057983,
               "text": "Provides a single source of truth for the product roadmap."
             }
           ],
           "relevance": 0.75,
-          "relevance_reason": "The claim is relevant to the product's domain of product teams and collaboration, but 'ideation' is a bit vague and not explicitly mentioned as a core feature like planning or feedback.",
-          "similarity": 0.6365258693695068,
+          "relevance_reason": "The claim describes a positive capability of the product, but 'ideation' is a bit vague compared to the more specific features mentioned in the product description.",
+          "similarity": 0.6359017491340637,
           "status": "covered"
         },
         {
-          "claim": "The platform is the common source for user feedback.",
+          "claim": "The platform is the common source for user feedback",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 1, 'Provides a dedicated and organized feedback repository', fully covers the candidate claim that the platform is the common source for user feedback.",
+          "entailment_reason": "Existing claim 1 mentions a dedicated and organized feedback repository, which covers the core idea of being a source for feedback, but the candidate specifies 'user feedback' which is a concrete detail.",
           "field": "what_you_like",
           "nearest_claim": "Provides a dedicated and organized feedback repository.",
           "neighbors": [
             {
-              "similarity": 0.6889055967330933,
+              "similarity": 0.6813790798187256,
               "text": "Provides a dedicated and organized feedback repository."
             },
             {
-              "similarity": 0.6073181629180908,
+              "similarity": 0.6244316697120667,
               "text": "Excellent for consolidating feedback in consumer software."
             },
             {
-              "similarity": 0.5990688800811768,
+              "similarity": 0.6019870042800903,
               "text": "The platform has a visually appealing interface."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim directly states the product is a common source for user feedback, which is a core capability mentioned in the reference product description.",
-          "similarity": 0.6889055967330933,
-          "status": "covered"
+          "relevance_reason": "The claim directly states a positive capability of the product that aligns with 'customer feedback' being centralized, as mentioned in the product description.",
+          "similarity": 0.6813790798187256,
+          "status": "partial"
         },
         {
-          "claim": "The platform is the common source for product plans.",
+          "claim": "The platform is the common source for product plans",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 2, 'Provides a single source of truth for the product roadmap', fully covers the candidate claim that the platform is the common source for product plans, as product roadmap is a type of product plan.",
+          "entailment_reason": "Existing claim 1 states that the platform unifies the entire product planning process, which is a broader way of saying it's the common source for product plans.",
           "field": "what_you_like",
-          "nearest_claim": "Provides a single source of truth for the product roadmap.",
+          "nearest_claim": "Unifies the entire product planning process.",
           "neighbors": [
             {
-              "similarity": 0.5333589315414429,
+              "similarity": 0.5529552102088928,
               "text": "Unifies the entire product planning process."
             },
             {
-              "similarity": 0.5284869074821472,
-              "text": "Provides a single source of truth for the product roadmap."
+              "similarity": 0.5337234735488892,
+              "text": "Facilitates easy external sharing of product roadmaps."
             },
             {
-              "similarity": 0.5253537893295288,
-              "text": "Facilitates easy external sharing of product roadmaps."
+              "similarity": 0.5315467119216919,
+              "text": "Enhances communication of product strategy."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim directly states the product is a common source for product plans, which aligns with the reference product's function of centralizing project planning.",
-          "similarity": 0.5284869074821472,
+          "relevance_reason": "The claim directly states a positive capability of the product that aligns with 'project planning' and 'roadmaps' being centralized, as mentioned in the product description.",
+          "similarity": 0.5529552102088928,
           "status": "covered"
         },
         {
-          "claim": "As the company hires, the product's price becomes difficult to manage.",
+          "claim": "The product's price becomes difficult to manage as the company hires.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 1 states that 'Pricing can be high for growing companies', which covers the core observation, but the candidate adds the specific mechanism of 'as the company hires' making the price difficult to manage.",
+          "entailment_reason": "The candidate claim specifies that pricing becomes difficult to manage as the company hires, adding a concrete condition to the existing claim that pricing can be high for growing companies.",
           "field": "what_you_dislike",
           "nearest_claim": "Pricing can be high for growing companies.",
           "neighbors": [
             {
-              "similarity": 0.6346862316131592,
+              "similarity": 0.6376243829727173,
               "text": "Pricing can be high for growing companies."
             },
             {
-              "similarity": 0.5616057515144348,
+              "similarity": 0.5670161843299866,
               "text": "Pricing can be a concern for very early-stage startups."
             },
             {
-              "similarity": 0.32489752769470215,
+              "similarity": 0.32806262373924255,
               "text": "Onboarding requires a significant time investment for full configuration."
             }
           ],
-          "relevance": 0.75,
-          "relevance_reason": "The claim discusses the product's pricing model becoming difficult to manage with company growth, which is a relevant limitation or frustration for a product, even if not a functional one.",
-          "similarity": 0.6346862316131592,
-          "status": "partial"
-        },
-        {
-          "claim": "We stopped switching between product tools.",
-          "entailment_judged": true,
-          "entailment_reason": "Existing claim 2, 'Eliminated context switching between disparate tools', fully covers the candidate claim of stopping switching between product tools.",
-          "field": "problem_solved",
-          "nearest_claim": "Eliminated context switching between disparate tools.",
-          "neighbors": [
-            {
-              "similarity": 0.42306432127952576,
-              "text": "Closed the gap between vision and execution in product development."
-            },
-            {
-              "similarity": 0.4043498635292053,
-              "text": "Eliminated context switching between disparate tools."
-            },
-            {
-              "similarity": 0.3912609815597534,
-              "text": "Enabled analysis of trends in user feedback for industrial products."
-            }
-          ],
           "relevance": 1.0,
-          "relevance_reason": "The claim directly addresses a problem solved by the product, which is to avoid switching between many tools, as stated in the reference description.",
-          "similarity": 0.4043498635292053,
-          "status": "covered"
+          "relevance_reason": "The claim describes a concrete limitation related to the product's pricing model as a company scales, which is a valid frustration or improvement request for a collaboration platform.",
+          "similarity": 0.6376243829727173,
+          "status": "partial"
         },
         {
           "claim": "Decisions and information now share one hub.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 2, 'Provided a centralized source for all product-related information', fully covers the candidate claim that decisions and information now share one hub.",
+          "entailment_reason": "The candidate claim is a paraphrase of existing claim 2, both stating that information is now centralized in one place.",
           "field": "problem_solved",
           "nearest_claim": "Provided a centralized source for all product-related information.",
           "neighbors": [
             {
-              "similarity": 0.5300915241241455,
+              "similarity": 0.5300916433334351,
               "text": "Eliminated roadmap confusion by centralizing information."
             },
             {
@@ -1147,24 +1272,49 @@
               "text": "Provided a centralized source for all product-related information."
             },
             {
-              "similarity": 0.4357454180717468,
+              "similarity": 0.4357454776763916,
               "text": "Eliminated fragmented planning by centralizing information."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes the product centralizing decisions and information, which directly aligns with the product's purpose of centralizing various aspects for product teams.",
+          "relevance_reason": "The claim directly states a problem solved by the product, which is centralizing decisions and information, aligning with the product's description of centralizing project planning and communication.",
           "similarity": 0.4372853636741638,
+          "status": "covered"
+        },
+        {
+          "claim": "The product stopped users from switching between product tools.",
+          "entailment_judged": true,
+          "entailment_reason": "The candidate claim is a paraphrase of existing claim 3, both stating that the product eliminated the need for users to switch between different tools.",
+          "field": "problem_solved",
+          "nearest_claim": "Eliminated context switching between disparate tools.",
+          "neighbors": [
+            {
+              "similarity": 0.5174532532691956,
+              "text": "Helped identify unmet user needs for the product."
+            },
+            {
+              "similarity": 0.4164876639842987,
+              "text": "Closed the gap between vision and execution in product development."
+            },
+            {
+              "similarity": 0.4132058620452881,
+              "text": "Eliminated context switching between disparate tools."
+            }
+          ],
+          "relevance": 1.0,
+          "relevance_reason": "The claim directly states a problem solved by the product, which is preventing users from switching between multiple tools, aligning with the product's description of not switching between many tools.",
+          "similarity": 0.4132058620452881,
           "status": "covered"
         }
       ],
       "field_scores": {
         "problem_solved": 0.0,
-        "what_you_dislike": 0.375,
-        "what_you_like": 0.0
+        "what_you_dislike": 0.5,
+        "what_you_like": 0.16666666666666666
       },
       "id": "pp2",
       "origin": "handwritten",
-      "score": 0.125,
+      "score": 0.2222222222222222,
       "submission": {
         "problem_solved": "We stopped switching between product tools because decisions and information now share one hub.",
         "what_you_dislike": "As the company hires, the product's price becomes difficult to manage.",
@@ -1175,68 +1325,68 @@
       "category": "paraphrase",
       "claim_decisions": [
         {
-          "claim": "We can compare incoming feature ideas with company goals.",
+          "claim": "Incoming feature ideas can be compared with company goals.",
           "entailment_judged": true,
-          "entailment_reason": "The existing claim 'Aligns product development with business objectives' fully covers the candidate claim about comparing feature ideas with company goals, as company goals are business objectives and feature ideas are part of product development.",
+          "entailment_reason": "The candidate claim is a specific example of aligning product development with business objectives, which is covered by existing claim 3.",
           "field": "what_you_like",
           "nearest_claim": "Aligns product development with business objectives.",
           "neighbors": [
             {
-              "similarity": 0.5581783056259155,
-              "text": "Effectively tracks user needs and feature requests."
-            },
-            {
-              "similarity": 0.5143240690231323,
-              "text": "Aligns product development with business objectives."
-            },
-            {
-              "similarity": 0.5129171013832092,
+              "similarity": 0.5677491426467896,
               "text": "Offers outstanding executive visibility into product strategy."
+            },
+            {
+              "similarity": 0.5536065101623535,
+              "text": "Enhances communication of product strategy."
+            },
+            {
+              "similarity": 0.5486546158790588,
+              "text": "Aligns product development with business objectives."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to project planning and alignment with company goals, which fits the product's description and the field intent.",
-          "similarity": 0.5143240690231323,
+          "relevance_reason": "The claim describes a specific positive capability of the product related to project planning and alignment, which fits the field intent.",
+          "similarity": 0.5486546158790588,
           "status": "covered"
         },
         {
-          "claim": "We can link customer comments directly to plan items.",
+          "claim": "Customer comments can be linked directly to plan items.",
           "entailment_judged": true,
-          "entailment_reason": "The existing claim 'Links customer feedback directly to roadmap items' is a direct paraphrase of the candidate claim, with 'customer comments' being 'customer feedback' and 'plan items' being 'roadmap items'.",
+          "entailment_reason": "The candidate claim is a paraphrase of existing claim 1, using 'customer comments' for 'customer feedback' and 'plan items' for 'roadmap items'.",
           "field": "what_you_like",
           "nearest_claim": "Links customer feedback directly to roadmap items.",
           "neighbors": [
             {
-              "similarity": 0.5931856632232666,
+              "similarity": 0.5563017725944519,
               "text": "Links customer feedback directly to roadmap items."
             },
             {
-              "similarity": 0.5295331478118896,
+              "similarity": 0.5368571281433105,
               "text": "Connects customer feedback directly to roadmap items."
             },
             {
-              "similarity": 0.44823500514030457,
+              "similarity": 0.4399183392524719,
               "text": "Aggregates customer feedback from multiple sources."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive capability of the product related to linking customer feedback to plan items, which directly aligns with the product's function of centralizing customer feedback and project planning.",
-          "similarity": 0.5931856632232666,
+          "relevance_reason": "The claim describes a specific positive capability of the product related to customer feedback and project planning, which fits the field intent.",
+          "similarity": 0.5563017725944519,
           "status": "covered"
         },
         {
           "claim": "The analytics view has too little detail about sentiment trends.",
           "entailment_judged": true,
-          "entailment_reason": "The existing claim 'Feedback trend analytics could be more sophisticated' covers the general idea of insufficient trend analysis, but the candidate adds the specific detail that the lack of detail is about 'sentiment trends'.",
+          "entailment_reason": "The candidate claim is a paraphrase of existing claim 1, both stating that the analytics dashboard lacks depth for trend analysis, specifically sentiment trends.",
           "field": "what_you_dislike",
-          "nearest_claim": "Feedback trend analytics could be more sophisticated.",
+          "nearest_claim": "The analytics dashboard lacks depth for trend analysis.",
           "neighbors": [
             {
-              "similarity": 0.664901614189148,
+              "similarity": 0.6649016737937927,
               "text": "The analytics dashboard lacks depth for trend analysis."
             },
             {
-              "similarity": 0.5076173543930054,
+              "similarity": 0.5076174139976501,
               "text": "Analytics dashboard lacks flexibility for custom visualizations."
             },
             {
@@ -1245,69 +1395,119 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific limitation or missing capability within the product's analytics view, which is a concrete frustration and fits the field intent.",
-          "similarity": 0.4179005026817322,
-          "status": "partial"
+          "relevance_reason": "The claim describes a specific limitation of the product's analytics view regarding sentiment trends, which is a concrete missing capability relevant to a collaboration platform that centralizes customer feedback.",
+          "similarity": 0.6649016737937927,
+          "status": "covered"
         },
         {
           "claim": "We still analyze exports by hand.",
           "entailment_judged": true,
-          "entailment_reason": "The existing claim 'Basic feedback analysis tools require manual data export for deeper insights' fully covers the candidate claim that analysis is done by hand after export, as 'manual data export' implies 'analyzing exports by hand'.",
+          "entailment_reason": "The candidate claim implies that manual analysis is needed due to limitations in the basic feedback analysis tools, which is directly covered by existing claim 1.",
           "field": "what_you_dislike",
           "nearest_claim": "Basic feedback analysis tools require manual data export for deeper insights.",
           "neighbors": [
             {
-              "similarity": 0.38166409730911255,
+              "similarity": 0.3816641569137573,
               "text": "Basic feedback analysis tools require manual data export for deeper insights."
             },
             {
-              "similarity": 0.35803961753845215,
+              "similarity": 0.3580396771430969,
               "text": "Limited ability to export detailed raw data."
             },
             {
-              "similarity": 0.35549741983413696,
+              "similarity": 0.35549747943878174,
               "text": "Limited ability to export raw research data for independent analysis."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete limitation or frustration regarding the need for manual analysis of exports, indicating a missing capability within the product and fitting the field intent.",
-          "similarity": 0.38166409730911255,
+          "relevance_reason": "The claim describes a frustration with the current workflow, implying a missing capability for automated analysis within the product, which is relevant to a platform designed to centralize and streamline product team activities.",
+          "similarity": 0.3816641569137573,
           "status": "covered"
         },
         {
-          "claim": "It gives us a structured, objective way to select product work using strategy and customer input.",
+          "claim": "It provides a structured way to select product work.",
           "entailment_judged": true,
-          "entailment_reason": "The existing claim 'Brought clarity to the product prioritization process' covers the core idea of selecting product work, but the candidate adds the specific mechanisms of 'structured, objective way' and using 'strategy and customer input'.",
+          "entailment_reason": "Existing claim 2 states that the product brought clarity to the product prioritization process, which is a direct synonym for providing a structured way to select product work.",
           "field": "problem_solved",
           "nearest_claim": "Brought clarity to the product prioritization process.",
           "neighbors": [
             {
-              "similarity": 0.5975111126899719,
-              "text": "Provided clear visibility into the product strategy and roadmap."
+              "similarity": 0.5769095420837402,
+              "text": "Provided a centralized source for all product-related information."
             },
             {
-              "similarity": 0.5859968662261963,
+              "similarity": 0.5629810094833374,
               "text": "Brought clarity to the product prioritization process."
             },
             {
-              "similarity": 0.5804179906845093,
-              "text": "Provided justification for strategic initiatives based on user input."
+              "similarity": 0.5172756314277649,
+              "text": "Provided clear visibility into the product strategy and roadmap."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete problem solved by the product, providing a structured way to select product work using strategy and customer input, which aligns perfectly with the product's purpose of centralizing planning and feedback.",
-          "similarity": 0.5859968662261963,
+          "relevance_reason": "The claim describes a specific problem the product solves, which is providing a structured way to select product work, aligning with the product's function of centralizing project planning and aligning priorities.",
+          "similarity": 0.5629810094833374,
+          "status": "covered"
+        },
+        {
+          "claim": "It provides an objective way to select product work.",
+          "entailment_judged": true,
+          "entailment_reason": "Existing claim 1 states that the product brought clarity to the product prioritization process, and the candidate adds the specific detail that it does so in an objective way.",
+          "field": "problem_solved",
+          "nearest_claim": "Brought clarity to the product prioritization process.",
+          "neighbors": [
+            {
+              "similarity": 0.6065637469291687,
+              "text": "Brought clarity to the product prioritization process."
+            },
+            {
+              "similarity": 0.5671961307525635,
+              "text": "Provided a centralized source for all product-related information."
+            },
+            {
+              "similarity": 0.5522910356521606,
+              "text": "Provided clear visibility into the product strategy and roadmap."
+            }
+          ],
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific problem the product solves, which is providing an objective way to select product work, aligning with the product's function of centralizing project planning and aligning priorities.",
+          "similarity": 0.6065637469291687,
           "status": "partial"
+        },
+        {
+          "claim": "It uses strategy and customer input to select product work.",
+          "entailment_judged": true,
+          "entailment_reason": "Existing claim 3 states that the product validated product strategy based on direct user feedback, which is a direct synonym for using strategy and customer input to select product work.",
+          "field": "problem_solved",
+          "nearest_claim": "Validated product strategy based on direct user feedback.",
+          "neighbors": [
+            {
+              "similarity": 0.5600828528404236,
+              "text": "Provided clear visibility into the product strategy and roadmap."
+            },
+            {
+              "similarity": 0.5570701956748962,
+              "text": "Provided justification for strategic initiatives based on user input."
+            },
+            {
+              "similarity": 0.5498666167259216,
+              "text": "Validated product strategy based on direct user feedback."
+            }
+          ],
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific problem the product solves, which is using strategy and customer input to select product work, aligning with the product's function of centralizing project planning and customer feedback.",
+          "similarity": 0.5498666167259216,
+          "status": "covered"
         }
       ],
       "field_scores": {
-        "problem_solved": 0.5,
-        "what_you_dislike": 0.25,
+        "problem_solved": 0.16666666666666666,
+        "what_you_dislike": 0.0,
         "what_you_like": 0.0
       },
       "id": "pp3",
       "origin": "handwritten",
-      "score": 0.25,
+      "score": 0.05555555555555555,
       "submission": {
         "problem_solved": "It gives us a structured, objective way to select product work using strategy and customer input.",
         "what_you_dislike": "The analytics view has too little detail about sentiment trends, so we still analyze exports by hand.",
@@ -1318,164 +1518,164 @@
       "category": "paraphrase",
       "claim_decisions": [
         {
-          "claim": "Getting started was intuitive.",
+          "claim": "Getting started was intuitive",
           "entailment_judged": true,
-          "entailment_reason": "The existing claim 'Smooth and intuitive onboarding process' fully covers the candidate claim 'Getting started was intuitive' as 'getting started' is synonymous with 'onboarding process' and both mention 'intuitive'.",
+          "entailment_reason": "The candidate claim 'Getting started was intuitive' is a paraphrase of the existing claim 'Smooth and intuitive onboarding process' as 'getting started' is synonymous with 'onboarding process' and 'intuitive' is directly stated in both.",
           "field": "what_you_like",
           "nearest_claim": "Smooth and intuitive onboarding process.",
           "neighbors": [
             {
-              "similarity": 0.39073142409324646,
+              "similarity": 0.3912164270877838,
               "text": "Smooth and intuitive onboarding process."
             },
             {
-              "similarity": 0.36553943157196045,
+              "similarity": 0.34815797209739685,
               "text": "Offers accessible pricing for startups."
             },
             {
-              "similarity": 0.35086697340011597,
+              "similarity": 0.33300912380218506,
               "text": "Excellent for managing feedback in a startup environment."
             }
           ],
-          "relevance": 1.0,
-          "relevance_reason": "The claim describes a positive user experience related to the product's ease of use, which is a concrete benefit.",
-          "similarity": 0.39073142409324646,
+          "relevance": 0.75,
+          "relevance_reason": "The claim describes a positive user experience related to the product's ease of use, which is a relevant but generic positive capability.",
+          "similarity": 0.3912164270877838,
           "status": "covered"
         },
         {
-          "claim": "We had our initial feedback and roadmap ready within a day.",
+          "claim": "Initial feedback and roadmap were ready within a day",
           "entailment_judged": true,
-          "entailment_reason": "The existing claim 'Centralizes feedback and links it to roadmap planning' covers the core observation, but the candidate adds the specific detail of having feedback and roadmap ready 'within a day'.",
+          "entailment_reason": "The existing claims focus on the *connection* between feedback and roadmap planning, while the candidate claim focuses on the *speed* of setting up initial feedback and roadmap, which is a different core observation.",
           "field": "what_you_like",
           "nearest_claim": "Centralizes feedback and links it to roadmap planning.",
           "neighbors": [
             {
-              "similarity": 0.6058080196380615,
+              "similarity": 0.6454681754112244,
               "text": "Centralizes feedback and links it to roadmap planning."
             },
             {
-              "similarity": 0.5596120357513428,
+              "similarity": 0.5079235434532166,
               "text": "Links customer feedback directly to roadmap items."
             },
             {
-              "similarity": 0.5259637236595154,
+              "similarity": 0.5074596405029297,
               "text": "Connects customer feedback directly to roadmap items."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete positive outcome and capability of the product, specifically its ability to facilitate quick setup of feedback and roadmaps.",
-          "similarity": 0.6058080196380615,
-          "status": "partial"
+          "relevance_reason": "The claim describes a concrete positive outcome directly related to the product's core functionalities of handling feedback and roadmaps, and its efficiency.",
+          "similarity": 0.6454681754112244,
+          "status": "novel"
         },
         {
-          "claim": "Editing roadmap work is cumbersome on a phone.",
+          "claim": "Editing roadmap work on a phone is cumbersome.",
           "entailment_judged": true,
-          "entailment_reason": "The existing claim 'Mobile experience is cumbersome for complex tasks' covers the core observation, but the candidate adds the specific detail that 'editing roadmap work' is the cumbersome task.",
+          "entailment_reason": "The candidate claim 'Editing roadmap work on a phone is cumbersome' is a specific instance of the existing claim 'Mobile experience is cumbersome for complex tasks', with 'editing roadmap work' being a type of 'complex task'.",
           "field": "what_you_dislike",
           "nearest_claim": "Mobile experience is cumbersome for complex tasks.",
           "neighbors": [
             {
-              "similarity": 0.515302300453186,
+              "similarity": 0.5229747295379639,
               "text": "Mobile experience is cumbersome for complex tasks."
             },
             {
-              "similarity": 0.5036720037460327,
+              "similarity": 0.48881974816322327,
               "text": "Version control for roadmap changes is not robust."
             },
             {
-              "similarity": 0.4504462778568268,
+              "similarity": 0.4329160749912262,
               "text": "Struggles with rendering complex roadmap visualizations."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete limitation or frustration with the product's functionality on a specific device, directly related to editing roadmaps.",
-          "similarity": 0.515302300453186,
-          "status": "partial"
-        },
-        {
-          "claim": "Reviewing detailed feedback is cumbersome on a phone.",
-          "entailment_judged": true,
-          "entailment_reason": "No existing claim mentions the cumbersomeness of reviewing detailed feedback on a phone; the existing claims focus on reporting, filtering, and analysis, not the mobile experience for reviewing.",
-          "field": "what_you_dislike",
-          "nearest_claim": "Feedback reporting detail could be enhanced.",
-          "neighbors": [
-            {
-              "similarity": 0.63426673412323,
-              "text": "Feedback reporting detail could be enhanced."
-            },
-            {
-              "similarity": 0.5692050457000732,
-              "text": "Feedback filtering capabilities could be more advanced."
-            },
-            {
-              "similarity": 0.5111265182495117,
-              "text": "Basic feedback analysis tools require manual data export for deeper insights."
-            }
-          ],
-          "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete limitation or frustration with the product's functionality on a specific device, directly related to reviewing feedback.",
-          "similarity": 0.63426673412323,
-          "status": "novel"
-        },
-        {
-          "claim": "It keeps our group aligned on the product vision.",
-          "entailment_judged": true,
-          "entailment_reason": "The existing claim 'Kept the team aligned with the product vision' fully covers the candidate claim 'It keeps our group aligned on the product vision' as 'our group' is synonymous with 'the team' and both mention alignment on 'product vision'.",
-          "field": "problem_solved",
-          "nearest_claim": "Kept the team aligned with the product vision.",
-          "neighbors": [
-            {
-              "similarity": 0.6487165689468384,
-              "text": "Kept the team aligned with the product vision."
-            },
-            {
-              "similarity": 0.5352301597595215,
-              "text": "Aligned stakeholders on product vision and progress."
-            },
-            {
-              "similarity": 0.5141160488128662,
-              "text": "Ensured product and engineering teams align on building the right features."
-            }
-          ],
-          "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete problem the product solves, specifically aligning a group on the product vision, which is a core function of a collaboration platform.",
-          "similarity": 0.6487165689468384,
+          "relevance_reason": "The claim describes a specific limitation of using the product's roadmap feature on a mobile device, which directly aligns with the field intent of a concrete limitation or frustration.",
+          "similarity": 0.5229747295379639,
           "status": "covered"
         },
         {
-          "claim": "It keeps our group aligned on how to communicate the product vision.",
+          "claim": "Reviewing detailed feedback on a phone is cumbersome.",
           "entailment_judged": true,
-          "entailment_reason": "The existing claim 'Kept the team aligned with the product vision' covers the core observation of alignment on product vision, but the candidate adds the specific detail of alignment on 'how to communicate' that vision.",
+          "entailment_reason": "The candidate claim 'Reviewing detailed feedback on a phone is cumbersome' is a specific instance of the existing claim 'Mobile experience is cumbersome for complex tasks', with 'reviewing detailed feedback' being a type of 'complex task'.",
+          "field": "what_you_dislike",
+          "nearest_claim": "Mobile experience is cumbersome for complex tasks.",
+          "neighbors": [
+            {
+              "similarity": 0.5824338793754578,
+              "text": "Feedback reporting detail could be enhanced."
+            },
+            {
+              "similarity": 0.5454421043395996,
+              "text": "Feedback filtering capabilities could be more advanced."
+            },
+            {
+              "similarity": 0.509334921836853,
+              "text": "Mobile experience is cumbersome for complex tasks."
+            }
+          ],
+          "relevance": 1.0,
+          "relevance_reason": "The claim describes a specific limitation of using the product's feedback review feature on a mobile device, which directly aligns with the field intent of a concrete limitation or frustration.",
+          "similarity": 0.509334921836853,
+          "status": "covered"
+        },
+        {
+          "claim": "It keeps our group aligned on the product vision",
+          "entailment_judged": true,
+          "entailment_reason": "The candidate claim is a paraphrase of existing claim 1, stating the same core observation about team alignment with the product vision.",
           "field": "problem_solved",
           "nearest_claim": "Kept the team aligned with the product vision.",
           "neighbors": [
             {
-              "similarity": 0.6332714557647705,
+              "similarity": 0.6518470048904419,
               "text": "Kept the team aligned with the product vision."
             },
             {
-              "similarity": 0.5952414870262146,
+              "similarity": 0.5493595600128174,
               "text": "Aligned stakeholders on product vision and progress."
             },
             {
-              "similarity": 0.564516544342041,
+              "similarity": 0.5214532017707825,
               "text": "Ensured product and engineering teams align on building the right features."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete problem the product solves, specifically aligning a group on how to communicate the product vision, which is a direct outcome of using a collaboration platform for product teams.",
-          "similarity": 0.6332714557647705,
+          "relevance_reason": "The claim directly states a problem solved by the product: keeping a group aligned on the product vision, which aligns with the product's description of helping distributed teams align on priorities.",
+          "similarity": 0.6518470048904419,
+          "status": "covered"
+        },
+        {
+          "claim": "It helps communicate the product vision",
+          "entailment_judged": true,
+          "entailment_reason": "The candidate claim states the core observation of communicating product vision, which is related to existing claim 1's 'clear visibility into the product strategy and roadmap,' but the candidate is more general and less specific about the 'roadmap' aspect.",
+          "field": "problem_solved",
+          "nearest_claim": "Provided clear visibility into the product strategy and roadmap.",
+          "neighbors": [
+            {
+              "similarity": 0.4735037088394165,
+              "text": "Provided clear visibility into the product strategy and roadmap."
+            },
+            {
+              "similarity": 0.4556003212928772,
+              "text": "Closed the gap between vision and execution in product development."
+            },
+            {
+              "similarity": 0.4486696720123291,
+              "text": "Brought clarity to the product prioritization process."
+            }
+          ],
+          "relevance": 1.0,
+          "relevance_reason": "The claim directly states a problem solved by the product: helping communicate the product vision, which aligns with the product's description of communicating product decisions.",
+          "similarity": 0.4735037088394165,
           "status": "partial"
         }
       ],
       "field_scores": {
         "problem_solved": 0.25,
-        "what_you_dislike": 0.75,
-        "what_you_like": 0.25
+        "what_you_dislike": 0.0,
+        "what_you_like": 0.5
       },
       "id": "pp4",
       "origin": "handwritten",
-      "score": 0.4166666666666667,
+      "score": 0.25,
       "submission": {
         "problem_solved": "It keeps our group aligned on the product vision and how to communicate it.",
         "what_you_dislike": "On a phone, editing roadmap work and reviewing detailed feedback is cumbersome.",
@@ -1488,12 +1688,12 @@
         {
           "claim": "Marketing can contribute openly to the product strategy.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 3 covers the alignment between marketing and product, but the candidate specifies that marketing can openly contribute to the strategy, adding a detail about the nature of their involvement.",
+          "entailment_reason": "The existing claim mentions marketing and product alignment, and the candidate specifies that marketing can contribute to the product strategy, adding a concrete detail about the mechanism of alignment.",
           "field": "what_you_like",
           "nearest_claim": "Facilitates marketing and product alignment.",
           "neighbors": [
             {
-              "similarity": 0.719844400882721,
+              "similarity": 0.7198443412780762,
               "text": "Enhances communication of product strategy."
             },
             {
@@ -1506,19 +1706,19 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive outcome of using the product, enabling a specific team (Marketing) to contribute to product strategy, which aligns with the product's goal of centralizing planning and aligning teams.",
+          "relevance_reason": "The claim describes a specific positive capability of the product, enabling a particular team (Marketing) to contribute to product strategy, which aligns with the product's goal of centralizing project planning and aligning teams.",
           "similarity": 0.5968800783157349,
           "status": "partial"
         },
         {
           "claim": "Sales can contribute openly to the product strategy.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claims discuss general communication, executive visibility, and simplifying feedback from sales, but none state that sales can openly contribute to the product strategy itself.",
+          "entailment_reason": "No existing claim mentions sales contributing to product strategy; existing claim 3 is about capturing feedback from sales, not sales contributing to strategy.",
           "field": "what_you_like",
           "nearest_claim": "Enhances communication of product strategy.",
           "neighbors": [
             {
-              "similarity": 0.7177764177322388,
+              "similarity": 0.7177764773368835,
               "text": "Enhances communication of product strategy."
             },
             {
@@ -1531,19 +1731,19 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive outcome of using the product, enabling a specific team (Sales) to contribute to product strategy, which aligns with the product's goal of centralizing planning and aligning teams.",
-          "similarity": 0.7177764177322388,
+          "relevance_reason": "The claim describes a specific positive capability of the product, enabling a particular team (Sales) to contribute to product strategy, which aligns with the product's goal of centralizing project planning and aligning teams.",
+          "similarity": 0.7177764773368835,
           "status": "novel"
         },
         {
           "claim": "Engineering can contribute openly to the product strategy.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claims discuss general communication, executive visibility, and aligning product development with business objectives, but none state that engineering can openly contribute to the product strategy itself.",
+          "entailment_reason": "No existing claim mentions engineering contributing to product strategy; existing claim 3 is about aligning product development with business objectives, not engineering's direct contribution to strategy.",
           "field": "what_you_like",
           "nearest_claim": "Enhances communication of product strategy.",
           "neighbors": [
             {
-              "similarity": 0.6705809235572815,
+              "similarity": 0.6705808639526367,
               "text": "Enhances communication of product strategy."
             },
             {
@@ -1556,73 +1756,73 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific positive outcome of using the product, enabling a specific team (Engineering) to contribute to product strategy, which aligns with the product's goal of centralizing planning and aligning teams.",
-          "similarity": 0.6705809235572815,
+          "relevance_reason": "The claim describes a specific positive capability of the product, enabling a particular team (Engineering) to contribute to product strategy, which aligns with the product's goal of centralizing project planning and aligning teams.",
+          "similarity": 0.6705808639526367,
           "status": "novel"
         },
         {
-          "claim": "Finding past comments takes too much filtering and searching.",
+          "claim": "Finding past comments requires too much filtering and searching.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 1, 'Search functionality could be more robust,' fully covers the candidate claim that finding past comments takes too much filtering and searching, as robust search functionality would address this issue.",
+          "entailment_reason": "The candidate specifies that the search functionality is lacking for 'past comments' and requires 'too much filtering and searching', adding a concrete detail to the existing claim about robust search functionality.",
           "field": "what_you_dislike",
           "nearest_claim": "Search functionality could be more robust.",
           "neighbors": [
             {
-              "similarity": 0.4297999143600464,
+              "similarity": 0.42835766077041626,
               "text": "Search functionality could be more robust."
             },
             {
-              "similarity": 0.36014482378959656,
+              "similarity": 0.3575742244720459,
               "text": "Feedback filtering capabilities could be more advanced."
             },
             {
-              "similarity": 0.32453954219818115,
+              "similarity": 0.309829443693161,
               "text": "Feedback trend analytics could be more sophisticated."
             }
           ],
-          "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific limitation related to finding past comments, which is a concrete frustration within a collaboration platform and fits the field intent.",
-          "similarity": 0.4297999143600464,
-          "status": "covered"
+          "relevance": 0.75,
+          "relevance_reason": "The claim is about finding past comments, which is a generic collaboration platform feature, but not explicitly mentioned as a core function like 'customer feedback' or 'product decisions' in the reference.",
+          "similarity": 0.42835766077041626,
+          "status": "partial"
         },
         {
-          "claim": "Finding roadmap decisions takes too much filtering and searching.",
+          "claim": "Finding roadmap decisions requires too much filtering and searching.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 2, 'Search functionality could be more robust,' fully covers the candidate claim that finding roadmap decisions takes too much filtering and searching, as robust search functionality would address this issue.",
+          "entailment_reason": "The candidate specifies that the search functionality is lacking for 'roadmap decisions' and requires 'too much filtering and searching', adding a concrete detail to the existing claim about robust search functionality.",
           "field": "what_you_dislike",
           "nearest_claim": "Search functionality could be more robust.",
           "neighbors": [
             {
-              "similarity": 0.5076521039009094,
+              "similarity": 0.5050355195999146,
               "text": "Struggles with rendering complex roadmap visualizations."
             },
             {
-              "similarity": 0.45523515343666077,
+              "similarity": 0.4752955436706543,
               "text": "Search functionality could be more robust."
             },
             {
-              "similarity": 0.4185308516025543,
-              "text": "Managing complex project plans with dependencies is challenging."
+              "similarity": 0.41620784997940063,
+              "text": "Version control for roadmap changes is not robust."
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a specific limitation related to finding roadmap decisions, which is a concrete frustration within a product planning platform and fits the field intent.",
-          "similarity": 0.45523515343666077,
-          "status": "covered"
+          "relevance_reason": "The claim directly addresses a limitation in finding 'roadmap decisions,' which is a core function of the reference product as a cloud collaboration platform for product teams that centralizes roadmaps and helps communicate product decisions.",
+          "similarity": 0.4752955436706543,
+          "status": "partial"
         },
         {
           "claim": "It reduced interdepartmental communication barriers.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 1, 'Eliminated communication silos by providing shared visibility,' fully covers the candidate claim about reducing interdepartmental communication barriers, as eliminating silos directly addresses these barriers.",
+          "entailment_reason": "The candidate claim 'It reduced interdepartmental communication barriers' is a paraphrase of existing claim 2, 'Reduced miscommunication across teams', as 'interdepartmental communication barriers' is synonymous with 'miscommunication across teams'.",
           "field": "problem_solved",
-          "nearest_claim": "Eliminated communication silos by providing shared visibility.",
+          "nearest_claim": "Reduced miscommunication across teams.",
           "neighbors": [
             {
-              "similarity": 0.588253378868103,
+              "similarity": 0.5882534384727478,
               "text": "Eliminated communication silos by providing shared visibility."
             },
             {
-              "similarity": 0.47597092390060425,
+              "similarity": 0.4759711027145386,
               "text": "Reduced miscommunication across teams."
             },
             {
@@ -1631,23 +1831,23 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete problem solved by the product, directly addressing the product's stated purpose of helping distributed teams align and communicate product decisions without switching between many tools.",
-          "similarity": 0.588253378868103,
+          "relevance_reason": "The claim describes a concrete problem (communication barriers) that the product, as a collaboration platform, is designed to solve.",
+          "similarity": 0.4759711027145386,
           "status": "covered"
         },
         {
           "claim": "It gave teams a shared view of product priorities.",
           "entailment_judged": true,
-          "entailment_reason": "Existing claim 1, 'Improved overall team visibility into product strategy,' fully covers the candidate claim that it gave teams a shared view of product priorities, as shared visibility directly implies a shared view of priorities.",
+          "entailment_reason": "The candidate claim 'It gave teams a shared view of product priorities' is a paraphrase of existing claim 1, 'Improved overall team visibility into product strategy', as 'shared view of product priorities' is synonymous with 'team visibility into product strategy'.",
           "field": "problem_solved",
           "nearest_claim": "Improved overall team visibility into product strategy.",
           "neighbors": [
             {
-              "similarity": 0.7002079486846924,
+              "similarity": 0.7002078294754028,
               "text": "Improved overall team visibility into product strategy."
             },
             {
-              "similarity": 0.6216306686401367,
+              "similarity": 0.6216307878494263,
               "text": "Instituted a greater sense of strategic discipline within the product team."
             },
             {
@@ -1656,19 +1856,19 @@
             }
           ],
           "relevance": 1.0,
-          "relevance_reason": "The claim describes a concrete problem solved by the product, directly addressing the product's stated purpose of helping distributed teams align on priorities.",
-          "similarity": 0.7002079486846924,
+          "relevance_reason": "The claim describes a concrete problem (lack of shared view of priorities) that the product, as a collaboration platform for product teams, is designed to solve.",
+          "similarity": 0.7002078294754028,
           "status": "covered"
         }
       ],
       "field_scores": {
         "problem_solved": 0.0,
-        "what_you_dislike": 0.0,
+        "what_you_dislike": 0.4375,
         "what_you_like": 0.8333333333333334
       },
       "id": "pp5",
       "origin": "handwritten",
-      "score": 0.2777777777777778,
+      "score": 0.42361111111111116,
       "submission": {
         "problem_solved": "It reduced interdepartmental communication barriers and gave teams a shared view of product priorities.",
         "what_you_dislike": "Finding past comments or roadmap decisions takes too much filtering and searching.",
@@ -1679,53 +1879,53 @@
       "category": "novel_irrelevant",
       "claim_decisions": [
         {
-          "claim": "The espresso machine warms up in under a minute.",
+          "claim": "The espresso machine warms up in under a minute",
           "entailment_judged": false,
           "entailment_reason": null,
           "field": "what_you_like",
           "nearest_claim": "Excellent for managing feedback in a startup environment.",
           "neighbors": [
             {
-              "similarity": 0.13587987422943115,
+              "similarity": 0.11412732303142548,
               "text": "Excellent for managing feedback in a startup environment."
             },
             {
-              "similarity": 0.1289912760257721,
-              "text": "Smooth and intuitive onboarding process."
+              "similarity": 0.10287339985370636,
+              "text": "Tracks feedback from inception to release effectively."
             },
             {
-              "similarity": 0.11364375799894333,
-              "text": "Offers accessible pricing for startups."
+              "similarity": 0.09674958139657974,
+              "text": "Smooth and intuitive onboarding process."
             }
           ],
           "relevance": 0.0,
           "relevance_reason": "The claim is about an espresso machine, which is a different product entirely from a cloud collaboration platform.",
-          "similarity": 0.13587987422943115,
+          "similarity": 0.11412732303142548,
           "status": "novel"
         },
         {
-          "claim": "The espresso machine remembers my cup size.",
+          "claim": "The espresso machine remembers my cup size",
           "entailment_judged": false,
           "entailment_reason": null,
           "field": "what_you_like",
           "nearest_claim": "Facilitates marketing and product alignment.",
           "neighbors": [
             {
-              "similarity": 0.2021915316581726,
+              "similarity": 0.1855868250131607,
               "text": "Facilitates marketing and product alignment."
             },
             {
-              "similarity": 0.17482297122478485,
-              "text": "Helps retain focus on the core product strategy."
+              "similarity": 0.15642830729484558,
+              "text": "Tracks feedback from inception to release effectively."
             },
             {
-              "similarity": 0.1693471074104309,
-              "text": "Tracks feedback from inception to release effectively."
+              "similarity": 0.14864227175712585,
+              "text": "Helps retain focus on the core product strategy."
             }
           ],
           "relevance": 0.0,
           "relevance_reason": "The claim is about an espresso machine, which is a different product entirely from a cloud collaboration platform.",
-          "similarity": 0.2021915316581726,
+          "similarity": 0.1855868250131607,
           "status": "novel"
         },
         {
@@ -1736,7 +1936,7 @@
           "nearest_claim": "The notification system can be noisy and overwhelming.",
           "neighbors": [
             {
-              "similarity": 0.32726266980171204,
+              "similarity": 0.3272626996040344,
               "text": "The notification system can be noisy and overwhelming."
             },
             {
@@ -1744,13 +1944,13 @@
               "text": "Notification system can be overly aggressive."
             },
             {
-              "similarity": 0.18213820457458496,
+              "similarity": 0.18213823437690735,
               "text": "The notification system can be overwhelming."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a coffee grinder, which is a different product entirely from a cloud collaboration platform.",
-          "similarity": 0.32726266980171204,
+          "relevance_reason": "The claim is about a coffee grinder, which is completely unrelated to a cloud collaboration platform for product teams.",
+          "similarity": 0.3272626996040344,
           "status": "novel"
         },
         {
@@ -1761,7 +1961,7 @@
           "nearest_claim": "Improved information accessibility for all team members.",
           "neighbors": [
             {
-              "similarity": 0.3162354826927185,
+              "similarity": 0.3162354528903961,
               "text": "Improved information accessibility for all team members."
             },
             {
@@ -1774,8 +1974,8 @@
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about preparing coffee, which is a different product entirely from a cloud collaboration platform.",
-          "similarity": 0.3162354826927185,
+          "relevance_reason": "The claim about preparing coffee is completely unrelated to a cloud collaboration platform for product teams and does not address any problem it would solve.",
+          "similarity": 0.3162354528903961,
           "status": "novel"
         }
       ],
@@ -1808,16 +2008,16 @@
               "text": "Connects customer feedback directly to roadmap items."
             },
             {
-              "similarity": 0.16348452866077423,
+              "similarity": 0.16348454356193542,
               "text": "Centralizes feedback and links it to roadmap planning."
             },
             {
-              "similarity": 0.14376705884933472,
+              "similarity": 0.1437670737504959,
               "text": "Features a fantastic visual roadmap builder."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a bicycle, which is a completely different product from a cloud collaboration platform.",
+          "relevance_reason": "The claim is about a bicycle's belt drive, which is completely unrelated to a cloud collaboration platform for product teams.",
           "similarity": 0.1747172772884369,
           "status": "novel"
         },
@@ -1829,7 +2029,7 @@
           "nearest_claim": "Mobile experience is cumbersome for complex tasks.",
           "neighbors": [
             {
-              "similarity": 0.17112058401107788,
+              "similarity": 0.17112061381340027,
               "text": "Mobile experience is cumbersome for complex tasks."
             },
             {
@@ -1837,13 +2037,13 @@
               "text": "Integrated task management features are not robust enough for development teams."
             },
             {
-              "similarity": 0.1615365743637085,
+              "similarity": 0.1615365594625473,
               "text": "The notification system can be noisy and overwhelming."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a bicycle's rear light battery, which is irrelevant to a cloud collaboration platform.",
-          "similarity": 0.17112058401107788,
+          "relevance_reason": "The claim is about a 'rear light battery' which is completely unrelated to a cloud collaboration platform for product teams.",
+          "similarity": 0.17112061381340027,
           "status": "novel"
         },
         {
@@ -1854,7 +2054,7 @@
           "nearest_claim": "Made it easier to prioritize features based on user demand.",
           "neighbors": [
             {
-              "similarity": 0.3141580820083618,
+              "similarity": 0.3141581416130066,
               "text": "Made it easier to prioritize features based on user demand."
             },
             {
@@ -1862,13 +2062,13 @@
               "text": "Improved roadmap management by providing structure and visibility."
             },
             {
-              "similarity": 0.24607893824577332,
+              "similarity": 0.2460789978504181,
               "text": "Brought clarity to the product prioritization process."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about commuting and public transport, which is unrelated to a cloud collaboration platform for product teams.",
-          "similarity": 0.3141580820083618,
+          "relevance_reason": "The claim is about commuting and public transport, which is completely unrelated to a cloud collaboration platform for product teams.",
+          "similarity": 0.3141581416130066,
           "status": "novel"
         }
       ],
@@ -1901,11 +2101,11 @@
               "text": "Serves as a single source of truth for product management."
             },
             {
-              "similarity": 0.12708936631679535,
+              "similarity": 0.12708941102027893,
               "text": "Tracks feedback from inception to release effectively."
             },
             {
-              "similarity": 0.1185615211725235,
+              "similarity": 0.11856155842542648,
               "text": "Allows for effective feedback segmentation."
             }
           ],
@@ -1926,42 +2126,42 @@
               "text": "UI responsiveness can be an issue with large datasets."
             },
             {
-              "similarity": 0.11450433731079102,
+              "similarity": 0.1145043820142746,
               "text": "Performance can lag with large datasets or complex views."
             },
             {
-              "similarity": 0.08653412759304047,
+              "similarity": 0.08653412014245987,
               "text": "Struggles with rendering complex roadmap visualizations."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim describes a ceramic pot's weight, which is completely unrelated to a cloud collaboration platform for product teams.",
+          "relevance_reason": "The claim is about a ceramic pot's weight, which is completely irrelevant to a cloud collaboration platform.",
           "similarity": 0.15792444348335266,
           "status": "novel"
         },
         {
-          "claim": "It keeps kitchen herbs alive while I am away for the weekend.",
+          "claim": "Keeps kitchen herbs alive while user is away for the weekend.",
           "entailment_judged": false,
           "entailment_reason": null,
           "field": "problem_solved",
-          "nearest_claim": "Enhanced process efficiency across the product lifecycle.",
+          "nearest_claim": "Provided a holistic view of the user experience.",
           "neighbors": [
             {
-              "similarity": 0.15400123596191406,
-              "text": "Enhanced process efficiency across the product lifecycle."
+              "similarity": 0.2038615345954895,
+              "text": "Provided a holistic view of the user experience."
             },
             {
-              "similarity": 0.12984217703342438,
-              "text": "Created a seamless and integrated workflow."
+              "similarity": 0.201788991689682,
+              "text": "Helped identify unmet user needs for the product."
             },
             {
-              "similarity": 0.1278478056192398,
-              "text": "Eliminated context switching between disparate tools."
+              "similarity": 0.19482317566871643,
+              "text": "Ensured the product evolves based on user demand."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim describes keeping kitchen herbs alive, which is completely unrelated to a cloud collaboration platform for product teams.",
-          "similarity": 0.15400123596191406,
+          "relevance_reason": "The claim describes a problem solved by a product for keeping herbs alive, which is completely unrelated to a cloud collaboration platform for product teams.",
+          "similarity": 0.2038615345954895,
           "status": "novel"
         }
       ],
@@ -1983,53 +2183,53 @@
       "category": "novel_irrelevant",
       "claim_decisions": [
         {
-          "claim": "The hiking tent packs into a small bag.",
+          "claim": "The hiking tent packs into a small bag",
           "entailment_judged": false,
           "entailment_reason": null,
           "field": "what_you_like",
           "nearest_claim": "Smooth and intuitive onboarding process.",
           "neighbors": [
             {
-              "similarity": 0.17281454801559448,
+              "similarity": 0.16060081124305725,
               "text": "Smooth and intuitive onboarding process."
             },
             {
-              "similarity": 0.09546774625778198,
+              "similarity": 0.09312477707862854,
               "text": "Keeps large, distributed teams aligned effectively."
             },
             {
-              "similarity": 0.08984771370887756,
-              "text": "Provides top-notch roadmap planning collaboration features."
+              "similarity": 0.07889081537723541,
+              "text": "Offers robust roadmap planning capabilities."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a hiking tent, which is a different product than the cloud collaboration platform.",
-          "similarity": 0.17281454801559448,
+          "relevance_reason": "The claim is about a hiking tent, which is a completely different product from a cloud collaboration platform.",
+          "similarity": 0.16060081124305725,
           "status": "novel"
         },
         {
-          "claim": "The hiking tent handles strong wind.",
+          "claim": "The hiking tent handles strong wind",
           "entailment_judged": false,
           "entailment_reason": null,
           "field": "what_you_like",
           "nearest_claim": "Offers robust administration controls for IT.",
           "neighbors": [
             {
-              "similarity": 0.174203023314476,
+              "similarity": 0.1794731616973877,
               "text": "Offers robust administration controls for IT."
             },
             {
-              "similarity": 0.14399302005767822,
-              "text": "Features a fantastic visual roadmap builder."
+              "similarity": 0.14297398924827576,
+              "text": "Offers robust roadmap planning capabilities."
             },
             {
-              "similarity": 0.1438022255897522,
-              "text": "Offers a valuable portfolio management view for leadership."
+              "similarity": 0.14102420210838318,
+              "text": "Features a fantastic visual roadmap builder."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a hiking tent, which is a different product than the cloud collaboration platform.",
-          "similarity": 0.174203023314476,
+          "relevance_reason": "The claim is about a hiking tent, which is a completely different product from a cloud collaboration platform.",
+          "similarity": 0.1794731616973877,
           "status": "novel"
         },
         {
@@ -2040,21 +2240,21 @@
           "nearest_claim": "Integration with Asana is not fully seamless.",
           "neighbors": [
             {
-              "similarity": 0.04305854067206383,
+              "similarity": 0.04305853322148323,
               "text": "Integration with Asana is not fully seamless."
             },
             {
-              "similarity": 0.04164379835128784,
+              "similarity": 0.04164380580186844,
               "text": "Search functionality could be more robust."
             },
             {
-              "similarity": 0.027292385697364807,
+              "similarity": 0.0272924043238163,
               "text": "Onboarding requires a significant time investment for full configuration."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a hiking tent, which is a different product than the cloud collaboration platform.",
-          "similarity": 0.04305854067206383,
+          "relevance_reason": "The claim is about a zipper catching on wet fabric, which is completely irrelevant to a cloud collaboration platform for product teams.",
+          "similarity": 0.04305853322148323,
           "status": "novel"
         },
         {
@@ -2065,7 +2265,7 @@
           "nearest_claim": "Provided a holistic view of the user experience.",
           "neighbors": [
             {
-              "similarity": 0.17989510297775269,
+              "similarity": 0.1798950731754303,
               "text": "Provided a holistic view of the user experience."
             },
             {
@@ -2073,13 +2273,13 @@
               "text": "Prevents scope creep by clearly defining priorities."
             },
             {
-              "similarity": 0.16977767646312714,
+              "similarity": 0.16977766156196594,
               "text": "Facilitated cross-timezone collaboration effectively."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a hiking tent, which is a different product than the cloud collaboration platform.",
-          "similarity": 0.17989510297775269,
+          "relevance_reason": "The claim describes a physical shelter for mountain trips, which is completely unrelated to a cloud collaboration platform for product teams.",
+          "similarity": 0.1798950731754303,
           "status": "novel"
         }
       ],
@@ -2108,21 +2308,21 @@
           "nearest_claim": "Facilitates marketing and product alignment.",
           "neighbors": [
             {
-              "similarity": 0.24603340029716492,
+              "similarity": 0.2460334300994873,
               "text": "Facilitates marketing and product alignment."
             },
             {
-              "similarity": 0.1972033828496933,
+              "similarity": 0.1972033977508545,
               "text": "Facilitates linking research findings to product items."
             },
             {
-              "similarity": 0.18562832474708557,
+              "similarity": 0.185628280043602,
               "text": "Essential for organizational alignment on product strategy."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a baking scale, which is a completely different product from a cloud collaboration platform.",
-          "similarity": 0.24603340029716492,
+          "relevance_reason": "The claim is about a baking scale, which is completely unrelated to a cloud collaboration platform for product teams.",
+          "similarity": 0.2460334300994873,
           "status": "novel"
         },
         {
@@ -2133,7 +2333,7 @@
           "nearest_claim": "UI responsiveness can be an issue with large datasets.",
           "neighbors": [
             {
-              "similarity": 0.26115578413009644,
+              "similarity": 0.2611558139324188,
               "text": "UI responsiveness can be an issue with large datasets."
             },
             {
@@ -2141,13 +2341,13 @@
               "text": "Performance degrades during peak hours for some regions."
             },
             {
-              "similarity": 0.24712355434894562,
+              "similarity": 0.2471236288547516,
               "text": "Performance can lag with large datasets or complex views."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about a display being hard to read, which is irrelevant to a cloud collaboration platform.",
-          "similarity": 0.26115578413009644,
+          "relevance_reason": "The claim discusses a display and dim light, which is irrelevant to a cloud collaboration platform.",
+          "similarity": 0.2611558139324188,
           "status": "novel"
         },
         {
@@ -2158,21 +2358,21 @@
           "nearest_claim": "Enhanced process efficiency across the product lifecycle.",
           "neighbors": [
             {
-              "similarity": 0.2630261182785034,
+              "similarity": 0.2630261480808258,
               "text": "Enhanced process efficiency across the product lifecycle."
             },
             {
-              "similarity": 0.24422433972358704,
+              "similarity": 0.24422428011894226,
               "text": "Brought clarity to the product prioritization process."
             },
             {
-              "similarity": 0.21585355699062347,
+              "similarity": 0.2158535271883011,
               "text": "Saved time by reducing manual feedback aggregation."
             }
           ],
           "relevance": 0.0,
-          "relevance_reason": "The claim is about making sourdough loaves, which is unrelated to a cloud collaboration platform for product teams.",
-          "similarity": 0.2630261182785034,
+          "relevance_reason": "The claim is about baking sourdough, which is completely unrelated to a cloud collaboration platform for product teams.",
+          "similarity": 0.2630261480808258,
           "status": "novel"
         }
       ],
@@ -2192,58 +2392,7 @@
     },
     {
       "category": "gibberish",
-      "claim_decisions": [
-        {
-          "claim": "florp blarg 123",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "what_you_like",
-          "nearest_claim": "Powerful search functionality for quick information retrieval.",
-          "neighbors": [
-            {
-              "similarity": 0.1839194893836975,
-              "text": "Powerful search functionality for quick information retrieval."
-            },
-            {
-              "similarity": 0.12544788420200348,
-              "text": "Enables easy tracking of customer requests."
-            },
-            {
-              "similarity": 0.11846502125263214,
-              "text": "Meets compliance requirements for a financial company."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim is gibberish and not about the product or its capabilities.",
-          "similarity": 0.1839194893836975,
-          "status": "novel"
-        },
-        {
-          "claim": "moon bicycle zzz",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "problem_solved",
-          "nearest_claim": "Created a seamless and integrated workflow.",
-          "neighbors": [
-            {
-              "similarity": 0.1171506866812706,
-              "text": "Created a seamless and integrated workflow."
-            },
-            {
-              "similarity": 0.11633455008268356,
-              "text": "Ensured access to the latest product roadmap information."
-            },
-            {
-              "similarity": 0.10287141054868698,
-              "text": "Created a seamless idea-to-launch process."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim is gibberish and not about a problem the product solves.",
-          "similarity": 0.1171506866812706,
-          "status": "novel"
-        }
-      ],
+      "claim_decisions": [],
       "field_scores": {
         "problem_solved": 0.0,
         "what_you_dislike": 0.0,
@@ -2260,83 +2409,7 @@
     },
     {
       "category": "gibberish",
-      "claim_decisions": [
-        {
-          "claim": "qzxv plimble woosh",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "what_you_like",
-          "nearest_claim": "Powerful search functionality for quick information retrieval.",
-          "neighbors": [
-            {
-              "similarity": 0.19955727458000183,
-              "text": "Powerful search functionality for quick information retrieval."
-            },
-            {
-              "similarity": 0.1509799361228943,
-              "text": "Offers strong accessibility features for all users."
-            },
-            {
-              "similarity": 0.14322349429130554,
-              "text": "Features a clean and modern user interface."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim is gibberish and not a concrete positive capability, benefit, or user experience of the product.",
-          "similarity": 0.19955727458000183,
-          "status": "novel"
-        },
-        {
-          "claim": "@@@ 77 !!",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "what_you_dislike",
-          "nearest_claim": "The notification system can be overwhelming.",
-          "neighbors": [
-            {
-              "similarity": 0.18524545431137085,
-              "text": "The notification system can be overwhelming."
-            },
-            {
-              "similarity": 0.17430394887924194,
-              "text": "Notification system can be overly aggressive."
-            },
-            {
-              "similarity": 0.14677220582962036,
-              "text": "The notification system can be noisy and overwhelming."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim is gibberish and not a concrete limitation, frustration, missing capability, or improvement request.",
-          "similarity": 0.18524545431137085,
-          "status": "novel"
-        },
-        {
-          "claim": "purple the then because",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "problem_solved",
-          "nearest_claim": "Brought clarity to the product prioritization process.",
-          "neighbors": [
-            {
-              "similarity": 0.1438378542661667,
-              "text": "Brought clarity to the product prioritization process."
-            },
-            {
-              "similarity": 0.14281731843948364,
-              "text": "Made it easier to prioritize features based on user demand."
-            },
-            {
-              "similarity": 0.1040433794260025,
-              "text": "Kept the team aligned with the product vision."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim is gibberish and not a concrete problem, workflow, or outcome the product solves for its users.",
-          "similarity": 0.1438378542661667,
-          "status": "novel"
-        }
-      ],
+      "claim_decisions": [],
       "field_scores": {
         "problem_solved": 0.0,
         "what_you_dislike": 0.0,
@@ -2353,58 +2426,7 @@
     },
     {
       "category": "gibberish",
-      "claim_decisions": [
-        {
-          "claim": "snorfle widget glip",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "what_you_like",
-          "nearest_claim": "Simplifies ROI demonstration for product features.",
-          "neighbors": [
-            {
-              "similarity": 0.161521315574646,
-              "text": "Simplifies ROI demonstration for product features."
-            },
-            {
-              "similarity": 0.15206295251846313,
-              "text": "The platform has a visually appealing interface."
-            },
-            {
-              "similarity": 0.15098941326141357,
-              "text": "Offers robust collaboration features."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim 'snorfle widget glip' is gibberish and not a concrete positive capability, benefit, or user experience of the product.",
-          "similarity": 0.161521315574646,
-          "status": "novel"
-        },
-        {
-          "claim": "banana cloud sideways 9",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "problem_solved",
-          "nearest_claim": "Ensured the product evolves based on user demand.",
-          "neighbors": [
-            {
-              "similarity": 0.1450166404247284,
-              "text": "Ensured the product evolves based on user demand."
-            },
-            {
-              "similarity": 0.14276175200939178,
-              "text": "Made it easier to prioritize features based on user demand."
-            },
-            {
-              "similarity": 0.12903371453285217,
-              "text": "Ensured the team builds the right product features aligned with strategy."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim 'banana cloud sideways 9' is gibberish and does not describe a problem, workflow, or outcome the product solves.",
-          "similarity": 0.1450166404247284,
-          "status": "novel"
-        }
-      ],
+      "claim_decisions": [],
       "field_scores": {
         "problem_solved": 0.0,
         "what_you_dislike": 0.0,
@@ -2421,83 +2443,7 @@
     },
     {
       "category": "gibberish",
-      "claim_decisions": [
-        {
-          "claim": "vrrp kaloo jumjum",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "what_you_like",
-          "nearest_claim": "Serves as a single source of truth for product management.",
-          "neighbors": [
-            {
-              "similarity": 0.14416736364364624,
-              "text": "Serves as a single source of truth for product management."
-            },
-            {
-              "similarity": 0.12953785061836243,
-              "text": "Simplifies the entire product lifecycle."
-            },
-            {
-              "similarity": 0.12215524911880493,
-              "text": "Essential for organizational alignment on product strategy."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim is gibberish and not a concrete positive capability, benefit, or user experience of the product.",
-          "similarity": 0.14416736364364624,
-          "status": "novel"
-        },
-        {
-          "claim": "### &&& ???",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "what_you_dislike",
-          "nearest_claim": "Feedback forms lack advanced conditional logic.",
-          "neighbors": [
-            {
-              "similarity": 0.14569275081157684,
-              "text": "Feedback forms lack advanced conditional logic."
-            },
-            {
-              "similarity": 0.10305942595005035,
-              "text": "Basic feedback analysis tools require manual data export for deeper insights."
-            },
-            {
-              "similarity": 0.09694890677928925,
-              "text": "Feedback trend analytics could be more sophisticated."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim is gibberish and not a concrete limitation, frustration, missing capability, or improvement request.",
-          "similarity": 0.14569275081157684,
-          "status": "novel"
-        },
-        {
-          "claim": "twelve blanket during",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "problem_solved",
-          "nearest_claim": "Enabled identification of recurring user pain points.",
-          "neighbors": [
-            {
-              "similarity": 0.08268353343009949,
-              "text": "Enabled identification of recurring user pain points."
-            },
-            {
-              "similarity": 0.06334745138883591,
-              "text": "Eliminated communication silos by providing shared visibility."
-            },
-            {
-              "similarity": 0.044597476720809937,
-              "text": "Prevents scope creep by clearly defining priorities."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim is gibberish and not a concrete problem, workflow, or outcome the product solves for its users.",
-          "similarity": 0.08268353343009949,
-          "status": "novel"
-        }
-      ],
+      "claim_decisions": [],
       "field_scores": {
         "problem_solved": 0.0,
         "what_you_dislike": 0.0,
@@ -2514,83 +2460,7 @@
     },
     {
       "category": "gibberish",
-      "claim_decisions": [
-        {
-          "claim": "blim blam fzzzt",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "what_you_like",
-          "nearest_claim": "Tracks feedback from inception to release effectively.",
-          "neighbors": [
-            {
-              "similarity": 0.12067107111215591,
-              "text": "Tracks feedback from inception to release effectively."
-            },
-            {
-              "similarity": 0.11598342657089233,
-              "text": "Features a fantastic visual roadmap builder."
-            },
-            {
-              "similarity": 0.0925353541970253,
-              "text": "Helps maintain focus on the product vision."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim is gibberish and not related to the product or the field intent.",
-          "similarity": 0.12067107111215591,
-          "status": "novel"
-        },
-        {
-          "claim": "nope",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "what_you_dislike",
-          "nearest_claim": "Feedback form customization options are limited.",
-          "neighbors": [
-            {
-              "similarity": 0.08717060089111328,
-              "text": "Feedback form customization options are limited."
-            },
-            {
-              "similarity": 0.08717060089111328,
-              "text": "Feedback form customization options are limited."
-            },
-            {
-              "similarity": 0.08190493285655975,
-              "text": "Integration with existing knowledge base systems is lacking."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim is a single, uninformative word and not related to the product or the field intent.",
-          "similarity": 0.08717060089111328,
-          "status": "novel"
-        },
-        {
-          "claim": "window trumpet perhaps",
-          "entailment_judged": false,
-          "entailment_reason": null,
-          "field": "problem_solved",
-          "nearest_claim": "Improved the efficiency of the release process communication.",
-          "neighbors": [
-            {
-              "similarity": 0.19671499729156494,
-              "text": "Improved the efficiency of the release process communication."
-            },
-            {
-              "similarity": 0.16896235942840576,
-              "text": "Created a seamless idea-to-launch process."
-            },
-            {
-              "similarity": 0.16303765773773193,
-              "text": "Eliminated context switching between disparate tools."
-            }
-          ],
-          "relevance": 0.0,
-          "relevance_reason": "The claim is gibberish and not related to the product or the field intent.",
-          "similarity": 0.19671499729156494,
-          "status": "novel"
-        }
-      ],
+      "claim_decisions": [],
       "field_scores": {
         "problem_solved": 0.0,
         "what_you_dislike": 0.0,
@@ -2620,13 +2490,32 @@
       "synthetic_corpus_exact_duplicate": 5
     }
   },
+  "degraded_cases": {},
   "llm_usage": {
-    "cache_hits": 54,
-    "calls": 0,
-    "completion_tokens": 0,
-    "estimated_cost_usd": 0.0,
+    "attempts": 34,
+    "budget_usd": null,
+    "cache_enabled": true,
+    "cache_hit_rate": 0.7554,
+    "cached_tokens": 0,
+    "calls": 34,
+    "circuit_breaker": {
+      "consecutive_failures": 0,
+      "state": "closed",
+      "times_opened": 0
+    },
+    "completion_tokens": 8355,
+    "cost_usd": 0.027422,
+    "disk_hits": 105,
     "inflight_dedup": 0,
-    "prompt_tokens": 0,
+    "max_concurrency": 8,
+    "memory_cache_entries": 139,
+    "memory_hits": 0,
+    "prompt_tokens": 21780,
+    "repairs": 0,
+    "retries": 0,
+    "served_models": {
+      "google/gemini-2.5-flash": 34
+    },
     "upstream_failures": 0
   },
   "per_category": {
@@ -2645,14 +2534,14 @@
     "novel_relevant": {
       "count": 5,
       "max": 1.0,
-      "mean": 0.8666666666666666,
-      "min": 0.6666666666666666
+      "mean": 0.925,
+      "min": 0.875
     },
     "paraphrase": {
       "count": 5,
-      "max": 0.4166666666666667,
-      "mean": 0.21388888888888888,
-      "min": 0.0
+      "max": 0.42361111111111116,
+      "mean": 0.22916666666666666,
+      "min": 0.05555555555555555
     },
     "redundant": {
       "count": 5,
@@ -2669,522 +2558,522 @@
     "low_threshold": 0.35,
     "partial_novelty_credit": 0.5
   },
-  "separation_margin": 0.24999999999999994,
+  "separation_margin": 0.45138888888888884,
   "threshold_sweep": {
     "candidates": [
       {
-        "accuracy": 0.8607594936708861,
-        "balanced_accuracy": 0.8380984042553192,
+        "accuracy": 0.7972972972972973,
+        "balanced_accuracy": 0.7815964523281597,
         "coverage": 1.0,
         "high_threshold": 0.65,
         "low_threshold": 0.25
       },
       {
-        "accuracy": 0.8354430379746836,
-        "balanced_accuracy": 0.8018617021276595,
+        "accuracy": 0.7702702702702703,
+        "balanced_accuracy": 0.745380635624538,
         "coverage": 1.0,
         "high_threshold": 0.7,
         "low_threshold": 0.25
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.75,
         "low_threshold": 0.25
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.8,
         "low_threshold": 0.25
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.82,
         "low_threshold": 0.25
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.85,
         "low_threshold": 0.25
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.9,
         "low_threshold": 0.25
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.95,
         "low_threshold": 0.25
       },
       {
-        "accuracy": 0.8607594936708861,
-        "balanced_accuracy": 0.8380984042553192,
+        "accuracy": 0.7972972972972973,
+        "balanced_accuracy": 0.7815964523281597,
         "coverage": 1.0,
         "high_threshold": 0.65,
         "low_threshold": 0.3
       },
       {
-        "accuracy": 0.8354430379746836,
-        "balanced_accuracy": 0.8018617021276595,
+        "accuracy": 0.7702702702702703,
+        "balanced_accuracy": 0.745380635624538,
         "coverage": 1.0,
         "high_threshold": 0.7,
         "low_threshold": 0.3
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.75,
         "low_threshold": 0.3
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.8,
         "low_threshold": 0.3
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.82,
         "low_threshold": 0.3
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.85,
         "low_threshold": 0.3
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.9,
         "low_threshold": 0.3
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.95,
         "low_threshold": 0.3
       },
       {
-        "accuracy": 0.8607594936708861,
-        "balanced_accuracy": 0.8380984042553192,
+        "accuracy": 0.7972972972972973,
+        "balanced_accuracy": 0.7815964523281597,
         "coverage": 1.0,
         "high_threshold": 0.65,
         "low_threshold": 0.35
       },
       {
-        "accuracy": 0.8354430379746836,
-        "balanced_accuracy": 0.8018617021276595,
+        "accuracy": 0.7702702702702703,
+        "balanced_accuracy": 0.745380635624538,
         "coverage": 1.0,
         "high_threshold": 0.7,
         "low_threshold": 0.35
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.75,
         "low_threshold": 0.35
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.8,
         "low_threshold": 0.35
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.82,
         "low_threshold": 0.35
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.85,
         "low_threshold": 0.35
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.9,
         "low_threshold": 0.35
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.78125,
+        "accuracy": 0.7567567567567568,
+        "balanced_accuracy": 0.7272727272727273,
         "coverage": 1.0,
         "high_threshold": 0.95,
         "low_threshold": 0.35
       },
       {
-        "accuracy": 0.8354430379746836,
-        "balanced_accuracy": 0.8068484042553192,
+        "accuracy": 0.7702702702702703,
+        "balanced_accuracy": 0.7512934220251294,
         "coverage": 1.0,
         "high_threshold": 0.65,
         "low_threshold": 0.4
       },
       {
-        "accuracy": 0.810126582278481,
-        "balanced_accuracy": 0.7706117021276595,
+        "accuracy": 0.7432432432432432,
+        "balanced_accuracy": 0.7150776053215078,
         "coverage": 1.0,
         "high_threshold": 0.7,
         "low_threshold": 0.4
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.75,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.75,
         "low_threshold": 0.4
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.75,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.8,
         "low_threshold": 0.4
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.75,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.82,
         "low_threshold": 0.4
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.75,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.85,
         "low_threshold": 0.4
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.75,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.9,
         "low_threshold": 0.4
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.75,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.95,
         "low_threshold": 0.4
       },
       {
-        "accuracy": 0.8354430379746836,
-        "balanced_accuracy": 0.8068484042553192,
+        "accuracy": 0.7702702702702703,
+        "balanced_accuracy": 0.7512934220251294,
         "coverage": 1.0,
         "high_threshold": 0.65,
         "low_threshold": 0.42
       },
       {
-        "accuracy": 0.810126582278481,
-        "balanced_accuracy": 0.7706117021276595,
+        "accuracy": 0.7432432432432432,
+        "balanced_accuracy": 0.7150776053215078,
         "coverage": 1.0,
         "high_threshold": 0.7,
         "low_threshold": 0.42
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.75,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.75,
         "low_threshold": 0.42
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.75,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.8,
         "low_threshold": 0.42
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.75,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.82,
         "low_threshold": 0.42
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.75,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.85,
         "low_threshold": 0.42
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.75,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.9,
         "low_threshold": 0.42
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.75,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.95,
         "low_threshold": 0.42
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.7912234042553192,
+        "accuracy": 0.7702702702702703,
+        "balanced_accuracy": 0.7512934220251294,
         "coverage": 1.0,
         "high_threshold": 0.65,
         "low_threshold": 0.45
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.7549867021276595,
+        "accuracy": 0.7432432432432432,
+        "balanced_accuracy": 0.7150776053215078,
         "coverage": 1.0,
         "high_threshold": 0.7,
         "low_threshold": 0.45
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.734375,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.75,
         "low_threshold": 0.45
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.734375,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.8,
         "low_threshold": 0.45
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.734375,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.82,
         "low_threshold": 0.45
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.734375,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.85,
         "low_threshold": 0.45
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.734375,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.9,
         "low_threshold": 0.45
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.734375,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.95,
         "low_threshold": 0.45
       },
       {
-        "accuracy": 0.8227848101265823,
-        "balanced_accuracy": 0.7912234042553192,
+        "accuracy": 0.7702702702702703,
+        "balanced_accuracy": 0.7512934220251294,
         "coverage": 1.0,
         "high_threshold": 0.65,
         "low_threshold": 0.5
       },
       {
-        "accuracy": 0.7974683544303798,
-        "balanced_accuracy": 0.7549867021276595,
+        "accuracy": 0.7432432432432432,
+        "balanced_accuracy": 0.7150776053215078,
         "coverage": 1.0,
         "high_threshold": 0.7,
         "low_threshold": 0.5
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.734375,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.75,
         "low_threshold": 0.5
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.734375,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.8,
         "low_threshold": 0.5
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.734375,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.82,
         "low_threshold": 0.5
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.734375,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.85,
         "low_threshold": 0.5
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.734375,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.9,
         "low_threshold": 0.5
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.734375,
+        "accuracy": 0.7297297297297297,
+        "balanced_accuracy": 0.696969696969697,
         "coverage": 1.0,
         "high_threshold": 0.95,
         "low_threshold": 0.5
       },
       {
-        "accuracy": 0.7848101265822784,
-        "balanced_accuracy": 0.7443484042553192,
+        "accuracy": 0.7432432432432432,
+        "balanced_accuracy": 0.720990391722099,
         "coverage": 1.0,
         "high_threshold": 0.65,
         "low_threshold": 0.55
       },
       {
-        "accuracy": 0.759493670886076,
-        "balanced_accuracy": 0.7081117021276595,
+        "accuracy": 0.7162162162162162,
+        "balanced_accuracy": 0.6847745750184775,
         "coverage": 1.0,
         "high_threshold": 0.7,
         "low_threshold": 0.55
       },
       {
-        "accuracy": 0.7468354430379747,
-        "balanced_accuracy": 0.6875,
+        "accuracy": 0.7027027027027027,
+        "balanced_accuracy": 0.6666666666666666,
         "coverage": 1.0,
         "high_threshold": 0.75,
         "low_threshold": 0.55
       },
       {
-        "accuracy": 0.7468354430379747,
-        "balanced_accuracy": 0.6875,
+        "accuracy": 0.7027027027027027,
+        "balanced_accuracy": 0.6666666666666666,
         "coverage": 1.0,
         "high_threshold": 0.8,
         "low_threshold": 0.55
       },
       {
-        "accuracy": 0.7468354430379747,
-        "balanced_accuracy": 0.6875,
+        "accuracy": 0.7027027027027027,
+        "balanced_accuracy": 0.6666666666666666,
         "coverage": 1.0,
         "high_threshold": 0.82,
         "low_threshold": 0.55
       },
       {
-        "accuracy": 0.7468354430379747,
-        "balanced_accuracy": 0.6875,
+        "accuracy": 0.7027027027027027,
+        "balanced_accuracy": 0.6666666666666666,
         "coverage": 1.0,
         "high_threshold": 0.85,
         "low_threshold": 0.55
       },
       {
-        "accuracy": 0.7468354430379747,
-        "balanced_accuracy": 0.6875,
+        "accuracy": 0.7027027027027027,
+        "balanced_accuracy": 0.6666666666666666,
         "coverage": 1.0,
         "high_threshold": 0.9,
         "low_threshold": 0.55
       },
       {
-        "accuracy": 0.7468354430379747,
-        "balanced_accuracy": 0.6875,
+        "accuracy": 0.7027027027027027,
+        "balanced_accuracy": 0.6666666666666666,
         "coverage": 1.0,
         "high_threshold": 0.95,
         "low_threshold": 0.55
       },
       {
-        "accuracy": 0.759493670886076,
-        "balanced_accuracy": 0.7130984042553192,
+        "accuracy": 0.7027027027027027,
+        "balanced_accuracy": 0.6755358462675536,
         "coverage": 1.0,
         "high_threshold": 0.65,
         "low_threshold": 0.6
       },
       {
-        "accuracy": 0.7341772151898734,
-        "balanced_accuracy": 0.6768617021276595,
+        "accuracy": 0.6756756756756757,
+        "balanced_accuracy": 0.639320029563932,
         "coverage": 1.0,
         "high_threshold": 0.7,
         "low_threshold": 0.6
       },
       {
-        "accuracy": 0.7215189873417721,
-        "balanced_accuracy": 0.65625,
+        "accuracy": 0.6621621621621622,
+        "balanced_accuracy": 0.6212121212121212,
         "coverage": 1.0,
         "high_threshold": 0.75,
         "low_threshold": 0.6
       },
       {
-        "accuracy": 0.7215189873417721,
-        "balanced_accuracy": 0.65625,
+        "accuracy": 0.6621621621621622,
+        "balanced_accuracy": 0.6212121212121212,
         "coverage": 1.0,
         "high_threshold": 0.8,
         "low_threshold": 0.6
       },
       {
-        "accuracy": 0.7215189873417721,
-        "balanced_accuracy": 0.65625,
+        "accuracy": 0.6621621621621622,
+        "balanced_accuracy": 0.6212121212121212,
         "coverage": 1.0,
         "high_threshold": 0.82,
         "low_threshold": 0.6
       },
       {
-        "accuracy": 0.7215189873417721,
-        "balanced_accuracy": 0.65625,
+        "accuracy": 0.6621621621621622,
+        "balanced_accuracy": 0.6212121212121212,
         "coverage": 1.0,
         "high_threshold": 0.85,
         "low_threshold": 0.6
       },
       {
-        "accuracy": 0.7215189873417721,
-        "balanced_accuracy": 0.65625,
+        "accuracy": 0.6621621621621622,
+        "balanced_accuracy": 0.6212121212121212,
         "coverage": 1.0,
         "high_threshold": 0.9,
         "low_threshold": 0.6
       },
       {
-        "accuracy": 0.7215189873417721,
-        "balanced_accuracy": 0.65625,
+        "accuracy": 0.6621621621621622,
+        "balanced_accuracy": 0.6212121212121212,
         "coverage": 1.0,
         "high_threshold": 0.95,
         "low_threshold": 0.6
       }
     ],
     "chosen": {
-      "accuracy": 0.8607594936708861,
-      "balanced_accuracy": 0.8380984042553192,
+      "accuracy": 0.7972972972972973,
+      "balanced_accuracy": 0.7815964523281597,
       "coverage": 1.0,
       "high_threshold": 0.65,
       "low_threshold": 0.35
     },
-    "judge_pairs": 54,
+    "judge_pairs": 62,
     "selection_rule": "maximize balanced accuracy for covered (redundant/paraphrase) vs novel labels; ambiguous claims use cached LLM judge outcomes"
   }
 }

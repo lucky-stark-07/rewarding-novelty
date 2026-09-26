@@ -1,4 +1,3 @@
-import ast
 import asyncio
 import json
 from pathlib import Path
@@ -7,6 +6,7 @@ from backend.config import Settings
 from backend.corpus import CorpusIndex, CorpusStore
 from backend.embeddings import embed
 from backend.novelty import score_submission
+from backend.reference import REFERENCE_PRODUCT_DESCRIPTION
 from backend.schemas import Claim, CorpusEntry, FieldName, ScoreResult, Submission
 
 FIXTURE_DIR = Path(__file__).parent / "fixtures"
@@ -20,22 +20,22 @@ class FixtureLLM:
     def __init__(self, delay: float = 0.0) -> None:
         self.responses = LLM_FIXTURES
         self.delay = delay
-        self.calls: list[tuple[str, str]] = []
+        self.calls: list[tuple[str, dict]] = []
 
-    async def complete_json(self, *, model: str, system: str, prompt: str, response_model: type, temperature: float = 0, check=None, span_name: str = ""):
-        self.calls.append((span_name, prompt))
+    async def complete_json(self, prompt, *, model: str, variables: dict, response_model: type, temperature: float = 0, check=None):
+        prompt.render(**variables)  # fail loudly if a template variable is missing
+        self.calls.append((prompt.name, variables))
         if self.delay:
             await asyncio.sleep(self.delay)
-        if "You extract atomic claims" in system:
-            incoming = ast.literal_eval(prompt.removeprefix("Review fields:\n"))
-            extraction = self.responses["extraction"]
-            response = {"claims": [claim for field in incoming for claim in extraction.get(f"{field}|{incoming[field]}", [{"field": field, "text": incoming[field]}])]}
-        elif "relevance judge" in system:
-            items = json.loads(prompt.split("Claims:\n", 1)[1])
+        if prompt.name == "extract_claims":
+            fixture = self.responses["extraction"].get(f"{variables['field']}|{variables['text']}", [{"text": variables["text"]}])
+            response = {"claims": [{"text": claim["text"]} for claim in fixture]}
+        elif prompt.name == "judge_relevance":
+            items = json.loads(variables["claims"])
             default = {"relevance_score": 0.85, "reason": "The claim concerns product team planning."}
             response = {"results": [{"id": item["id"], **self.responses["relevance"].get(item["claim"], default)} for item in items]}
         else:
-            items = json.loads(prompt.split("Items:\n", 1)[1])
+            items = json.loads(variables["items"])
             results = []
             for item in items:
                 judged = self.responses["entailment"].get(item["candidate"], {"covered": False, "reason": "The claims describe distinct product observations."})
@@ -53,7 +53,7 @@ class FixtureLLM:
 
 def run_score(submission: Submission, store: CorpusStore, llm=None, settings: Settings | None = None, **kwargs) -> ScoreResult:
     async def run() -> ScoreResult:
-        index = await CorpusIndex.create(store, embed)
+        index = await CorpusIndex.create(store, embed, REFERENCE_PRODUCT_DESCRIPTION)
         return await score_submission(submission, index, llm or FixtureLLM(), settings=settings or Settings(high_threshold=0.65, low_threshold=0.35), **kwargs)
     return asyncio.run(run())
 

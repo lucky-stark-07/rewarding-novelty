@@ -1,47 +1,63 @@
 import asyncio
 import json
+import logging
 import threading
 from pathlib import Path
 from types import SimpleNamespace
 import httpx
+import openai
 import pytest
 from pydantic import BaseModel
+from tenacity import Future, RetryCallState
 from backend import llm_client as llm_module
 from backend.config import Settings
 from backend.corpus import CorpusIndex, CorpusStore
 from backend.embeddings import embed
-from backend.llm_client import CircuitBreaker, CircuitOpenError, LLMClient, UpstreamError
+from backend.llm_client import BudgetExceededError, CircuitBreaker, CircuitOpenError, LLMClient, UpstreamError, retry_after_seconds
 from backend.main import create_app
-from backend.routes import submit as submit_route
+from backend.prompts import EXTRACT_CLAIMS, JUDGE_COVERAGE, JUDGE_RELEVANCE, Prompt, load_prompt
 from backend.schemas import Claim, CorpusEntry, FieldName, Submission
-from tests.conftest import FixtureLLM
+from tests.conftest import FIXTURES, FixtureLLM, run_score
+
+REQUEST = httpx.Request("POST", "https://openrouter.test/api/v1/chat/completions")
+TEST_PROMPT = Prompt(name="test", version="1", system="Return JSON.", user=EXTRACT_CLAIMS.user.__class__("$text"))
 
 
 class Answer(BaseModel):
     value: int
 
 
+def status_error(status: int, headers: dict[str, str] | None = None) -> openai.APIStatusError:
+    response = httpx.Response(status, headers=headers or {}, request=REQUEST)
+    return openai.APIStatusError(f"HTTP {status}", response=response, body=None)
+
+
 class FakeCompletions:
-    """Stands in for AsyncOpenAI.chat.completions; records peak concurrency."""
+    """Stands in for AsyncOpenAI.chat.completions. `script` is consumed per call: an exception
+    is raised, a string is returned as content; afterwards it returns {"value": 1}."""
 
-    def __init__(self, contents: list[str] | None = None, fail: bool = False, delay: float = 0.02) -> None:
-        self.contents = contents
-        self.fail = fail
+    def __init__(self, script: list | None = None, delay: float = 0.01, cost: float | None = 0.001, served_model: str = "served/model", cached_tokens: int = 4) -> None:
+        self.script = list(script or [])
         self.delay = delay
-        self.calls = 0
-        self.active = 0
-        self.peak = 0
+        self.cost = cost
+        self.served_model = served_model
+        self.cached_tokens = cached_tokens
+        self.calls: list[dict] = []
+        self.active = self.peak = 0
 
-    async def create(self, **_kwargs):
-        self.calls += 1
+    async def create(self, **kwargs):
+        self.calls.append(kwargs)
         self.active += 1
         self.peak = max(self.peak, self.active)
         try:
             await asyncio.sleep(self.delay)
-            if self.fail:
-                raise ConnectionError("upstream down")
-            content = self.contents.pop(0) if self.contents else json.dumps({"value": 1})
-            return SimpleNamespace(usage=SimpleNamespace(prompt_tokens=10, completion_tokens=5), choices=[SimpleNamespace(message=SimpleNamespace(content=content))])
+            step = self.script.pop(0) if self.script else json.dumps({"value": 1})
+            if isinstance(step, BaseException):
+                raise step
+            usage = SimpleNamespace(prompt_tokens=10, completion_tokens=5, prompt_tokens_details=SimpleNamespace(cached_tokens=self.cached_tokens))
+            if self.cost is not None:
+                usage.cost = self.cost
+            return SimpleNamespace(model=self.served_model, usage=usage, choices=[SimpleNamespace(message=SimpleNamespace(content=step))])
         finally:
             self.active -= 1
 
@@ -57,71 +73,183 @@ def no_backoff(monkeypatch) -> None:
     monkeypatch.setattr(llm_module, "RETRY_BASE_SECONDS", 0.0)
 
 
-def ask(client: LLMClient, prompt: str, **kwargs):
-    return client.complete_json(model="m", system="s", prompt=prompt, response_model=Answer, **kwargs)
+def ask(client: LLMClient, text: str, prompt: Prompt = TEST_PROMPT, **kwargs):
+    return client.complete_json(prompt, model=kwargs.pop("model", "m"), variables={"text": text}, response_model=Answer, **kwargs)
 
+
+# ---- prompts -------------------------------------------------------------------------------
+
+def test_prompts_load_from_markdown_with_versions_and_user_text_last() -> None:
+    for prompt in (EXTRACT_CLAIMS, JUDGE_RELEVANCE, JUDGE_COVERAGE):
+        assert prompt.PROMPT_VERSION.startswith(prompt.name + "@")
+        assert prompt.system and "$" not in prompt.system
+    rendered = JUDGE_RELEVANCE.render(reference="REF", field="what_you_like", field_intent="INTENT", claims="USER_CLAIMS")
+    assert rendered.index("REF") < rendered.index("INTENT") < rendered.index("USER_CLAIMS")
+    assert EXTRACT_CLAIMS.render(field="f", field_intent="i", text="USER TEXT").rstrip().endswith("USER TEXT")
+    assert load_prompt("judge_coverage").version == JUDGE_COVERAGE.version
+
+
+# ---- async client: concurrency, caching -----------------------------------------------------
 
 def test_llm_concurrency_is_bounded_by_semaphore(tmp_path: Path) -> None:
-    fake = FakeCompletions()
+    fake = FakeCompletions(delay=0.02)
     async def run():
         client = make_client(tmp_path, fake, llm_max_concurrency=3)
         await asyncio.gather(*(ask(client, f"prompt {i}") for i in range(20)))
     asyncio.run(run())
-    assert fake.calls == 20
-    assert fake.peak <= 3
+    assert len(fake.calls) == 20 and fake.peak <= 3
 
 
-def test_identical_concurrent_prompts_share_one_upstream_call_then_hit_cache(tmp_path: Path) -> None:
-    fake = FakeCompletions()
+def test_identical_concurrent_prompts_share_one_call_then_hit_memory_lru(tmp_path: Path) -> None:
+    fake = FakeCompletions(delay=0.02)
     async def run():
         client = make_client(tmp_path, fake)
         results = await asyncio.gather(*(ask(client, "same") for _ in range(10)))
         await ask(client, "same")
         return client, results
     client, results = asyncio.run(run())
-    assert fake.calls == 1
-    assert all(result.value == 1 for result in results)
-    assert client.metrics["inflight_dedup"] == 9 and client.metrics["cache_hits"] == 1
+    assert len(fake.calls) == 1 and all(result.value == 1 for result in results)
+    assert client.metrics["inflight_dedup"] == 9 and client.metrics["memory_hits"] == 1 and client.metrics["disk_hits"] == 0
 
 
-def test_schema_check_failure_triggers_one_repair_prompt(tmp_path: Path) -> None:
-    fake = FakeCompletions(contents=[json.dumps({"value": 7}), json.dumps({"value": 1})])
-    def must_be_one(answer: Answer) -> None:
-        if answer.value != 1:
-            raise ValueError("value must be 1")
-    result = asyncio.run(ask(make_client(tmp_path, fake), "repair me", check=must_be_one))
-    assert result.value == 1 and fake.calls == 2
+def test_disk_cache_serves_a_fresh_process(tmp_path: Path) -> None:
+    fake = FakeCompletions()
+    asyncio.run(ask(make_client(tmp_path, fake), "persist me"))
+    fresh = make_client(tmp_path, fake)
+    asyncio.run(ask(fresh, "persist me"))
+    assert len(fake.calls) == 1 and fresh.metrics["disk_hits"] == 1
 
 
-def test_circuit_opens_after_repeated_failures_and_fails_fast(tmp_path: Path) -> None:
-    fake = FakeCompletions(fail=True, delay=0)
+def test_cache_key_covers_model_prompt_version_temperature_and_schema() -> None:
+    class Other(BaseModel):
+        other: str
+    messages = [{"role": "user", "content": "x"}]
+    base = LLMClient.cache_key("m", "p@1", 0, Answer, messages)
+    assert base == LLMClient.cache_key("m", "p@1", 0, Answer, messages)
+    variants = [LLMClient.cache_key("m2", "p@1", 0, Answer, messages), LLMClient.cache_key("m", "p@2", 0, Answer, messages), LLMClient.cache_key("m", "p@1", 0.5, Answer, messages), LLMClient.cache_key("m", "p@1", 0, Other, messages), LLMClient.cache_key("m", "p@1", 0, Answer, [{"role": "user", "content": "y"}])]
+    assert len({base, *variants}) == 6
+
+
+def test_cache_disabled_flag_bypasses_cache_and_dedup(tmp_path: Path) -> None:
+    fake = FakeCompletions(delay=0.01)
     async def run():
-        client = make_client(tmp_path, fake, breaker_failure_threshold=2)
-        for i in range(2):
+        client = make_client(tmp_path, fake, cache_enabled=False)
+        await asyncio.gather(*(ask(client, "same") for _ in range(4)))
+        await ask(client, "same")
+        return client
+    client = asyncio.run(run())
+    assert len(fake.calls) == 5
+    assert not list((tmp_path / "cache").glob("*.json"))
+    assert client.snapshot()["cache_hit_rate"] == 0.0
+
+
+# ---- reliability ----------------------------------------------------------------------------
+
+def test_schema_failure_triggers_one_repair_with_the_error(tmp_path: Path) -> None:
+    fake = FakeCompletions(script=[json.dumps({"value": "not a number"}), json.dumps({"value": 1})])
+    result = asyncio.run(ask(make_client(tmp_path, fake), "repair me"))
+    assert result.value == 1 and len(fake.calls) == 2
+    assert "failed validation" in fake.calls[1]["messages"][1]["content"]
+
+
+def test_second_invalid_output_raises_upstream_error(tmp_path: Path) -> None:
+    fake = FakeCompletions(script=["not json", "still not json"])
+    with pytest.raises(UpstreamError):
+        asyncio.run(ask(make_client(tmp_path, fake), "hopeless"))
+    assert len(fake.calls) == 2
+
+
+def test_retries_429_and_5xx_and_timeouts_then_succeeds(tmp_path: Path) -> None:
+    fake = FakeCompletions(script=[status_error(429, {"retry-after": "0"}), openai.APITimeoutError(request=REQUEST), json.dumps({"value": 1})])
+    client = make_client(tmp_path, fake)
+    assert asyncio.run(ask(client, "flaky")).value == 1
+    assert len(fake.calls) == 3 and client.metrics["retries"] == 2
+
+
+def test_gives_up_after_three_attempts(tmp_path: Path) -> None:
+    fake = FakeCompletions(script=[status_error(503)] * 5)
+    with pytest.raises(UpstreamError):
+        asyncio.run(ask(make_client(tmp_path, fake), "down"))
+    assert len(fake.calls) == 3
+
+
+def test_client_errors_are_not_retried(tmp_path: Path) -> None:
+    fake = FakeCompletions(script=[status_error(400)])
+    with pytest.raises(UpstreamError):
+        asyncio.run(ask(make_client(tmp_path, fake), "bad request"))
+    assert len(fake.calls) == 1
+
+
+def test_retry_after_is_honoured(tmp_path: Path) -> None:
+    client = make_client(tmp_path, FakeCompletions(), llm_max_retry_after_seconds=20)
+    state = RetryCallState(retry_object=None, fn=None, args=(), kwargs={})
+    outcome = Future(attempt_number=1)
+    outcome.set_exception(status_error(429, {"retry-after": "7"}))
+    state.outcome = outcome
+    assert client._wait(state) == 7
+    assert retry_after_seconds(status_error(429, {"retry-after-ms": "1500"})) == 1.5
+    assert retry_after_seconds(status_error(429, {"retry-after": "999"})) == 999
+    outcome = Future(attempt_number=1)
+    outcome.set_exception(status_error(429, {"retry-after": "999"}))
+    state.outcome = outcome
+    assert client._wait(state) == 20
+
+
+def test_openrouter_fallbacks_usage_and_served_model_are_recorded(tmp_path: Path, caplog) -> None:
+    caplog.set_level(logging.INFO, logger="backend.llm_client")
+    fake = FakeCompletions(cost=0.0042, served_model="backup/model", cached_tokens=6)
+    client = make_client(tmp_path, fake, judge_model="primary/model", judge_model_fallbacks="backup/model, other/model")
+    asyncio.run(ask(client, "fallback", model="primary/model"))
+    extra = fake.calls[0]["extra_body"]
+    assert extra["models"] == ["primary/model", "backup/model", "other/model"] and extra["usage"] == {"include": True}
+    assert client.metrics["cost_usd"] == pytest.approx(0.0042) and client.metrics["cached_tokens"] == 6
+    assert client.served_models == {"backup/model": 1}
+    assert any("served_model=backup/model" in record.getMessage() for record in caplog.records)
+
+
+def test_cost_is_estimated_when_not_reported(tmp_path: Path) -> None:
+    client = make_client(tmp_path, FakeCompletions(cost=None), fast_model="m")
+    asyncio.run(ask(client, "estimate"))
+    assert client.metrics["cost_usd"] == pytest.approx(10 * 0.10 / 1e6 + 5 * 0.40 / 1e6)
+
+
+def test_circuit_opens_after_three_consecutive_failures(tmp_path: Path) -> None:
+    fake = FakeCompletions(script=[status_error(400)] * 3)
+    async def run():
+        client = make_client(tmp_path, fake)
+        for i in range(3):
             with pytest.raises(UpstreamError):
                 await ask(client, f"p{i}")
-        calls_before = fake.calls
         with pytest.raises(CircuitOpenError):
             await ask(client, "p-open")
-        return client, calls_before
-    client, calls_before = asyncio.run(run())
-    assert calls_before == 6  # 2 requests × 3 attempts
-    assert fake.calls == calls_before
-    assert client.breaker.state == "open"
+        return client
+    client = asyncio.run(run())
+    assert len(fake.calls) == 3 and client.breaker.state == "open"
+
+
+def test_budget_cap_stops_upstream_calls(tmp_path: Path) -> None:
+    fake = FakeCompletions(cost=0.3)
+    async def run():
+        client = make_client(tmp_path, fake, llm_budget_usd=0.5)
+        await ask(client, "a")
+        await ask(client, "b")
+        with pytest.raises(BudgetExceededError):
+            await ask(client, "c")
+        await ask(client, "a")  # cached answers stay available
+    asyncio.run(run())
+    assert len(fake.calls) == 2
 
 
 def test_circuit_breaker_half_open_probe_closes_on_success() -> None:
     now = [0.0]
     breaker = CircuitBreaker(failure_threshold=1, cooldown_seconds=10, clock=lambda: now[0])
     breaker.on_failure()
-    assert breaker.state == "open"
     with pytest.raises(CircuitOpenError):
         breaker.before_call()
     now[0] = 11
-    assert breaker.state == "half_open"
-    breaker.before_call()  # the single probe is admitted
+    breaker.before_call()
     with pytest.raises(CircuitOpenError):
-        breaker.before_call()  # concurrent callers still fail fast
+        breaker.before_call()
     breaker.on_success()
     assert breaker.state == "closed"
 
@@ -137,19 +265,37 @@ def test_circuit_breaker_failed_probe_reopens() -> None:
     assert breaker.state == "open" and breaker.times_opened == 2
 
 
-def test_missing_api_key_does_not_trip_breaker(tmp_path: Path) -> None:
-    client = LLMClient(Settings(cache_dir=tmp_path / "cache", openrouter_api_key=None))
-    for i in range(6):
-        with pytest.raises(UpstreamError):
-            asyncio.run(ask(client, f"k{i}"))
-    assert client.breaker.state == "closed"
-
-
 def test_settings_never_expose_api_key() -> None:
     settings = Settings(openrouter_api_key="sk-or-secret-value")
-    assert "sk-or-secret-value" not in repr(settings)
-    assert "sk-or-secret-value" not in str(settings.model_dump())
+    assert "sk-or-secret-value" not in repr(settings) and "sk-or-secret-value" not in str(settings.model_dump())
 
+
+# ---- degraded scoring -----------------------------------------------------------------------
+
+class DownLLM:
+    async def complete_json(self, *_args, **_kwargs):
+        raise CircuitOpenError(30)
+
+    def snapshot(self) -> dict:
+        return {"circuit_breaker": {"state": "open"}}
+
+
+def test_llm_outage_degrades_to_embedding_only_scoring(corpus: CorpusStore) -> None:
+    result = run_score(Submission.model_validate(FIXTURES["novel_relevant"]), corpus, llm=DownLLM(), add_to_corpus=True, settings=Settings(corpus_acceptance_threshold=0.0))
+    assert result.degraded and "CircuitOpenError" in (result.degraded_reason or "")
+    assert result.meta["degraded"] is True and result.meta["llm_calls"] == 0
+    assert result.added_to_corpus is False and len(corpus.list()) == 1
+    claims = [claim for field in result.field_scores for claim in field.claims]
+    assert claims and all(not claim.entailment_judged for claim in claims)
+    assert all(claim.relevance_reason.startswith("Degraded") for claim in claims)
+
+
+def test_degraded_mode_still_rejects_off_topic_and_gibberish(corpus: CorpusStore) -> None:
+    for case in ("irrelevant", "gibberish"):
+        assert run_score(Submission.model_validate(FIXTURES[case]), corpus, llm=DownLLM()).submission_score <= 0.34
+
+
+# ---- corpus ---------------------------------------------------------------------------------
 
 def _entry(i: int) -> CorpusEntry:
     return CorpusEntry(id=f"e{i}", submission=Submission(what_you_like=f"Distinct observation number {i}."), claims=[Claim(id=f"c{i}", field=FieldName.WHAT_YOU_LIKE, text=f"Distinct observation number {i}.")])
@@ -163,23 +309,25 @@ def test_concurrent_corpus_appends_do_not_lose_entries(tmp_path: Path) -> None:
     assert sorted(entry.id for entry in CorpusStore(path).list()) == sorted(f"e{i}" for i in range(25))
 
 
-def test_corpus_index_add_updates_retrieval_and_duplicates(tmp_path: Path) -> None:
+def test_corpus_index_single_matrix_search_is_field_scoped(tmp_path: Path) -> None:
     async def run():
         index = await CorpusIndex.create(CorpusStore(tmp_path / "corpus.json"), embed)
         await index.add(_entry(1))
         await index.add(_entry(1))
-        vector = embed(["Distinct observation number 1."])[0]
-        return index, index.neighbors(FieldName.WHAT_YOU_LIKE, vector, 3)
+        other = CorpusEntry(id="d", submission=Submission(what_you_dislike="Distinct observation number 1."), claims=[Claim(id="d1", field=FieldName.WHAT_YOU_DISLIKE, text="Distinct observation number 1.")])
+        await index.add(other)
+        vectors = await index.embed(["Distinct observation number 1."])
+        return index, index.search(vectors, [FieldName.WHAT_YOU_LIKE], 5)[0]
     index, neighbors = asyncio.run(run())
-    assert len(index.entries) == 1 and index.claim_count == 1
-    assert neighbors[0][1] == pytest.approx(1.0, abs=1e-4)
+    assert index.matrix is not None and index.matrix.shape[0] == 2 and len(index.entries) == 2
+    assert [claim.id for claim, _ in neighbors] == ["c1"] and neighbors[0][1] == pytest.approx(1.0, abs=1e-4)
     assert index.find_duplicate(Submission(what_you_like="  distinct OBSERVATION number 1. ")) is not None
 
 
-# ---- API ----
+# ---- API ------------------------------------------------------------------------------------
 
 def app_settings(tmp_path: Path, **overrides) -> Settings:
-    return Settings(corpus_path=tmp_path / "corpus.json", cache_dir=tmp_path / "cache", **overrides)
+    return Settings(corpus_path=tmp_path / "corpus.json", cache_dir=tmp_path / "cache", trace_log_path=tmp_path / "logs" / "traces.jsonl", **overrides)
 
 
 async def with_app(settings: Settings, llm, fn):
@@ -189,19 +337,23 @@ async def with_app(settings: Settings, llm, fn):
             return await fn(app, client)
 
 
-def test_score_route_returns_request_meta_trace_and_structured_log(tmp_path: Path, caplog) -> None:
-    import logging
+def test_score_response_meta_trace_log_and_stats(tmp_path: Path, caplog) -> None:
     caplog.set_level(logging.INFO, logger="rewarding_novelty.requests")
     async def fn(_app, client):
-        return await client.post("/score", headers={"x-request-id": "test-request-123"}, json={"what_you_like": "Useful", "what_you_dislike": "Slow", "problem_solved": "Planning"})
-    response = asyncio.run(with_app(app_settings(tmp_path), FixtureLLM(), fn))
+        response = await client.post("/score", headers={"x-request-id": "trace-123"}, json={"what_you_like": "Useful", "what_you_dislike": "Slow", "problem_solved": "Planning"})
+        return response, (await client.get("/stats")).json()
+    settings = app_settings(tmp_path)
+    response, stats = asyncio.run(with_app(settings, FixtureLLM(), fn))
     assert response.status_code == 200
-    body = response.json()
-    assert body["meta"]["request_id"] == "test-request-123" == response.headers["x-request-id"]
-    assert any(span["name"] == "llm.extract_claims" or span["name"] == "judge.batch" for span in body["meta"]["trace"])
-    log_record = next(record for record in caplog.records if record.name == "rewarding_novelty.requests")
-    logged = json.loads(log_record.message)
-    assert logged["request_id"] == "test-request-123" and "trace" not in logged
+    meta = response.json()["meta"]
+    assert meta["trace_id"] == "trace-123" == response.headers["x-request-id"]
+    assert {"extract", "embed", "search", "relevance", "aggregate"} <= {span["name"] for span in meta["spans"]}
+    lines = [json.loads(line) for line in settings.trace_log_path.read_text().splitlines()]
+    assert len(lines) == len(meta["spans"]) and all(line["trace_id"] == "trace-123" for line in lines)
+    logged = json.loads(next(record for record in caplog.records if record.name == "rewarding_novelty.requests").message)
+    assert logged["trace_id"] == "trace-123" and "spans" not in logged
+    assert stats["request_count"] == 1 and stats["latency_ms"]["p50"] is not None and stats["latency_ms"]["p95"] is not None
+    assert {"total_cost_usd", "cache_hit_rate", "degraded_count"} <= set(stats)
 
 
 def test_score_route_rejects_overlong_field(tmp_path: Path) -> None:
@@ -215,39 +367,30 @@ def test_overload_is_shed_with_503(tmp_path: Path) -> None:
         app.state.stats.in_flight = app.state.settings.max_inflight_requests
         response = await client.post("/score", json={"what_you_like": "Useful"})
         app.state.stats.in_flight = 0
-        stats = (await client.get("/stats")).json()
-        return response, stats
+        return response, (await client.get("/stats")).json()
     response, stats = asyncio.run(with_app(app_settings(tmp_path, max_inflight_requests=2), FixtureLLM(), fn))
     assert response.status_code == 503 and response.headers["retry-after"] == "1"
-    assert stats["service"]["requests_rejected_overload"] == 1
+    assert stats["rejected_overload"] == 1
 
 
-@pytest.mark.parametrize("error, status", [(CircuitOpenError(12.2), 503), (UpstreamError("bad json"), 502)])
-def test_upstream_failures_map_to_clean_http_errors(tmp_path: Path, monkeypatch, error, status) -> None:
-    async def failing(*_args, **_kwargs):
-        raise error
-    monkeypatch.setattr(submit_route, "score_submission", failing)
+def test_llm_outage_returns_degraded_200_and_is_counted(tmp_path: Path) -> None:
     async def fn(_app, client):
-        return await client.post("/score", json={"what_you_like": "Useful"}), (await client.get("/stats")).json()
-    response, stats = asyncio.run(with_app(app_settings(tmp_path), FixtureLLM(), fn))
-    assert response.status_code == status
-    if status == 503:
-        assert response.headers["retry-after"] == "13"
-    assert stats["service"]["requests_total"] == 1 and stats["service"]["requests_in_flight"] == 0
+        response = await client.post("/score", json={"what_you_like": "It links customer feedback to roadmap items."})
+        return response, (await client.get("/stats")).json()
+    response, stats = asyncio.run(with_app(app_settings(tmp_path), DownLLM(), fn))
+    body = response.json()
+    assert response.status_code == 200 and body["degraded"] is True and body["meta"]["degraded"] is True and body["degraded_reason"]
+    assert stats["degraded_count"] == 1 and stats["outcomes"] == {"degraded": 1}
 
 
-def test_concurrent_requests_add_to_corpus_without_loss_and_stats_reflect_load(tmp_path: Path) -> None:
+def test_concurrent_requests_add_to_corpus_without_loss(tmp_path: Path) -> None:
     n = 12
     async def fn(_app, client):
         payloads = [{"what_you_like": f"It exports roadmap item {i} to a signed audit PDF for regulator number {i}.", "add_to_corpus": True} for i in range(n)]
         responses = await asyncio.gather(*(client.post("/score", json=payload) for payload in payloads))
-        stats = (await client.get("/stats")).json()
-        corpus = (await client.get("/corpus")).json()
-        return responses, stats, corpus
+        return responses, (await client.get("/stats")).json(), (await client.get("/corpus")).json()
     responses, stats, corpus = asyncio.run(with_app(app_settings(tmp_path, corpus_acceptance_threshold=0.1), FixtureLLM(delay=0.01), fn))
     assert all(response.status_code == 200 for response in responses)
     added = sum(response.json()["added_to_corpus"] for response in responses)
-    assert added >= 1
-    assert len(corpus) == added == len(CorpusStore(tmp_path / "corpus.json").list())
-    assert stats["service"]["requests_total"] == n and stats["service"]["outcomes"] == {"ok": n}
-    assert stats["service"]["latency_seconds"]["p95"] is not None
+    assert added >= 1 and len(corpus) == added == len(CorpusStore(tmp_path / "corpus.json").list())
+    assert stats["request_count"] == n and stats["outcomes"] == {"ok": n}

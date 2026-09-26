@@ -8,7 +8,7 @@ import { ScoreGauge } from "./components/ScoreGauge";
 import { FieldBreakdown } from "./components/FieldBreakdown";
 import { CorpusInspector } from "./components/CorpusInspector";
 import { ArchitectureVisualizer } from "./components/ArchitectureVisualizer";
-import { TracePanel } from "./components/TracePanel";
+import { DegradedBadge, TracePanel } from "./components/TracePanel";
 import { ScoreResult, CorpusEntry } from "./types";
 import { Sparkles, Layers, RefreshCw, AlertCircle } from "lucide-react";
 
@@ -150,6 +150,15 @@ export default function Home() {
               <div className="lg:col-span-5 space-y-6">
                 {result ? (
                   <div className="sticky top-24 space-y-6">
+                    {result.degraded && (
+                      <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-200 flex items-start gap-2">
+                        <DegradedBadge reason={result.degraded_reason} />
+                        <span>
+                          The LLM judge was unavailable, so this score used embedding similarity only and is provisional.
+                          {result.degraded_reason ? ` (${result.degraded_reason})` : ""}
+                        </span>
+                      </div>
+                    )}
                     <ScoreGauge
                       score={result.submission_score}
                       scoringMode={result.scoring_mode}
@@ -166,7 +175,7 @@ export default function Home() {
                     )}
                     {result.add_to_corpus_requested && !result.added_to_corpus && (
                       <div className="rounded-xl border border-slate-700 bg-slate-900 p-3 text-center text-xs text-slate-300">
-                        Not added to the comparison corpus. It was either already present or did not meet the acceptance threshold.
+                        Not added to the comparison corpus. It was already present, did not meet the acceptance threshold, or was scored in degraded mode.
                       </div>
                     )}
                     {result.meta && <TracePanel meta={result.meta} />}

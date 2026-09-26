@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Request
 from ..data_gen import generate_corpus
-from ..llm_client import CircuitOpenError, UpstreamError
+from ..llm_client import LLM_UNAVAILABLE
 from ..reference import REFERENCE_PRODUCT_DESCRIPTION
 from ..schemas import CorpusEntry
 router = APIRouter(tags=["corpus"])
@@ -16,7 +16,7 @@ async def regenerate_corpus(request: Request) -> list[CorpusEntry]:
     state = request.app.state
     try:
         entries = await generate_corpus(REFERENCE_PRODUCT_DESCRIPTION, state.llm)
-    except (CircuitOpenError, UpstreamError, ValueError) as exc:
+    except (*LLM_UNAVAILABLE, ValueError) as exc:
         raise HTTPException(status_code=502, detail=f"Corpus generation failed: {exc}") from exc
     await state.index.replace(entries)
     return entries

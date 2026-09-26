@@ -44,24 +44,58 @@ export interface ScoreResult {
   reason?: string | null;
   add_to_corpus_requested: boolean;
   added_to_corpus: boolean;
-  meta?: {
-    request_id?: string;
-    estimated_cost_usd?: number;
-    llm_calls?: number;
-    llm_cache_hits?: number;
-    prompt_tokens?: number;
-    completion_tokens?: number;
-    stage_latency_seconds?: Record<string, number>;
-    decisions?: Record<string, number>;
-    trace?: TraceSpan[];
-  };
+  degraded?: boolean;
+  degraded_reason?: string | null;
+  meta?: ScoreMeta;
+}
+
+export interface ScoreMeta {
+  trace_id: string;
+  total_latency_ms: number;
+  total_cost: number;
+  llm_calls: number;
+  cache_hits: number;
+  prompt_tokens?: number;
+  completion_tokens?: number;
+  cached_tokens?: number;
+  degraded: boolean;
+  degraded_reason?: string | null;
+  decisions?: Record<string, number>;
+  spans: TraceSpan[];
 }
 
 export interface TraceSpan {
   name: string;
   start_ms: number;
   duration_ms: number;
+  tokens: number;
+  prompt_tokens: number;
+  completion_tokens: number;
+  cached_tokens: number;
+  cost_usd: number;
+  llm_calls: number;
+  cache_hits: number;
+  cache_hit: boolean | null;
+  served_model: string | null;
   attrs: Record<string, string | number | boolean | null>;
+}
+
+export interface ServiceStats {
+  request_count: number;
+  latency_ms: { p50: number | null; p95: number | null };
+  total_cost_usd: number;
+  cache_hit_rate: number | null;
+  degraded_count: number;
+  llm?: { circuit_breaker?: { state: string }; served_models?: Record<string, number>; budget_usd?: number | null; cost_usd?: number };
+  config?: {
+    fast_model: string;
+    judge_model: string;
+    low_threshold: number;
+    high_threshold: number;
+    entailment_top_k: number;
+    max_inflight_requests: number;
+    prompt_versions: string[];
+  };
 }
 
 export interface CorpusEntry {

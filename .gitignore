@@ -224,6 +224,8 @@ __pycache__/
 .pytest_cache/
 backend/.cache/
 backend/corpus.json
+backend/corpus.json.lock
+logs/
 
 # Next.js
 frontend/node_modules/

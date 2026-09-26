@@ -26,8 +26,11 @@ class ExtractedClaim(BaseModel):
     field: FieldName
     text: str = Field(min_length=1, max_length=1000)
 
-class ClaimExtractionResponse(BaseModel):
-    claims: list[ExtractedClaim] = Field(max_length=9)
+class ClaimText(BaseModel):
+    text: str = Field(min_length=1, max_length=1000)
+
+class FieldClaimsResponse(BaseModel):
+    claims: list[ClaimText] = Field(max_length=3)
 
 class RelevanceJudgment(BaseModel):
     id: str
@@ -89,6 +92,8 @@ class ScoreResult(BaseModel):
     scoring_mode: str
     message: str
     reason: str | None = None
+    degraded: bool = False
+    degraded_reason: str | None = None
     meta: dict = Field(default_factory=dict)
     add_to_corpus_requested: bool = False
     added_to_corpus: bool = False
