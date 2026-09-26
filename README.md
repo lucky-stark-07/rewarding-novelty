@@ -26,55 +26,60 @@ The UI and API accept a G2-style product review with three discrete properties:
 ## Architecture
 
 ```text
-Next.js form
-    │ POST /score
-    ▼
-FastAPI backend
-    ├── Claim extraction (OpenRouter fast model)
-    ├── Local CPU embeddings (Sentence Transformers)
-    ├── Similarity search against local corpus claims
-    ├── Entailment and relevance judging (OpenRouter judge model)
-    └── Field and submission-score aggregation
-    ▼
-ScoreResult: overall score + field scores + claim-level explanations
+Next.js form ── POST /score ──▶ FastAPI (async, single process)
+                                  │  admission control: >MAX_INFLIGHT_REQUESTS → 503 Retry-After
+                                  ├── exact-duplicate lookup (O(1), no LLM)
+                                  ├── claim extraction ─────────────┐
+                                  ├── embed new claims (LRU cache)  │  LLMClient (shared)
+                                  ├── top-k retrieval vs. in-memory │   · semaphore (LLM_MAX_CONCURRENCY)
+                                  │   corpus matrix built at startup│   · disk cache + in-flight de-dup
+                                  ├── ┌ relevance judge (1 batch) ──┤   · retries with jittered backoff
+                                  │   └ coverage judge  (1 batch) ──┤   · circuit breaker → 503
+                                  │     (run concurrently)          │   · usage + cost accounting
+                                  └── per-claim novelty × relevance ┘
+                                  ▼
+ScoreResult + meta.trace (spans)          GET /stats: latency percentiles, outcomes, cache hit
+                                          rates, breaker state, corpus size
 
-Local JSON files
-    ├── backend/corpus.json         generated comparison submissions
-    └── backend/.cache/             hashed OpenRouter responses; avoids repeat spend
+Local files
+    ├── backend/corpus.json   comparison submissions (atomic writes under an exclusive flock)
+    └── backend/.cache/       hashed OpenRouter responses; avoids repeat spend
 ```
 
-The intended scoring pipeline is:
+The scoring pipeline:
 
-1. Extract atomic claims for each of the three review fields.
-2. Embed each claim locally on CPU.
-3. Compare a new claim with corpus claims using cosine similarity: above `HIGH_THRESHOLD` is covered, below `LOW_THRESHOLD` is novel, and the middle band is checked for entailment by the judge model.
-4. Score each claim's relevance to the fixed reference content and the field's intent.
-5. Multiply field novelty by relevance, then average populated fields into the final 0.0–1.0 submission score.
+1. Extract atomic claims for each of the three review fields (one fast-model call).
+2. Embed each new claim locally on CPU. Corpus claims were embedded once at startup.
+3. Retrieve each claim's top-k (`ENTAILMENT_TOP_K`, default 3) nearest corpus claims in the same field. If the nearest is at or above `HIGH_THRESHOLD`, the claim is covered; at or below `LOW_THRESHOLD`, novel. Otherwise the judge compares it with every retrieved neighbour above `LOW_THRESHOLD` and answers `full`, `partial` or `none`, which earn novelty 0, `PARTIAL_NOVELTY_CREDIT` (0.5) or 1.
+4. Judge every claim's relevance to the reference product and field intent on a graded rubric.
+5. Steps 3 and 4 are one batched judge call each, run concurrently, so a submission costs at most three LLM calls however many claims it has.
+6. Field score = mean over claims of novelty × relevance; submission score = mean over populated fields.
 
 ## Design decisions
 
-Novelty and relevance use multiplication. This makes relevance a direct gate: a novel claim with relevance 0 receives 0, while a relevant but covered claim also receives 0. A geometric mean would soften the relevance penalty and could let unrelated novelty earn a noticeable score, which conflicts with the challenge. When the comparison corpus is empty, an extractable claim is treated as novel because there is no comparison evidence; relevance still gates its score. An exact duplicate submission receives 0 without an LLM call. The threshold sweep suggested low `0.35` and high `0.65`; this band was selected on a small dataset and should not be mistaken for broad calibration. Corpus state affects future scores: the form has an opt-in to add a submission after scoring, only when it meets `CORPUS_ACCEPTANCE_THRESHOLD` (default `0.60`). First submissions against an empty corpus are therefore assessed as novel until a baseline is established.
+Novelty and relevance use multiplication, **per claim**. Relevance is a direct gate: a novel claim with relevance 0 receives 0, and a relevant but covered claim also receives 0. Gating per claim (rather than multiplying field averages) stops a covered on-topic claim from lending relevance to a novel off-topic claim in the same field. A geometric mean would soften the relevance penalty and could let unrelated novelty earn a noticeable score.
 
-## What is built today
+The relevance rubric states explicitly that a claim does not need to appear in the reference description. The earlier prompt scored specific, genuinely new product details as 0 because they were "not mentioned", which penalised exactly what the score should reward.
 
-Working end to end:
+Ambiguous claims are judged against the top-k neighbours, not just the nearest. Embedding rank does not always put the true paraphrase first, for example "cumbersome on a phone" versus "mobile experience is cumbersome". The `partial` verdict gives credit for a new concrete detail inside an otherwise known observation.
 
-- Next.js review form and score-result view.
-- FastAPI endpoints: `GET /health`, `POST /score`, `GET /corpus`, and `POST /corpus/regenerate`.
-- Request validation through Pydantic schemas and CORS for local frontend development.
-- OpenRouter-compatible JSON client with a disk cache keyed by model and prompt.
-- Local JSON corpus storage, CPU-only embeddings, and cosine-similarity utilities.
-- Opt-in synthetic corpus generation.
-- Fifteen automated tests covering scoring cases, adversarial examples, API metadata, and input validation.
+`HIGH_THRESHOLD` is `0.75`. With MiniLM, claims that merely share a topic ("release notes…") reach 0.65–0.72 similarity, so the old 0.65 cut-off auto-marked genuinely new claims as covered. Batching makes judging a few more claims almost free. On the 25-case set this moved the separation margin from −0.083 to +0.250 and ROC-AUC from 0.960 to 1.000. It is still a small dataset, not broad calibration.
 
-The live scoring path now:
+When the comparison corpus is empty, an extractable claim is treated as novel because there is no comparison evidence; relevance still gates its score. An exact duplicate receives 0 without an LLM call. The form has an opt-in to add a submission after scoring, only when it meets `CORPUS_ACCEPTANCE_THRESHOLD` (default `0.60`). The in-memory index is updated incrementally, so the next request sees it.
 
-- Extracts atomic claims with `FAST_MODEL` through OpenRouter.
-- Embeds new and corpus claims locally, then classifies high- and low-similarity matches using the configured thresholds.
-- Uses `JUDGE_MODEL` for relevance and the ambiguous similarity band.
-- Combines average field novelty and relevance with multiplication.
-- Returns the nearest corpus claim and similarity for every assessed claim.
-- Returns request id, per-stage latency, LLM usage, cache hits, and estimated call cost in `meta`; the backend emits one JSON log line per score request.
+## Production harness
+
+- **Async end to end.** `AsyncOpenAI` for upstream calls; embeddings and file I/O run in worker threads so the event loop never blocks.
+- **Concurrency limits.** A semaphore caps concurrent upstream calls (`LLM_MAX_CONCURRENCY`). Requests beyond `MAX_INFLIGHT_REQUESTS` are shed with `503` and `Retry-After`.
+- **Caching.** The on-disk response cache is written atomically. Concurrent identical prompts share a single upstream call (in-flight de-duplication). A bounded LRU caches claim embeddings (`EMBEDDING_CACHE_SIZE`). Batch ids are positional, so identical submissions hit the cache.
+- **Circuit breaker.** After `BREAKER_FAILURE_THRESHOLD` consecutive upstream failures (network, 429, 5xx after retries), calls fail fast with `503` for `BREAKER_COOLDOWN_SECONDS`. A single half-open probe then decides whether to close. Client errors (4xx) and a missing API key never trip it.
+- **Structured-output repair.** Every batch response is validated for schema and for exactly one result per id. A failure triggers one repair prompt, then the fallback model if one is configured. Upstream failures return `502` with a generic message.
+- **Tracing.** Each response carries `meta.trace`: spans for duplicate check, extraction, embedding, retrieval, each judge call and each upstream attempt, with model, cache hit, tokens, semaphore queue time and retry attempt. The UI shows this as a collapsible waterfall under the score. The JSON log line per request omits the trace.
+- **`GET /stats`.** Request outcomes, in-flight and shed counts, rolling p50/p95/p99 latency, mean per-stage time, LLM calls, cache hit rate, de-duplicated calls, tokens, cost, breaker state, embedding-cache stats and corpus size.
+- **Safe corpus writes.** Read-modify-write under an exclusive `flock`, then temp file and `os.replace`. Concurrent appends from any process cannot lose entries or leave a torn file.
+- **Load test.** `make load` (see below).
+
+Single-process assumption: `/stats`, the circuit breaker, the semaphore and the in-memory index are per process. Running several uvicorn workers keeps the corpus file safe, but each worker's index only sees its own appends until restart.
 
 Before scoring meaningful submissions, generate the corpus. Without `backend/corpus.json`, new claims have no comparison baseline and are treated as novel.
 
@@ -87,10 +92,19 @@ OPENROUTER_API_KEY=your_openrouter_key
 FAST_MODEL=google/gemini-2.5-flash-lite
 JUDGE_MODEL=google/gemini-2.5-flash
 FALLBACK_MODEL=
-HIGH_THRESHOLD=0.65
+HIGH_THRESHOLD=0.75
 LOW_THRESHOLD=0.35
 CORPUS_ACCEPTANCE_THRESHOLD=0.60
+ENTAILMENT_TOP_K=3
+PARTIAL_NOVELTY_CREDIT=0.5
+LLM_MAX_CONCURRENCY=8
+MAX_INFLIGHT_REQUESTS=32
+BREAKER_FAILURE_THRESHOLD=5
+BREAKER_COOLDOWN_SECONDS=30
+EMBEDDING_CACHE_SIZE=4096
 ```
+
+The API key is loaded as a `SecretStr`, so it never appears in settings `repr`, `str` or `model_dump` output.
 
 Never commit `.env`. It is already ignored by Git.
 
@@ -146,7 +160,7 @@ make test
 curl http://localhost:8000/health
 ```
 
-Expected output is `15 passed`. Tests use hand-written LLM response fixtures and the real local Sentence Transformer embeddings and scoring math. They do not call OpenRouter. The first run downloads the embedding weights if they are not cached locally.
+Expected output is `37 passed`. Tests use hand-written LLM response fixtures (or a fake upstream for the client tests), with the real local Sentence Transformer embeddings, retrieval, batching and scoring math. They cover the scoring cases, adversarial examples, partial credit, top-k judging and per-claim gating. On the harness side they cover semaphore bounds, in-flight de-duplication, repair prompts, circuit-breaker transitions, secret redaction, concurrent corpus appends, overload shedding, upstream error mapping, `/stats`, and concurrent API requests. They do not call OpenRouter. The first run downloads the embedding weights if they are not cached locally.
 
 Run the evidence scripts explicitly when you want to use OpenRouter:
 
@@ -158,14 +172,29 @@ make eval
 
 `make eval` writes the per-case and aggregate results to `reports/eval.json` and `reports/eval.md`.
 
+### Load test
+
+With the API running (`make dev`), run:
+
+```bash
+make load                                     # 100 requests, 16 concurrent
+.venv/bin/python -m scripts.load_test --requests 200 --concurrency 32
+```
+
+By default it cycles through the five fixture submissions, so after the first pass every model call is a cache hit, and the run measures the harness rather than model latency or spend. `--unique` makes every submission new, which means real, paid calls. It prints client-side throughput, latency percentiles and status counts, then the server's `/stats`.
+
+A reference run on a laptop CPU with 200 requests at 32 concurrent: all 200 returned 200, at 46 req/s. In-flight de-duplication collapsed 122 concurrent identical prompts, so only 6 upstream calls were made. Server p50 was 17 ms; p95 was 3.8 s, from the first wave waiting on the upstream model. The breaker stayed closed.
+
 ## Limitations
 
 - Novelty is not truthfulness; a fabricated claim can be novel and relevant.
 - Synthetic corpus content comes from the same model family used for extraction, which can introduce shared blind spots.
-- Relevance and entailment depend on an LLM judge and can reflect model bias or inconsistent judgments.
-- Thresholds were compared with a small labeled set and are not robustly calibrated for every product or corpus.
-- Similarity is a retrieval heuristic; small new details inside an otherwise covered claim currently receive a binary covered/novel decision.
+- Relevance and coverage depend on an LLM judge and can reflect model bias or inconsistent judgments. The judge sometimes calls a close paraphrase `partial` when it only adds wording, which lets some paraphrases earn half credit (the worst eval paraphrase scores 0.417).
+- Thresholds were compared with a 25-case labeled set and are not robustly calibrated for every product or corpus.
+- Partial credit is a fixed fraction, not a measure of how much is new.
+- Harness state (`/stats`, breaker, in-memory index) is per process; see the single-process note above.
+- `POST /corpus/regenerate` is unauthenticated and makes paid calls. Keep the API on a trusted network, or add auth before exposing it.
 
 ## Make targets
 
-`make setup`, `make gen-corpus`, `make test`, `make eval`, `make smoke`, and `make dev` cover installation, corpus creation, tests, evaluation, live smoke checks, and local development.
+`make setup`, `make gen-corpus`, `make test`, `make eval`, `make smoke`, `make load`, and `make dev` cover installation, corpus creation, tests, evaluation, live smoke checks, load testing, and local development.

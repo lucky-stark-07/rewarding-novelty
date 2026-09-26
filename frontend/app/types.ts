@@ -13,7 +13,7 @@ export interface ClaimAssessment {
     field?: FieldName;
     text: string;
   };
-  novelty_status: "novel" | "covered" | "pending" | string;
+  novelty_status: "novel" | "partial" | "covered" | "pending" | string;
   novelty_score: number;
   relevance_score: number;
   relevance_reason?: string;
@@ -23,6 +23,7 @@ export interface ClaimAssessment {
     field?: FieldName;
   } | null;
   nearest_similarity?: number | null;
+  neighbors?: { claim: Claim; similarity: number }[];
   entailment_judged?: boolean;
   entailment_reason?: string | null;
 }
@@ -48,8 +49,19 @@ export interface ScoreResult {
     estimated_cost_usd?: number;
     llm_calls?: number;
     llm_cache_hits?: number;
+    prompt_tokens?: number;
+    completion_tokens?: number;
     stage_latency_seconds?: Record<string, number>;
+    decisions?: Record<string, number>;
+    trace?: TraceSpan[];
   };
+}
+
+export interface TraceSpan {
+  name: string;
+  start_ms: number;
+  duration_ms: number;
+  attrs: Record<string, string | number | boolean | null>;
 }
 
 export interface CorpusEntry {

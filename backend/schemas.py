@@ -29,13 +29,27 @@ class ExtractedClaim(BaseModel):
 class ClaimExtractionResponse(BaseModel):
     claims: list[ExtractedClaim] = Field(max_length=9)
 
-class RelevanceResponse(BaseModel):
+class RelevanceJudgment(BaseModel):
+    id: str
     relevance_score: float = Field(ge=0, le=1)
-    reason: str = Field(min_length=1, max_length=300)
+    reason: str = Field(min_length=1, max_length=400)
 
-class EntailmentResponse(BaseModel):
-    covered: bool
-    reason: str = Field(min_length=1, max_length=300)
+class RelevanceBatchResponse(BaseModel):
+    results: list[RelevanceJudgment]
+
+class Coverage(str, Enum):
+    FULL = "full"
+    PARTIAL = "partial"
+    NONE = "none"
+
+class CoverageJudgment(BaseModel):
+    id: str
+    coverage: Coverage
+    matched_existing: int | None = Field(default=None, ge=1, description="1-based index of the existing claim that covers the candidate most")
+    reason: str = Field(min_length=1, max_length=400)
+
+class CoverageBatchResponse(BaseModel):
+    results: list[CoverageJudgment]
 
 class GeneratedReview(BaseModel):
     what_you_like: str = Field(max_length=4000)
@@ -46,20 +60,25 @@ class GeneratedReview(BaseModel):
 class CorpusGenerationResponse(BaseModel):
     reviews: list[GeneratedReview] = Field(min_length=1, max_length=50)
 
+class Neighbor(BaseModel):
+    claim: Claim
+    similarity: float = Field(ge=-1, le=1)
+
 class ClaimAssessment(BaseModel):
     claim: Claim
-    novelty_status: str = "pending"
+    novelty_status: str = "pending"  # novel | partial | covered
     novelty_score: float = Field(ge=0, le=1)
     relevance_score: float = Field(ge=0, le=1)
     relevance_reason: str = ""
     nearest_claim: Claim | None = None
     nearest_similarity: float | None = Field(default=None, ge=-1, le=1)
+    neighbors: list[Neighbor] = Field(default_factory=list)
     entailment_judged: bool = False
     entailment_reason: str | None = None
 
 class FieldScore(BaseModel):
     field: FieldName
-    score: float = Field(ge=0, le=1)
+    score: float = Field(ge=0, le=1, description="Mean over claims of novelty × relevance")
     novelty_fraction: float = Field(ge=0, le=1)
     relevance_gate: float = Field(ge=0, le=1)
     claims: list[ClaimAssessment] = Field(default_factory=list)

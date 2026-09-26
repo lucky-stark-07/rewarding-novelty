@@ -8,6 +8,7 @@ import { ScoreGauge } from "./components/ScoreGauge";
 import { FieldBreakdown } from "./components/FieldBreakdown";
 import { CorpusInspector } from "./components/CorpusInspector";
 import { ArchitectureVisualizer } from "./components/ArchitectureVisualizer";
+import { TracePanel } from "./components/TracePanel";
 import { ScoreResult, CorpusEntry } from "./types";
 import { Sparkles, Layers, RefreshCw, AlertCircle } from "lucide-react";
 
@@ -69,7 +70,14 @@ export default function Home() {
 
       if (!res.ok) {
         const errorText = await res.text();
-        throw new Error(errorText || `HTTP ${res.status}`);
+        let detail = errorText;
+        try {
+          const parsed = JSON.parse(errorText);
+          if (typeof parsed.detail === "string") detail = parsed.detail;
+        } catch {
+          // Non-JSON error body; show it as-is.
+        }
+        throw new Error(`${detail || "Request failed"} (HTTP ${res.status})`);
       }
 
       const scoreData: ScoreResult = await res.json();
@@ -109,12 +117,8 @@ export default function Home() {
 
   // Calculate totals from claims assessment
   const allAssessments = result?.field_scores?.flatMap((f) => f.claims) || [];
-  const novelCount = allAssessments.filter(
-    (c) => c.novelty_status === "novel" || c.novelty_score > 0.5
-  ).length;
-  const coveredCount = allAssessments.filter(
-    (c) => c.novelty_status === "covered" || c.novelty_score <= 0.5
-  ).length;
+  const novelCount = allAssessments.filter((c) => c.novelty_status === "novel").length;
+  const coveredCount = allAssessments.filter((c) => c.novelty_status === "covered").length;
 
   return (
     <div className="min-h-screen bg-[#0b0f19] flex flex-col selection:bg-indigo-500 selection:text-white">
@@ -165,11 +169,7 @@ export default function Home() {
                         Not added to the comparison corpus. It was either already present or did not meet the acceptance threshold.
                       </div>
                     )}
-                    {result.meta && (
-                      <div className="text-[11px] text-slate-500 text-center">
-                        Request {result.meta.request_id} · {result.meta.stage_latency_seconds?.total?.toFixed(2)}s · approx. ${result.meta.estimated_cost_usd?.toFixed(5)}
-                      </div>
-                    )}
+                    {result.meta && <TracePanel meta={result.meta} />}
                   </div>
                 ) : (
                   <div className="glass-card rounded-2xl p-8 border border-slate-800 text-center space-y-4 sticky top-24">

@@ -20,9 +20,12 @@ export const ClaimCard: React.FC<ClaimCardProps> = ({ assessment, index }) => {
     nearest_similarity,
     entailment_judged,
     entailment_reason,
+    neighbors = [],
   } = assessment;
 
-  const isNovel = novelty_status === "novel" || novelty_score > 0.5;
+  const isNovel = novelty_status === "novel";
+  const isPartial = novelty_status === "partial";
+  const otherNeighbors = neighbors.filter((n) => n.claim.text !== nearest_claim?.text);
   const simPercent = typeof nearest_similarity === "number" ? Math.round(nearest_similarity * 100) : null;
   const relPercent = Math.round(relevance_score * 100);
 
@@ -38,6 +41,8 @@ export const ClaimCard: React.FC<ClaimCardProps> = ({ assessment, index }) => {
     <div className={`p-4 rounded-xl glass-card border transition-all duration-200 ${
       isNovel
         ? "border-emerald-500/30 hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/10"
+        : isPartial
+        ? "border-amber-500/30 hover:border-amber-500/50"
         : "border-rose-500/20 hover:border-rose-500/40"
     }`}>
       {/* Top Header Row */}
@@ -48,6 +53,11 @@ export const ClaimCard: React.FC<ClaimCardProps> = ({ assessment, index }) => {
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/40">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
               Novel Claim
+            </span>
+          ) : isPartial ? (
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/15 text-amber-300 border border-amber-500/40" title="Core observation exists in the corpus, but this claim adds a new detail">
+              <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
+              Partly New · {Math.round(novelty_score * 100)}% credit
             </span>
           ) : (
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-rose-500/15 text-rose-300 border border-rose-500/40">
@@ -111,17 +121,17 @@ export const ClaimCard: React.FC<ClaimCardProps> = ({ assessment, index }) => {
             <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all duration-500 ${
-                  simPercent >= 65 ? "bg-rose-400" : simPercent <= 35 ? "bg-emerald-400" : "bg-purple-400"
+                  entailment_judged ? "bg-purple-400" : isNovel ? "bg-emerald-400" : "bg-rose-400"
                 }`}
                 style={{ width: `${simPercent}%` }}
               />
             </div>
             <p className="text-[11px] text-slate-400 mt-1.5">
-              {simPercent >= 65
-                ? "≥ 65% (High similarity: Covered)"
-                : simPercent <= 35
-                ? "≤ 35% (Low similarity: Novel)"
-                : "35-65% (LLM checked entailment)"}
+              {entailment_judged
+                ? "Ambiguous band: LLM judged coverage against the closest corpus claims"
+                : isNovel
+                ? "Below the low threshold: novel without a judge call"
+                : "Above the high threshold: covered without a judge call"}
             </p>
           </div>
         )}
@@ -137,6 +147,16 @@ export const ClaimCard: React.FC<ClaimCardProps> = ({ assessment, index }) => {
           <p className="text-slate-300 italic text-[11px]">
             &ldquo;{nearest_claim.text}&rdquo;
           </p>
+          {otherNeighbors.length > 0 && (
+            <ul className="mt-2 space-y-1 border-t border-indigo-500/10 pt-2">
+              {otherNeighbors.map((n) => (
+                <li key={n.claim.id ?? n.claim.text} className="flex justify-between gap-3 text-[11px] text-slate-400">
+                  <span className="italic">&ldquo;{n.claim.text}&rdquo;</span>
+                  <span className="font-mono shrink-0">{Math.round(n.similarity * 100)}%</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
 

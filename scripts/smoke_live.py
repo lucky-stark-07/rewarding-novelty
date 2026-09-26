@@ -1,11 +1,13 @@
 """Live, cached OpenRouter smoke run across the five acceptance fixtures."""
 from __future__ import annotations
 
+import asyncio
 import json
 from pathlib import Path
 
 from backend.config import get_settings
-from backend.corpus import CorpusStore
+from backend.corpus import CorpusIndex, CorpusStore
+from backend.embeddings import embed
 from backend.llm_client import LLMClient
 from backend.novelty import score_submission
 from backend.schemas import Submission
@@ -20,11 +22,11 @@ CASES = [
 ]
 
 
-def main() -> None:
+async def main() -> None:
     settings = get_settings()
     llm = LLMClient(settings)
-    corpus_store = CorpusStore(settings.corpus_path)
-    entries = corpus_store.list()
+    index = await CorpusIndex.create(CorpusStore(settings.corpus_path), embed)
+    entries = index.entries
     # Ground repetition and paraphrase checks in actual generated claims. A generic
     # "central planning" review is not redundant unless this corpus contains that idea.
     repeat_entry = entries[0]
@@ -37,8 +39,9 @@ def main() -> None:
         "problem_solved": "It helps break down silos between departments.",
     }
     rows = []
+    details = {}
     for name, band in CASES:
-        result = score_submission(Submission.model_validate(live_inputs[name]), corpus_store, llm=llm, settings=settings)
+        result = details[name] = await score_submission(Submission.model_validate(live_inputs[name]), index, llm, settings=settings)
         passed = result.submission_score >= 0.6 if band == "high" else result.submission_score <= (0.2 if name == "gibberish" else 0.3)
         fields = ", ".join(f"{item.score:.2f}" for item in result.field_scores)
         rows.append((name, result.submission_score, fields, band, "PASS" if passed else "FAIL"))
@@ -49,9 +52,7 @@ def main() -> None:
     for name, _score, _fields, _band, outcome in rows:
         if outcome == "FAIL":
             print(f"\n{name} claim decisions:")
-            submission = Submission.model_validate(live_inputs[name])
-            details = score_submission(submission, corpus_store, llm=llm, settings=settings)
-            for field in details.field_scores:
+            for field in details[name].field_scores:
                 for assessment in field.claims:
                     nearest = assessment.nearest_claim.text if assessment.nearest_claim else "(none)"
                     print(f"{field.field.value}: {assessment.novelty_status} sim={assessment.nearest_similarity} relevance={assessment.relevance_score:.2f}; {assessment.claim.text!r} vs {nearest!r}; judge={assessment.entailment_reason}")
@@ -62,4 +63,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

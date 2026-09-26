@@ -23,6 +23,16 @@
     "what_you_like|Keyword stuffing review": [
       {"field":"what_you_like","text":"The coffee brewer uses customer feedback, roadmaps, release notes, and product strategy."}
     ],
+    "what_you_like|Mixed gating review": [
+      {"field":"what_you_like","text":"It centralizes product planning."},
+      {"field":"what_you_like","text":"The coffee machine makes espresso quickly."}
+    ],
+    "what_you_like|Partial detail review": [
+      {"field":"what_you_like","text":"Planning lives in one place and each team gets its own approval queue."}
+    ],
+    "what_you_like|Top k review": [
+      {"field":"what_you_like","text":"The roadmap can be shared with executives through a read-only link."}
+    ],
     "what_you_like|Small new detail review": [
       {"field":"what_you_like","text":"It centralizes product planning."},
       {"field":"what_you_like","text":"It preserves customer ownership metadata for every feedback item."}
@@ -43,6 +53,8 @@
   "entailment": {
     "Product planning is gathered in one location.": {"covered":true,"reason":"This paraphrases centralized product planning."},
     "Navigation needs fewer clicks.": {"covered":true,"reason":"This paraphrases the existing navigation complaint."},
-    "The team keeps plans in one central place.": {"covered":true,"reason":"This paraphrases centralized product planning."}
+    "The team keeps plans in one central place.": {"covered":true,"reason":"This paraphrases centralized product planning."},
+    "Planning lives in one place and each team gets its own approval queue.": {"coverage":"partial","reason":"Centralized planning is covered; per-team approval queues are a new detail."},
+    "The roadmap can be shared with executives through a read-only link.": {"covered":true,"reason":"Sharing roadmaps with stakeholders already covers this."}
   }
 }
