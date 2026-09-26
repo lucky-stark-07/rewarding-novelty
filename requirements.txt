@@ -1,0 +1,13 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic-settings>=2.4
+# Explicit CPU build: do not install CUDA/NVIDIA runtime packages for this project.
+torch==2.7.1+cpu
+sentence-transformers>=3.0
+numpy>=1.26
+openai>=1.40
+python-dotenv>=1.0
+pytest>=8.0
+scikit-learn>=1.4
