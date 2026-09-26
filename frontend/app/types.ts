@@ -46,7 +46,16 @@ export interface ScoreResult {
   added_to_corpus: boolean;
   degraded?: boolean;
   degraded_reason?: string | null;
+  guardrails?: Guardrails;
   meta?: ScoreMeta;
+}
+
+export interface Guardrails {
+  masked: Record<string, number>;
+  moderation: "allow" | "flag" | "block" | "unavailable" | "disabled";
+  categories: string[];
+  moderation_reason?: string;
+  warnings: string[];
 }
 
 export interface ScoreMeta {

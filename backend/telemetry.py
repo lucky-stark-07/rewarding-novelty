@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import threading
 import time
 import uuid
@@ -11,6 +12,9 @@ from contextvars import ContextVar
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterator
+
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -126,8 +130,12 @@ class TraceSink:
             return
         now = time.time()
         lines = [json.dumps({"ts": now, "trace_id": trace.trace_id, **request_fields, **item}, sort_keys=True) for item in trace.span_dicts()]
-        with self._lock, open(self.path, "a") as handle:
-            handle.write("\n".join(lines) + "\n")
+        try:
+            with self._lock, open(self.path, "a") as handle:
+                handle.write("\n".join(lines) + "\n")
+        except OSError as exc:
+            # Observability must never fail the request it observes.
+            logger.warning("trace_sink_write_failed path=%s error=%s", self.path, type(exc).__name__)
 
 
 def percentile(values: list[float], q: float) -> float | None:

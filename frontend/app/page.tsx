@@ -9,6 +9,7 @@ import { FieldBreakdown } from "./components/FieldBreakdown";
 import { CorpusInspector } from "./components/CorpusInspector";
 import { ArchitectureVisualizer } from "./components/ArchitectureVisualizer";
 import { DegradedBadge } from "./components/TracePanel";
+import { BlockedReviewScreen, MaskingBanner } from "./components/GuardrailNotices";
 import { TraceModal } from "./components/TraceModal";
 import { ScoreResult, CorpusEntry } from "./types";
 import { Sparkles, Layers, Cpu } from "lucide-react";
@@ -143,6 +144,7 @@ export default function Home() {
     }
   };
 
+  const isBlocked = result?.guardrails?.moderation === "block";
   const allAssessments = result?.field_scores?.flatMap((f) => f.claims) || [];
   const novelCount = allAssessments.filter((c) => c.novelty_status === "novel").length;
   const coveredCount = allAssessments.filter((c) => c.novelty_status === "covered").length;
@@ -172,8 +174,11 @@ export default function Home() {
 
               {/* Right: Score Card (30% width) */}
               <div className="lg:col-span-4 w-full flex flex-col justify-stretch">
-                {result ? (
+                {result && isBlocked && result.guardrails ? (
+                  <BlockedReviewScreen guardrails={result.guardrails} onEdit={() => setResult(null)} />
+                ) : result ? (
                   <div className="space-y-3 h-full flex flex-col justify-between">
+                    {result.guardrails && <MaskingBanner guardrails={result.guardrails} />}
                     {result.degraded && (
                       <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-2.5 text-xs text-amber-200 flex items-start gap-2">
                         <DegradedBadge reason={result.degraded_reason} />
@@ -237,7 +242,7 @@ export default function Home() {
             </div>
 
             {/* ROW 2: Field-by-Field Claim Assessment cards below */}
-            {result && (
+            {result && !isBlocked && (
               <div className="pt-4 border-t border-slate-800/80">
                 <FieldBreakdown fieldScores={result.field_scores} />
               </div>

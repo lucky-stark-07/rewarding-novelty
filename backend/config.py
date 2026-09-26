@@ -1,6 +1,6 @@
 from functools import lru_cache
 from pathlib import Path
-from pydantic import Field, SecretStr
+from pydantic import Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -55,6 +55,12 @@ class Settings(BaseSettings):
     cache_enabled: bool = True
     llm_memory_cache_size: int = Field(default=1024, ge=0)
     embedding_cache_size: int = Field(default=4096, ge=0)
+
+    @field_validator("trace_log_path", mode="before")
+    @classmethod
+    def _empty_path_disables_tracing(cls, value: object) -> object:
+        # TRACE_LOG_PATH= (empty) would otherwise become Path(".") and fail on every write.
+        return None if isinstance(value, str) and not value.strip() else value
 
     def guard_settings(self) -> "Settings":
         """Settings for the guard's own LLM client: separate endpoint, key, breaker and cache namespace."""

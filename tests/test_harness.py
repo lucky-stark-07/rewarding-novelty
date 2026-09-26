@@ -356,6 +356,18 @@ def test_score_response_meta_trace_log_and_stats(tmp_path: Path, caplog) -> None
     assert {"total_cost_usd", "cache_hit_rate", "degraded_count"} <= set(stats)
 
 
+def test_empty_trace_path_disables_tracing_and_sink_errors_never_fail_scoring(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setenv("TRACE_LOG_PATH", "")
+    assert Settings().trace_log_path is None
+    unwritable = tmp_path / "a-directory"
+    unwritable.mkdir()
+    async def fn(_app, client):
+        return await client.post("/score", json={"what_you_like": "Useful"})
+    settings = Settings(corpus_path=tmp_path / "corpus.json", cache_dir=tmp_path / "cache", trace_log_path=unwritable)
+    response = asyncio.run(with_app(settings, FixtureLLM(), fn))
+    assert response.status_code == 200
+
+
 def test_score_route_rejects_overlong_field(tmp_path: Path) -> None:
     async def fn(_app, client):
         return await client.post("/score", json={"what_you_like": "x" * 4001})
