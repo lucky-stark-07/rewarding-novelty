@@ -175,6 +175,8 @@ async def score_submission(submission: Submission, index: CorpusIndex, llm: LLMC
             moderation.cancel()
             raise
         verdict, categories, reason = await moderation
+        # The UI labels similarity bands from these, so they always match the thresholds actually used.
+        result.meta["thresholds"] = {"low": active.low_threshold, "high": active.high_threshold}
         guardrails = {"masked": dict(counts), "moderation": verdict, "categories": categories, "moderation_reason": reason, "warnings": warnings_for(counts)}
         if verdict == "block":
             return _result(trace, index, submission_score=0.0, field_scores=[FieldScore(field=field, score=0.0, novelty_fraction=0.0, relevance_gate=0.0) for field in FieldName], scoring_mode=SCORING_MODE, reason="content_policy",

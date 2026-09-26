@@ -9,7 +9,7 @@ import { FieldBreakdown } from "./components/FieldBreakdown";
 import { CorpusInspector } from "./components/CorpusInspector";
 import { ArchitectureVisualizer } from "./components/ArchitectureVisualizer";
 import { DegradedBadge } from "./components/TracePanel";
-import { BlockedReviewScreen, MaskingBanner } from "./components/GuardrailNotices";
+import { BlockedReviewScreen, GuardrailStatus, MaskingBanner } from "./components/GuardrailNotices";
 import { TraceModal } from "./components/TraceModal";
 import { ScoreResult, CorpusEntry } from "./types";
 import { Sparkles, Layers, Cpu } from "lucide-react";
@@ -178,6 +178,7 @@ export default function Home() {
                   <BlockedReviewScreen guardrails={result.guardrails} onEdit={() => setResult(null)} />
                 ) : result ? (
                   <div className="space-y-3 h-full flex flex-col justify-between">
+                    {result.guardrails && <GuardrailStatus guardrails={result.guardrails} />}
                     {result.guardrails && <MaskingBanner guardrails={result.guardrails} />}
                     {result.degraded && (
                       <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-2.5 text-xs text-amber-200 flex items-start gap-2">
@@ -244,7 +245,7 @@ export default function Home() {
             {/* ROW 2: Field-by-Field Claim Assessment cards below */}
             {result && !isBlocked && (
               <div className="pt-4 border-t border-slate-800/80">
-                <FieldBreakdown fieldScores={result.field_scores} />
+                <FieldBreakdown fieldScores={result.field_scores} thresholds={result.meta?.thresholds} />
               </div>
             )}
           </div>

@@ -7,9 +7,10 @@ import { ThumbsUp, ThumbsDown, Target, Sparkles } from "lucide-react";
 
 interface FieldBreakdownProps {
   fieldScores: FieldScoreType[];
+  thresholds?: { low: number; high: number };
 }
 
-export const FieldBreakdown: React.FC<FieldBreakdownProps> = ({ fieldScores }) => {
+export const FieldBreakdown: React.FC<FieldBreakdownProps> = ({ fieldScores, thresholds }) => {
   const getFieldMeta = (field: string) => {
     switch (field) {
       case "what_you_like":
@@ -121,7 +122,7 @@ export const FieldBreakdown: React.FC<FieldBreakdownProps> = ({ fieldScores }) =
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {fieldScore.claims.map((claimAss, idx) => (
-                    <ClaimCard key={idx} assessment={claimAss} index={idx} />
+                    <ClaimCard key={idx} assessment={claimAss} index={idx} thresholds={thresholds} />
                   ))}
                 </div>
               )}

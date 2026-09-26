@@ -70,6 +70,7 @@ export interface ScoreMeta {
   degraded: boolean;
   degraded_reason?: string | null;
   decisions?: Record<string, number>;
+  thresholds?: { low: number; high: number };
   spans: TraceSpan[];
 }
 

@@ -7,9 +7,12 @@ import { CheckCircle2, XCircle, HelpCircle, Sparkles, ArrowRight, ShieldCheck, Z
 interface ClaimCardProps {
   assessment: ClaimAssessment;
   index: number;
+  thresholds?: { low: number; high: number };
 }
 
-export const ClaimCard: React.FC<ClaimCardProps> = ({ assessment, index }) => {
+export const ClaimCard: React.FC<ClaimCardProps> = ({ assessment, index, thresholds }) => {
+  const lowPct = thresholds ? Math.round(thresholds.low * 100) : null;
+  const highPct = thresholds ? Math.round(thresholds.high * 100) : null;
   const {
     claim,
     novelty_status,
@@ -148,10 +151,10 @@ export const ClaimCard: React.FC<ClaimCardProps> = ({ assessment, index }) => {
               {entailment_judged
                 ? "Ambiguous similarity band checked by LLM judge"
                 : isNovel
-                ? "Low similarity band (≤ 48%): novel"
+                ? `Low similarity band${lowPct !== null ? ` (≤ ${lowPct}%)` : ""}: novel`
                 : isPartial
                 ? "Ambiguous band: partial credit"
-                : "High similarity band (≥ 82%): covered"}
+                : `High similarity band${highPct !== null ? ` (≥ ${highPct}%)` : ""}: covered`}
             </p>
           </div>
         )}

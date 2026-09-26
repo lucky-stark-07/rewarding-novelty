@@ -132,6 +132,26 @@ def test_flagged_review_is_scored_but_not_stored(tmp_path: Path) -> None:
     assert result.added_to_corpus is False and store.list() == []
 
 
+@pytest.mark.parametrize("text", ["fuck off", "Fuck you and your roadmap", "stfu", "go to hell", "F*ck off, this tool is useless"])
+def test_directed_abuse_is_blocked_locally_without_a_guard_call(tmp_path: Path, text: str) -> None:
+    from backend.corpus import CorpusIndex
+    from backend.embeddings import embed
+    from backend.novelty import score_submission
+    async def run():
+        index = await CorpusIndex.create(CorpusStore(tmp_path / "corpus.json"), embed)
+        # GuardDown would fail the request's moderation if it were called; a local block must not need it.
+        return await score_submission(Submission(what_you_like=text), index, FixtureLLM(), settings=Settings(), guard=GuardDown())
+    result = asyncio.run(run())
+    assert result.guardrails["moderation"] == "block" and result.guardrails["categories"] == ["abuse"]
+    assert result.submission_score == 0.0 and result.reason == "content_policy"
+
+
+@pytest.mark.parametrize("text", ["The damn export breaks every time.", "The reporting is garbage.", "Scunthorpe office uses the roadmap daily.", "We had to fuck around with CSV exports for hours."])
+def test_local_abuse_rule_leaves_feedback_to_the_llm_guard(text: str) -> None:
+    from backend.guardrails import local_block
+    assert local_block(Submission(what_you_dislike=text)) == []
+
+
 class GuardDown:
     async def complete_json(self, *_args, **_kwargs):
         raise CircuitOpenError(30)

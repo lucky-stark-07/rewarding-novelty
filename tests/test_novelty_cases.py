@@ -168,6 +168,8 @@ def test_result_meta_has_trace_contract(corpus: CorpusStore) -> None:
     assert {"dedupe", "extract", "embed", "search", "relevance", "aggregate"} <= names
     for span in meta["spans"]:
         assert {"duration_ms", "tokens", "cost_usd", "cache_hit", "served_model"} <= set(span)
+    assert meta["thresholds"] == {"low": 0.35, "high": 0.65}
+    assert result.guardrails["moderation"] == "allow"
 
 
 def test_opted_in_accepted_submission_is_added_to_corpus(tmp_path: Path) -> None:

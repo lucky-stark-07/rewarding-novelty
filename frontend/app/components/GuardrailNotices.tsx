@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { EyeOff, KeyRound, ShieldAlert, ShieldX } from "lucide-react";
+import { EyeOff, KeyRound, ShieldAlert, ShieldCheck, ShieldX } from "lucide-react";
 import { Guardrails } from "../types";
 
 const LABELS: Record<string, string> = {
@@ -51,6 +51,36 @@ export const MaskingBanner: React.FC<{ guardrails: Guardrails }> = ({ guardrails
           </span>
         </div>
       )}
+    </div>
+  );
+};
+
+const MODERATION_STATUS: Record<Guardrails["moderation"], { label: string; style: string }> = {
+  allow: { label: "Moderation: passed", style: "border-emerald-500/40 bg-emerald-500/10 text-emerald-200" },
+  flag: { label: "Moderation: flagged", style: "border-amber-500/40 bg-amber-500/10 text-amber-200" },
+  block: { label: "Moderation: blocked", style: "border-rose-500/40 bg-rose-500/10 text-rose-200" },
+  unavailable: { label: "Moderation: unavailable", style: "border-amber-500/40 bg-amber-500/10 text-amber-200" },
+  disabled: { label: "Moderation: off", style: "border-slate-600 bg-slate-800/60 text-slate-300" },
+};
+
+/** Always shown on a result, so "checked and allowed" is visibly different from "never checked". */
+export const GuardrailStatus: React.FC<{ guardrails: Guardrails }> = ({ guardrails }) => {
+  const status = MODERATION_STATUS[guardrails.moderation] ?? MODERATION_STATUS.disabled;
+  const maskedTotal = Object.values(guardrails.masked ?? {}).reduce((sum, n) => sum + n, 0);
+  return (
+    <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-semibold" aria-label="Guardrail status">
+      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full border ${status.style}`} title={guardrails.moderation_reason ?? undefined}>
+        <ShieldCheck className="w-3 h-3" />
+        {status.label}
+      </span>
+      <span
+        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full border ${maskedTotal ? "border-sky-500/40 bg-sky-500/10 text-sky-200" : "border-slate-700 bg-slate-900/60 text-slate-400"}`}
+        title="Secrets and personal data are masked before any model call and never stored"
+      >
+        <EyeOff className="w-3 h-3" />
+        {maskedTotal ? `${maskedTotal} item${maskedTotal > 1 ? "s" : ""} masked` : "No PII or secrets found"}
+      </span>
+      {guardrails.moderation_reason && <span className="font-normal text-slate-500 truncate max-w-full" title={guardrails.moderation_reason}>{guardrails.moderation_reason}</span>}
     </div>
   );
 };

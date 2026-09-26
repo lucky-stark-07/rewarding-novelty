@@ -83,11 +83,27 @@ def mask_submission(submission: Submission) -> tuple[Submission, Counter[str]]:
     return masked, masker.counts
 
 
+# Deterministic floor for unambiguous directed abuse: blocks without an LLM call, so it is consistent
+# and still works when the guard is down. Deliberately narrow; nuanced cases go to the LLM guard.
+_DIRECTED_ABUSE = re.compile(
+    r"(?i)\b(?:f+u+c+k+|f\*+c?k|fck|screw)\s*(?:you|u|off|yourself|this\s+(?:company|team|guy))\b"
+    r"|\bstfu\b|\bgo\s+to\s+hell\b|\bgo\s+(?:kill|die)\b|\bkill\s+yourself\b|\bkys\b"
+)
+
+
+def local_block(masked: Submission) -> list[str]:
+    text = " ".join(masked.field_text(field) for field in FieldName)
+    return ["abuse"] if _DIRECTED_ABUSE.search(text) else []
+
+
 async def moderate(masked: Submission, guard: LLMClient, settings: Settings) -> tuple[str, list[str], str]:
     """Return (verdict, categories, reason). verdict is allow|flag|block, or unavailable when the guard
     cannot answer (scoring continues, but the review must not be stored), or disabled."""
     if not settings.moderation_enabled:
         return "disabled", [], "Moderation is disabled by configuration."
+    if categories := local_block(masked):
+        with span("guard.moderation", source="local_rule", verdict="block"):
+            return "block", categories, "The review contains abuse directed at a person or the reader."
     review = "\n".join(f"{field.value}: {masked.field_text(field).strip()}" for field in FieldName if masked.field_text(field).strip())
     with span("guard.moderation", model=settings.guard_model) as attrs:
         try:
