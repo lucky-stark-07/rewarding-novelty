@@ -13,6 +13,16 @@ The score must be high only when a review is both **novel** (it says something t
 
 ## Why I chose it
 
+My first choice was Theme 1. It needed heavier local model workloads than my laptop's CPU and RAM could handle reliably, so I switched to this theme. I also saw it as the stronger real-world product problem, one where I could build a scalable application around the edge cases that matter in practice.
+
+That constraint shaped the design:
+
+- Only a small embedding model (MiniLM) runs locally, on CPU.
+- The heavy language-model work goes through an API.
+- Caching, batching and a concurrency limit keep both the local machine and the API spend within bounds.
+
+Beyond the constraint, the theme was worth choosing on its own merits:
+
 - **It is a real product problem.** Review platforms and feedback tools are full of repetitive, generic, or off-topic reviews. Rewarding reviewers for genuinely new, useful detail improves the signal for everyone who reads them.
 - **The two requirements pull against each other.** Novelty alone rewards nonsense, because gibberish is "new". Relevance alone rewards repetition. The design has to make relevance a real gate rather than a small adjustment, and that is an interesting design problem rather than a single model call.
 - **Correctness can actually be measured.** Unlike open-ended generation, each review can be labelled (novel and relevant, paraphrase, off-topic, gibberish, vague), so I could build an evaluation and prove, or disprove, that the system works.
