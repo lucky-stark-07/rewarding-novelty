@@ -216,3 +216,15 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# Python / local application state
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.pytest_cache/
+backend/.cache/
+backend/corpus.json
+
+# Next.js
+frontend/node_modules/
+frontend/.next/

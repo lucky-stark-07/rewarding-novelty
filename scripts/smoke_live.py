@@ -1,0 +1,65 @@
+"""Live, cached OpenRouter smoke run across the five acceptance fixtures."""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from backend.config import get_settings
+from backend.corpus import CorpusStore
+from backend.llm_client import LLMClient
+from backend.novelty import score_submission
+from backend.schemas import Submission
+
+FIXTURES = json.loads((Path("tests/fixtures/submissions.json")).read_text())
+CASES = [
+    ("novel_relevant", "high"),
+    ("redundant", "low"),
+    ("irrelevant", "low"),
+    ("paraphrase", "low"),
+    ("gibberish", "low"),
+]
+
+
+def main() -> None:
+    settings = get_settings()
+    llm = LLMClient(settings)
+    corpus_store = CorpusStore(settings.corpus_path)
+    entries = corpus_store.list()
+    # Ground repetition and paraphrase checks in actual generated claims. A generic
+    # "central planning" review is not redundant unless this corpus contains that idea.
+    repeat_entry = entries[0]
+    search_entry = next((entry for entry in entries if "search" in entry.submission.what_you_dislike.lower()), entries[1])
+    live_inputs = dict(FIXTURES)
+    live_inputs["redundant"] = repeat_entry.submission.model_dump()
+    live_inputs["paraphrase"] = {
+        "what_you_like": "The platform improves collaboration across functions by letting departments contribute openly to product strategy.",
+        "what_you_dislike": "Search could be more robust.",
+        "problem_solved": "It helps break down silos between departments.",
+    }
+    rows = []
+    for name, band in CASES:
+        result = score_submission(Submission.model_validate(live_inputs[name]), corpus_store, llm=llm, settings=settings)
+        passed = result.submission_score >= 0.6 if band == "high" else result.submission_score <= (0.2 if name == "gibberish" else 0.3)
+        fields = ", ".join(f"{item.score:.2f}" for item in result.field_scores)
+        rows.append((name, result.submission_score, fields, band, "PASS" if passed else "FAIL"))
+    print("case | score | field scores (like, dislike, solved) | expected | result")
+    print("--- | ---: | --- | --- | ---")
+    for name, score, fields, band, result in rows:
+        print(f"{name} | {score:.3f} | {fields} | {band} | {result}")
+    for name, _score, _fields, _band, outcome in rows:
+        if outcome == "FAIL":
+            print(f"\n{name} claim decisions:")
+            submission = Submission.model_validate(live_inputs[name])
+            details = score_submission(submission, corpus_store, llm=llm, settings=settings)
+            for field in details.field_scores:
+                for assessment in field.claims:
+                    nearest = assessment.nearest_claim.text if assessment.nearest_claim else "(none)"
+                    print(f"{field.field.value}: {assessment.novelty_status} sim={assessment.nearest_similarity} relevance={assessment.relevance_score:.2f}; {assessment.claim.text!r} vs {nearest!r}; judge={assessment.entailment_reason}")
+    print("\nLLM usage (this run only):")
+    print(f"calls={llm.metrics['calls']} cache_hits={llm.metrics['cache_hits']} prompt_tokens={llm.metrics['prompt_tokens']} completion_tokens={llm.metrics['completion_tokens']} estimated_cost_usd=${llm.metrics['estimated_cost_usd']:.4f}")
+    if any(row[-1] == "FAIL" for row in rows):
+        raise SystemExit(1)
+
+
+if __name__ == "__main__":
+    main()

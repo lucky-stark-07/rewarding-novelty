@@ -1,0 +1,48 @@
+{
+  "extraction": {
+    "what_you_like|Release notes can be matched back to the roadmap decision and the original customer problem.": [{"field":"what_you_like","text":"Release notes can be matched back to the roadmap decision."},{"field":"what_you_like","text":"Release notes can be matched back to the original customer problem."}],
+    "what_you_dislike|The tool does not measure whether a published release note reaches the customers who requested the feature.": [{"field":"what_you_dislike","text":"The tool does not measure whether published release notes reach customers who requested the feature."}],
+    "problem_solved|It connects product decisions to later customer communication without losing the original context.": [{"field":"problem_solved","text":"Product decisions connect to later customer communication with their original context."}],
+    "what_you_like|It centralizes project planning.": [{"field":"what_you_like","text":"It centralizes project planning."}],
+    "what_you_dislike|The interface has too many clicks.": [{"field":"what_you_dislike","text":"The interface has too many clicks."}],
+    "problem_solved|It centralizes project planning.": [{"field":"problem_solved","text":"It centralizes project planning."}],
+    "what_you_like|The coffee machine makes espresso quickly.": [{"field":"what_you_like","text":"The coffee machine makes espresso quickly."}],
+    "what_you_dislike|The grinder is loud.": [{"field":"what_you_dislike","text":"The grinder is loud."}],
+    "problem_solved|It helps our office make coffee.": [{"field":"problem_solved","text":"The product helps our office make coffee."}],
+    "what_you_like|All our product planning is gathered in one location.": [{"field":"what_you_like","text":"Product planning is gathered in one location."}],
+    "what_you_dislike|Navigation needs fewer clicks.": [{"field":"what_you_dislike","text":"Navigation needs fewer clicks."}],
+    "problem_solved|We now keep plans centrally.": [{"field":"problem_solved","text":"The team keeps plans in one central place."}],
+    "what_you_like|florp blarg 123": [{"field":"what_you_like","text":"florp blarg 123"}],
+    "what_you_dislike|%%%%": [{"field":"what_you_dislike","text":"%%%%"}],
+    "problem_solved|moon bicycle zzz": [{"field":"problem_solved","text":"moon bicycle zzz"}],
+    "what_you_like|Padding review": [
+      {"field":"what_you_like","text":"It centralizes project planning."},
+      {"field":"what_you_like","text":"It centralizes project planning."},
+      {"field":"what_you_like","text":"It records a notarized timestamp for each approved product decision."}
+    ],
+    "what_you_like|Keyword stuffing review": [
+      {"field":"what_you_like","text":"The coffee brewer uses customer feedback, roadmaps, release notes, and product strategy."}
+    ],
+    "what_you_like|Small new detail review": [
+      {"field":"what_you_like","text":"It centralizes product planning."},
+      {"field":"what_you_like","text":"It preserves customer ownership metadata for every feedback item."}
+    ],
+    "what_you_like|Single novel review": [
+      {"field":"what_you_like","text":"It records a notarized timestamp for each approved product decision."}
+    ]
+  },
+  "relevance": {
+    "The coffee machine makes espresso quickly.": {"relevance_score":0.0,"reason":"Coffee equipment is unrelated to the product."},
+    "The grinder is loud.": {"relevance_score":0.0,"reason":"A coffee grinder is unrelated to the product."},
+    "The product helps our office make coffee.": {"relevance_score":0.0,"reason":"Making coffee is unrelated to product planning."},
+    "florp blarg 123": {"relevance_score":0.0,"reason":"The text has no interpretable product claim."},
+    "%%%%": {"relevance_score":0.0,"reason":"The text has no interpretable product claim."},
+    "moon bicycle zzz": {"relevance_score":0.0,"reason":"The text has no interpretable product claim."},
+    "The coffee brewer uses customer feedback, roadmaps, release notes, and product strategy.": {"relevance_score":0.0,"reason":"Keyword mentions do not make the coffee brewer relevant to product collaboration."}
+  },
+  "entailment": {
+    "Product planning is gathered in one location.": {"covered":true,"reason":"This paraphrases centralized product planning."},
+    "Navigation needs fewer clicks.": {"covered":true,"reason":"This paraphrases the existing navigation complaint."},
+    "The team keeps plans in one central place.": {"covered":true,"reason":"This paraphrases centralized product planning."}
+  }
+}

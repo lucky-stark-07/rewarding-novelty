@@ -1,0 +1,7 @@
+{
+  "novel_relevant": {"what_you_like":"Release notes can be matched back to the roadmap decision and the original customer problem.","what_you_dislike":"The tool does not measure whether a published release note reaches the customers who requested the feature.","problem_solved":"It connects product decisions to later customer communication without losing the original context."},
+  "redundant": {"what_you_like":"It centralizes project planning.","what_you_dislike":"The interface has too many clicks.","problem_solved":"It centralizes project planning."},
+  "irrelevant": {"what_you_like":"The coffee machine makes espresso quickly.","what_you_dislike":"The grinder is loud.","problem_solved":"It helps our office make coffee."},
+  "paraphrase": {"what_you_like":"All our product planning is gathered in one location.","what_you_dislike":"Navigation needs fewer clicks.","problem_solved":"We now keep plans centrally."},
+  "gibberish": {"what_you_like":"florp blarg 123","what_you_dislike":"%%%%","problem_solved":"moon bicycle zzz"}
+}
