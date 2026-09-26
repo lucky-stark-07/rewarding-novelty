@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Rewarding Novelty — AI Review Novelty & Relevance Evaluator",
+  title: "NoveltyLens — Review Novelty & Relevance Scoring",
   description: "Evaluate product review novelty and relevance using local vector embeddings, cosine similarity, and OpenRouter LLM judges.",
 };
 

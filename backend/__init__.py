@@ -1,1 +1,1 @@
-"""Theme 3 novelty scoring backend."""
+"""NoveltyLens scoring backend."""

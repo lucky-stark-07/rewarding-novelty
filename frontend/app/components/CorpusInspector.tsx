@@ -1,8 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import { CorpusEntry, FieldName } from "../types";
-import { Database, Search, RefreshCw, Layers, ThumbsUp, ThumbsDown, Target, FileText, CheckCircle2 } from "lucide-react";
+import { CorpusEntry } from "../types";
+import {
+  Database,
+  Search,
+  RefreshCw,
+  ThumbsUp,
+  ThumbsDown,
+  Target,
+  FileText,
+  ChevronDown,
+  ChevronUp,
+  Layers,
+} from "lucide-react";
 
 interface CorpusInspectorProps {
   corpus: CorpusEntry[];
@@ -16,7 +27,7 @@ export const CorpusInspector: React.FC<CorpusInspectorProps> = ({
   loadingRegen,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedField, setSelectedField] = useState<string>("all");
+  const [expandedEntries, setExpandedEntries] = useState<Record<string, boolean>>({});
 
   const totalReviews = corpus.length;
   const allClaims = corpus.flatMap((entry) => entry.claims || []);
@@ -26,6 +37,10 @@ export const CorpusInspector: React.FC<CorpusInspectorProps> = ({
     what_you_like: allClaims.filter((c) => c.field === "what_you_like").length,
     what_you_dislike: allClaims.filter((c) => c.field === "what_you_dislike").length,
     problem_solved: allClaims.filter((c) => c.field === "problem_solved").length,
+  };
+
+  const toggleExpand = (id: string) => {
+    setExpandedEntries((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const filteredEntries = corpus.filter((entry) => {
@@ -61,6 +76,7 @@ export const CorpusInspector: React.FC<CorpusInspectorProps> = ({
 
         {/* Action Button */}
         <button
+          type="button"
           onClick={onRegenerateCorpus}
           disabled={loadingRegen}
           className="w-full md:w-auto px-5 py-3 rounded-xl font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2 shrink-0 border border-indigo-400/30"
@@ -127,48 +143,85 @@ export const CorpusInspector: React.FC<CorpusInspectorProps> = ({
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {filteredEntries.slice(0, 20).map((entry, i) => (
-            <div
-              key={entry.id || i}
-              className="p-4 rounded-xl glass-card border border-slate-800 hover:border-indigo-500/30 transition-all space-y-3"
-            >
-              <div className="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800/80 pb-2">
-                <span className="font-mono font-bold text-indigo-400">#{entry.id}</span>
-                <span className="bg-slate-900 px-2 py-0.5 rounded text-[10px]">
-                  {entry.claims.length} Extracted Claims
-                </span>
+          {filteredEntries.map((entry, i) => {
+            const isExpanded = !!expandedEntries[entry.id];
+            return (
+              <div
+                key={entry.id || i}
+                className="p-5 rounded-xl glass-card border border-slate-800 hover:border-indigo-500/30 transition-all space-y-4 flex flex-col justify-between"
+              >
+                {/* Header info */}
+                <div className="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800/80 pb-2.5">
+                  <span className="font-mono font-bold text-indigo-400 truncate max-w-[200px]" title={entry.id}>
+                    #{entry.id}
+                  </span>
+                  <span className="bg-slate-900 px-2.5 py-1 rounded-md text-[11px] font-mono text-cyan-300 border border-slate-800">
+                    {entry.claims.length} Extracted Claims
+                  </span>
+                </div>
+
+                {/* Review Body (Un-truncated full text) */}
+                <div className="space-y-3 text-xs leading-relaxed">
+                  <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800/80">
+                    <span className="text-[10px] uppercase font-bold text-emerald-400 flex items-center gap-1 mb-1">
+                      <ThumbsUp className="w-3 h-3" /> What You Like
+                    </span>
+                    <p className="text-slate-200 italic font-sans whitespace-pre-wrap">
+                      &ldquo;{entry.submission.what_you_like}&rdquo;
+                    </p>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800/80">
+                    <span className="text-[10px] uppercase font-bold text-amber-400 flex items-center gap-1 mb-1">
+                      <ThumbsDown className="w-3 h-3" /> What You Dislike
+                    </span>
+                    <p className="text-slate-200 italic font-sans whitespace-pre-wrap">
+                      &ldquo;{entry.submission.what_you_dislike}&rdquo;
+                    </p>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800/80">
+                    <span className="text-[10px] uppercase font-bold text-cyan-400 flex items-center gap-1 mb-1">
+                      <Target className="w-3 h-3" /> Problem Solved
+                    </span>
+                    <p className="text-slate-200 italic font-sans whitespace-pre-wrap">
+                      &ldquo;{entry.submission.problem_solved}&rdquo;
+                    </p>
+                  </div>
+                </div>
+
+                {/* Extracted Atomic Claims Collapsible */}
+                {entry.claims.length > 0 && (
+                  <div className="pt-2 border-t border-slate-800/80">
+                    <button
+                      type="button"
+                      onClick={() => toggleExpand(entry.id)}
+                      className="w-full flex items-center justify-between p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800/80 border border-slate-800 text-[11px] font-semibold text-slate-300 transition-colors"
+                    >
+                      <span className="flex items-center gap-1.5">
+                        <Layers className="w-3.5 h-3.5 text-indigo-400" />
+                        {isExpanded ? "Hide Extracted Claims" : `View ${entry.claims.length} Extracted Atomic Claims`}
+                      </span>
+                      {isExpanded ? <ChevronUp className="w-3.5 h-3.5 text-slate-400" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-400" />}
+                    </button>
+
+                    {isExpanded && (
+                      <div className="mt-2.5 space-y-1.5 pl-2 border-l-2 border-indigo-500/30">
+                        {entry.claims.map((claim, idx) => (
+                          <div key={idx} className="p-2 rounded bg-slate-950 text-[11px] text-slate-300 border border-slate-800 flex items-start gap-2">
+                            <span className="px-1.5 py-0.5 rounded text-[9px] font-mono uppercase bg-slate-900 text-slate-400 border border-slate-800 shrink-0">
+                              {claim.field ? claim.field.replace("_", " ") : "claim"}
+                            </span>
+                            <span className="font-mono text-slate-200">&ldquo;{claim.text}&rdquo;</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
-
-              <div className="space-y-2 text-xs">
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-emerald-400 block mb-0.5">
-                    What You Like
-                  </span>
-                  <p className="text-slate-300 line-clamp-2 italic">
-                    &ldquo;{entry.submission.what_you_like}&rdquo;
-                  </p>
-                </div>
-
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-amber-400 block mb-0.5">
-                    What You Dislike
-                  </span>
-                  <p className="text-slate-300 line-clamp-2 italic">
-                    &ldquo;{entry.submission.what_you_dislike}&rdquo;
-                  </p>
-                </div>
-
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-cyan-400 block mb-0.5">
-                    Problem Solved
-                  </span>
-                  <p className="text-slate-300 line-clamp-2 italic">
-                    &ldquo;{entry.submission.problem_solved}&rdquo;
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

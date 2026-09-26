@@ -6,7 +6,7 @@ from ..novelty import score_submission
 from ..schemas import ScoreRequest, ScoreResult
 from ..telemetry import RequestTrace, current_trace
 router = APIRouter(tags=["scoring"])
-logger = logging.getLogger("rewarding_novelty.requests")
+logger = logging.getLogger("noveltylens.requests")
 
 
 def _trace_id(request: Request) -> str:

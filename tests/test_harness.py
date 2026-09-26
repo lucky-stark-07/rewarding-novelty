@@ -338,7 +338,7 @@ async def with_app(settings: Settings, llm, fn):
 
 
 def test_score_response_meta_trace_log_and_stats(tmp_path: Path, caplog) -> None:
-    caplog.set_level(logging.INFO, logger="rewarding_novelty.requests")
+    caplog.set_level(logging.INFO, logger="noveltylens.requests")
     async def fn(_app, client):
         response = await client.post("/score", headers={"x-request-id": "trace-123"}, json={"what_you_like": "Useful", "what_you_dislike": "Slow", "problem_solved": "Planning"})
         return response, (await client.get("/stats")).json()
@@ -350,7 +350,7 @@ def test_score_response_meta_trace_log_and_stats(tmp_path: Path, caplog) -> None
     assert {"extract", "embed", "search", "relevance", "aggregate"} <= {span["name"] for span in meta["spans"]}
     lines = [json.loads(line) for line in settings.trace_log_path.read_text().splitlines()]
     assert len(lines) == len(meta["spans"]) and all(line["trace_id"] == "trace-123" for line in lines)
-    logged = json.loads(next(record for record in caplog.records if record.name == "rewarding_novelty.requests").message)
+    logged = json.loads(next(record for record in caplog.records if record.name == "noveltylens.requests").message)
     assert logged["trace_id"] == "trace-123" and "spans" not in logged
     assert stats["request_count"] == 1 and stats["latency_ms"]["p50"] is not None and stats["latency_ms"]["p95"] is not None
     assert {"total_cost_usd", "cache_hit_rate", "degraded_count"} <= set(stats)

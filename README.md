@@ -1,6 +1,6 @@
-# Rewarding Novelty — Theme 3
+# NoveltyLens
 
-Rewarding Novelty scores user generated product reviews on a **0.0–1.0** scale. It rewards claims that are new relative to a reference corpus while requiring relevance to a fixed product description.
+NoveltyLens scores user-generated product reviews on a **0.0–1.0** scale. It rewards claims that are new relative to a reference corpus while requiring relevance to a fixed product description.
 
 The project uses OpenRouter's OpenAI-compatible API. It does not require a Google AI Studio key: models such as Gemini can be selected through OpenRouter in `.env`.
 
@@ -15,7 +15,7 @@ A good score should be given only when the submission is both novel relative to 
 
 ## Submission format
 
-The UI and API accept a G2-style product review with three discrete properties:
+The UI and API accept a product review with three discrete properties:
 
 | Property | Meaning |
 | --- | --- |

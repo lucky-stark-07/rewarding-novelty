@@ -73,7 +73,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit, loading, error
       <div className="flex items-center justify-between border-b border-slate-800 pb-4">
         <div>
           <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
-            <span>Submit G2-Style Review</span>
+            <span>Submit a Product Review</span>
           </h2>
           <p className="text-xs text-slate-400 mt-0.5">
             Evaluates 3 distinct dimensions for novel insight relative to the corpus baseline.

@@ -1,6 +1,6 @@
 ---
 name: generate_corpus
-version: 1
+version: 2
 ---
 # System
 
@@ -13,4 +13,4 @@ Each review has the three required fields what_you_like, what_you_dislike, and p
 Reference product:
 $reference
 
-Generate exactly $n distinct G2-style reviews. Mix personas ($personas), company sizes and industries ($companies, among others), sentiments ($sentiments), and experience levels (new user, daily user, admin, executive buyer).
+Generate exactly $n distinct software product reviews. Mix personas ($personas), company sizes and industries ($companies, among others), sentiments ($sentiments), and experience levels (new user, daily user, admin, executive buyer).

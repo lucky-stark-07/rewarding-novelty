@@ -1,4 +1,4 @@
-# Theme 3 scoring evaluation
+# NoveltyLens scoring evaluation
 
 Cases: 25 human-labeled; origin counts: {'handwritten': 20, 'synthetic_corpus_exact_duplicate': 5}. Redundancy examples are exact corpus entries; paraphrase and other examples are hand-written. Current thresholds: low `0.35`, high `0.75`; ambiguous claims judged against top-3 neighbours; partial coverage earns `0.50` novelty. Combination: mean(novelty × relevance) per claim.
 

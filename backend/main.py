@@ -25,7 +25,7 @@ def create_app(settings: Settings | None = None, llm: LLMClient | None = None) -
         app.state.trace_sink = TraceSink(active.trace_log_path)
         yield
 
-    app = FastAPI(title="Rewarding Novelty API", lifespan=lifespan)
+    app = FastAPI(title="NoveltyLens API", lifespan=lifespan)
     app.add_middleware(CORSMiddleware, allow_origins=[active.frontend_origin], allow_credentials=True, allow_methods=["*"], allow_headers=["*"], expose_headers=["x-request-id"])
     app.include_router(submit.router)
     app.include_router(corpus.router)

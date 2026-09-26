@@ -10,7 +10,7 @@ import { CorpusInspector } from "./components/CorpusInspector";
 import { ArchitectureVisualizer } from "./components/ArchitectureVisualizer";
 import { DegradedBadge, TracePanel } from "./components/TracePanel";
 import { ScoreResult, CorpusEntry } from "./types";
-import { Sparkles, Layers, RefreshCw, AlertCircle } from "lucide-react";
+import { Sparkles, Layers, RefreshCw, AlertCircle, Award } from "lucide-react";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -54,11 +54,14 @@ export default function Home() {
     fetchCorpus();
   }, []);
 
-  const handleSubmit = async (form: {
-    what_you_like: string;
-    what_you_dislike: string;
-    problem_solved: string;
-  }, addToCorpus: boolean) => {
+  const handleSubmit = async (
+    form: {
+      what_you_like: string;
+      what_you_dislike: string;
+      problem_solved: string;
+    },
+    addToCorpus: boolean
+  ) => {
     setLoading(true);
     setError("");
     try {
@@ -83,16 +86,12 @@ export default function Home() {
       const scoreData: ScoreResult = await res.json();
       setResult(scoreData);
       if (scoreData.added_to_corpus) await fetchCorpus();
-
-      // Smooth scroll to results
-      setTimeout(() => {
-        const resultsEl = document.getElementById("score-results-section");
-        if (resultsEl) {
-          resultsEl.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 100);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Scoring request failed. Ensure backend FastAPI server is running on http://localhost:8000.");
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Scoring request failed. Ensure backend FastAPI server is running on http://localhost:8000."
+      );
     } finally {
       setLoading(false);
     }
@@ -132,24 +131,25 @@ export default function Home() {
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         {/* Evaluator Tab */}
         {activeTab === "evaluator" && (
-          <div className="space-y-8">
+          <div className="space-y-6">
             {/* Reference Product Banner */}
             <ReferenceBanner />
 
-            {/* Review Form & Live Scoring Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Left 7 cols: Submission Form */}
-              <div className="lg:col-span-7 space-y-6">
+            {/* Main Side-by-Side Ergonomic Workspace */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              {/* Left 5 Columns: Review Input Form & Presets */}
+              <div className="lg:col-span-5 space-y-6">
                 <ReviewForm onSubmit={handleSubmit} loading={loading} error={error} />
               </div>
 
-              {/* Right 5 cols: Immediate Results preview or empty state guide */}
-              <div className="lg:col-span-5 space-y-6">
+              {/* Right 7 Columns: Complete Scoring & Claims Console */}
+              <div className="lg:col-span-7 space-y-6">
                 {result ? (
-                  <div className="sticky top-24 space-y-6">
+                  <div className="space-y-6">
+                    {/* Degraded mode warning if applicable */}
                     {result.degraded && (
                       <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-200 flex items-start gap-2">
                         <DegradedBadge reason={result.degraded_reason} />
@@ -159,6 +159,8 @@ export default function Home() {
                         </span>
                       </div>
                     )}
+
+                    {/* Overall Score Radial Gauge */}
                     <ScoreGauge
                       score={result.submission_score}
                       scoringMode={result.scoring_mode}
@@ -168,6 +170,8 @@ export default function Home() {
                       novelClaimsCount={novelCount}
                       coveredClaimsCount={coveredCount}
                     />
+
+                    {/* Corpus Add Callouts */}
                     {result.added_to_corpus && (
                       <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-center text-xs text-emerald-200">
                         Added to the comparison corpus. Future scores may change.
@@ -178,39 +182,43 @@ export default function Home() {
                         Not added to the comparison corpus. It was already present, did not meet the acceptance threshold, or was scored in degraded mode.
                       </div>
                     )}
+
+                    {/* Execution Telemetry Trace */}
                     {result.meta && <TracePanel meta={result.meta} />}
+
+                    {/* Field-by-Field Claims Assessment Grid */}
+                    <FieldBreakdown fieldScores={result.field_scores} />
                   </div>
                 ) : (
-                  <div className="glass-card rounded-2xl p-8 border border-slate-800 text-center space-y-4 sticky top-24">
+                  <div className="glass-card rounded-2xl p-8 border border-slate-800 text-center space-y-6">
                     <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center mx-auto animate-float">
                       <Sparkles className="w-8 h-8" />
                     </div>
-                    <h3 className="text-base font-bold text-slate-200">Ready to Score Submission</h3>
-                    <p className="text-xs text-slate-400 leading-relaxed max-w-xs mx-auto">
-                      Fill out the 3 review dimensions or select a quick preset on the left, then click &ldquo;Evaluate Review Novelty & Relevance&rdquo;.
-                    </p>
+                    <div>
+                      <h3 className="text-base font-bold text-slate-200">Evaluation Console Ready</h3>
+                      <p className="text-xs text-slate-400 leading-relaxed max-w-sm mx-auto mt-1">
+                        Fill out the 3 review fields on the left or select a quick preset template, then click &ldquo;Evaluate Review Novelty & Relevance&rdquo;.
+                      </p>
+                    </div>
 
-                    <div className="pt-4 border-t border-slate-800/80 grid grid-cols-2 gap-3 text-[11px] text-slate-400 text-left">
-                      <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
-                        <span className="font-semibold text-cyan-300 block mb-0.5">1. Claim Extraction</span>
-                        <span>Extracts atomic claims via Gemini fast model</span>
+                    <div className="pt-4 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-400 text-left">
+                      <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+                        <span className="font-semibold text-cyan-300 block">1. Atomic Claim Extraction</span>
+                        <p className="text-[11px] text-slate-400">
+                          Decomposes text into discrete proposition claims using fast OpenRouter model.
+                        </p>
                       </div>
-                      <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
-                        <span className="font-semibold text-purple-300 block mb-0.5">2. Vector Search</span>
-                        <span>Compares claims against 50 baseline reviews</span>
+                      <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+                        <span className="font-semibold text-purple-300 block">2. Local Vector & LLM Judge</span>
+                        <p className="text-[11px] text-slate-400">
+                          Compares claims with 50 baseline reviews & evaluates semantic entailment.
+                        </p>
                       </div>
                     </div>
                   </div>
                 )}
               </div>
             </div>
-
-            {/* Detailed Field Breakdown Section */}
-            {result && (
-              <div id="score-results-section" className="pt-6 border-t border-slate-800">
-                <FieldBreakdown fieldScores={result.field_scores} />
-              </div>
-            )}
           </div>
         )}
 
@@ -231,8 +239,8 @@ export default function Home() {
       <footer className="w-full glass-panel border-t border-slate-800/80 py-6 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-200">Rewarding Novelty</span>
-            <span>— Hackathon Theme 3</span>
+            <span className="font-bold text-slate-200">NoveltyLens</span>
+            <span>— review novelty &amp; relevance scoring</span>
           </div>
 
           <div className="flex items-center gap-4">

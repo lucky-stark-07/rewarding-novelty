@@ -31,14 +31,11 @@ export const Header: React.FC<HeaderProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-cyan-300">
-                Rewarding Novelty
+                NoveltyLens
               </h1>
-              <span className="px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded-full">
-                Hackathon Theme 3
-              </span>
             </div>
             <p className="text-xs text-slate-400 font-medium hidden sm:block">
-              Vector Cosine Similarity & LLM Entailment Judge
+              See what is genuinely new in every review
             </p>
           </div>
         </div>
