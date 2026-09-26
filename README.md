@@ -13,6 +13,37 @@ Each submission is evaluated against two things:
 
 A good score should be given only when the submission is both novel relative to the corpus and relevant to the reference product. Repeated, paraphrased, off-topic, and nonsensical content should score low.
 
+Documents for reviewers:
+
+- **This README:** engineering design, rationale, success criteria, results and limitations.
+- **[`AI_DECLARATION.md`](AI_DECLARATION.md):** which coding agents were used, and how they were prompted and directed.
+
+## Success criteria
+
+The criteria were fixed before measuring, and every result below can be reproduced with the command in its row.
+
+| Criterion | Target | Current result | How it is checked |
+| --- | --- | --- | --- |
+| Novel and relevant review scores high | ≥ 0.6 | Passes | `tests/test_novelty_cases.py` (`make test`) |
+| Redundant or paraphrased review scores low | ≤ 0.3 | Passes | same tests |
+| Off-topic or gibberish review scores low | ≤ 0.2 | Passes | same tests |
+| Relevance is a hard gate | A novel off-topic claim contributes 0 | Passes | `test_relevance_gates_each_claim_not_the_field_average` |
+| Good reviews separate from all bad ones (tuning set, in-sample) | Margin > 0 | +0.389, ROC-AUC 1.000 | `make eval` → `reports/eval.md` |
+| Same on unseen data (held-out set) | Every case within its fixed bound | **12 / 15** (margin +0.111, ROC-AUC 1.000) | `make holdout` → `reports/holdout.md` |
+| No secret or personal data reaches a model, cache, corpus, log or response | 0 leaks | Passes | `tests/test_guardrails.py` |
+| Abusive content is blocked; prompt-injection attempts score low | block; ≤ 0.3 | Passes | guardrail tests; held-out injection cases 0.000 and 0.111 |
+| Cost and latency (measured before guardrails; moderation adds one small call) | Recorded, with a spend cap | $0.0018 per review cold; p50 3.6 s cold / 13 ms warm | `make load` → `reports/load.md` |
+| Automated test suite | All pass | 91 passed | `make test` |
+
+## Golden dataset
+
+| File | What it is |
+| --- | --- |
+| `tests/fixtures/eval_cases.json` | 25 labelled reviews, 5 per category: novel and relevant, redundant, paraphrase, novel but irrelevant, gibberish. The **tuning set**. |
+| `tests/fixtures/holdout_cases.json` | 15 labelled reviews written after tuning, never used to tune. Covers novel and relevant, paraphrases of real corpus entries, off-topic, gibberish, vague, and adversarial (prompt injection, keyword stuffing). |
+| `tests/fixtures/submissions.json`, `tests/fixtures/llm_responses.json` | Fixed inputs and model answers for the offline test suite. |
+| `backend/corpus.json` | The 50-review comparison corpus (synthetic, LLM-generated). |
+
 ## Submission format
 
 The UI and API accept a product review with three discrete properties:
