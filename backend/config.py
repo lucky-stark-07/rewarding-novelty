@@ -20,6 +20,12 @@ class Settings(BaseSettings):
     # Comma-separated; sent to OpenRouter as extra_body.models so it fails over server-side.
     fast_model_fallbacks: str = ""
     judge_model_fallbacks: str = ""
+    # Moderation guard: any OpenAI-compatible endpoint. Unset URL/key fall back to OpenRouter; point
+    # GUARD_BASE_URL at an on-prem server (vLLM, Ollama, TGI) to keep review text in-house.
+    moderation_enabled: bool = True
+    guard_base_url: str | None = None
+    guard_api_key: SecretStr | None = Field(default=None, repr=False)
+    guard_model: str = "google/gemini-2.5-flash-lite"
     high_threshold: float = 0.75
     low_threshold: float = 0.35
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
@@ -49,6 +55,15 @@ class Settings(BaseSettings):
     cache_enabled: bool = True
     llm_memory_cache_size: int = Field(default=1024, ge=0)
     embedding_cache_size: int = Field(default=4096, ge=0)
+
+    def guard_settings(self) -> "Settings":
+        """Settings for the guard's own LLM client: separate endpoint, key, breaker and cache namespace."""
+        return self.model_copy(update={
+            "openrouter_base_url": self.guard_base_url or self.openrouter_base_url,
+            "openrouter_api_key": self.guard_api_key or self.openrouter_api_key,
+            "fast_model": self.guard_model,
+            "fast_model_fallbacks": "",
+        })
 
     def fallbacks_for(self, model: str) -> list[str]:
         raw = self.fast_model_fallbacks if model == self.fast_model else self.judge_model_fallbacks if model == self.judge_model else ""

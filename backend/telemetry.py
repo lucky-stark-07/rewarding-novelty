@@ -150,6 +150,8 @@ class ServiceStats:
         self.llm_calls = 0
         self.cache_hits = 0
         self.outcomes: Counter[str] = Counter()
+        self.masked: Counter[str] = Counter()
+        self.moderation: Counter[str] = Counter()
         self.latencies_ms: deque[float] = deque(maxlen=window)
 
     def record(self, outcome: str, latency_ms: float, trace: RequestTrace | None = None) -> None:
@@ -175,6 +177,7 @@ class ServiceStats:
             "llm_calls": self.llm_calls,
             "llm_cache_hits": self.cache_hits,
             "outcomes": dict(self.outcomes),
+            "guardrails": {"masked_by_type": dict(self.masked), "moderation": dict(self.moderation)},
             "in_flight": self.in_flight,
             "rejected_overload": self.rejected,
             "uptime_seconds": round(time.time() - self.started, 1),

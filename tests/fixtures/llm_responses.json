@@ -1,4 +1,8 @@
 {
+  "moderation": {
+    "BLOCK-MARKER": {"verdict": "block", "categories": ["threat"], "reason": "The review threatens a named person."},
+    "FLAG-MARKER": {"verdict": "flag", "categories": ["profanity"], "reason": "The review contains profanity."}
+  },
   "extraction": {
     "what_you_like|It's good.": [{"field":"what_you_like","text":"It's good."}],
     "what_you_dislike|Could be better.": [],

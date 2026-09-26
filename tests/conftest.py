@@ -30,6 +30,9 @@ class FixtureLLM:
         if prompt.name == "extract_claims":
             fixture = self.responses["extraction"].get(f"{variables['field']}|{variables['text']}", [{"text": variables["text"]}])
             response = {"claims": [{"text": claim["text"]} for claim in fixture]}
+        elif prompt.name == "moderate":
+            review = variables["review"]
+            response = next((verdict for marker, verdict in self.responses.get("moderation", {}).items() if marker in review), {"verdict": "allow", "categories": [], "reason": "Ordinary product feedback."})
         elif prompt.name == "judge_relevance":
             items = json.loads(variables["claims"])
             default = {"relevance_score": 0.85, "reason": "The claim concerns product team planning."}

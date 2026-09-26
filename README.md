@@ -105,6 +105,8 @@ The 50-review comparison corpus is committed at `backend/corpus.json` (synthetic
 | Risk | Guardrail | Where |
 | --- | --- | --- |
 | Oversized or malformed input | Pydantic request schema: three string fields of at most 4000 characters, returns 422 otherwise | `schemas.py` `Submission` |
+| Secrets and personal data in reviews | Local pattern detection masks API keys and tokens (OpenRouter/OpenAI, AWS, GitHub, Slack, Google, JWT, bearer, `password=`/`api_key=` assignments, private keys), emails, phone numbers, Luhn-valid cards and IP addresses as `[EMAIL_1]`-style placeholders **before** any LLM call, cache write, corpus write, log or response. Originals are never stored; only types and counts are reported (`guardrails.masked`, `/stats`). Includes false-positive tests ("API rate limit", "v2.4.1", "$1,200", non-Luhn order numbers) | `guardrails.py`, `novelty.score_submission` |
+| Abusive or unsafe content | LLM moderation (`prompts/moderate.md`) runs in parallel with scoring on a **separate, swappable endpoint** (`GUARD_BASE_URL`/`GUARD_MODEL`/`GUARD_API_KEY`: OpenRouter now, an on-prem OpenAI-compatible server later). `block` returns score 0 and is never stored; `flag` is scored but never stored; if the guard is unavailable the review is scored but never stored (fails closed for storage). Exact corpus duplicates skip the call | `guardrails.moderate`, `backend/main.py` |
 | Prompt injection in review text | User text is placed last, after the static instructions; the model may only return a strict JSON schema; batch outputs must contain exactly the expected ids; scores are bounded 0–1. Held-out injection cases score 0.000 and 0.111 | `prompts/*.md`, `llm_client.complete_json`, `novelty._expect_ids` |
 | Malformed or out-of-range model output | Pydantic validation, one repair re-ask, then that stage degrades instead of returning garbage | `llm_client.py` |
 | Off-topic, keyword-stuffed or gibberish reviews | Relevance multiplies every claim's novelty (a hard gate), and keyword stuffing is judged on subject, not on words | `novelty._field_scores`, `judge_relevance.md` |
@@ -116,7 +118,7 @@ The 50-review comparison corpus is committed at `backend/corpus.json` (synthetic
 | Model outage | Retries, OpenRouter fallbacks, circuit breaker, degraded mode labelled in the response and UI | `llm_client.py`, `novelty.py` |
 | Secret leakage | Keys only from env as `SecretStr` (never in repr or dumps); `.env` is gitignored | `config.py` |
 
-Not covered: there is no content moderation (abusive or personal data in reviews is scored and, if opted in, stored as-is), no per-client rate limit or authentication on `/score`, and no truthfulness check.
+Not covered yet (phase 2): person names and street addresses are **not** detected (pattern detection only; Presidio/NER planned); there is no local toxicity classifier (moderation is the LLM guard only); the UI does not yet show the masking banner or a blocked state (the API returns them in `guardrails`); and there is no labelled precision/recall eval for the guardrails. Also not covered: per-client rate limits or authentication on `/score`, and truthfulness. After upgrading, run `make purge-cache` once: cached responses from before masking may contain review text.
 
 ## Configuration
 
@@ -204,7 +206,7 @@ make test
 curl http://localhost:8000/health
 ```
 
-Expected output is `55 passed`. Tests use hand-written LLM response fixtures (or a fake upstream for the client tests), with the real local Sentence Transformer embeddings, retrieval, batching and scoring math.
+Expected output is `81 passed`. Tests use hand-written LLM response fixtures (or a fake upstream for the client tests), with the real local Sentence Transformer embeddings, retrieval, batching and scoring math.
 
 - **Scoring:** the scoring cases, adversarial examples, partial credit, top-k judging, per-claim gating, per-field batching and concurrent extraction.
 - **Prompts and cache:** prompt loading and ordering, and cache-key composition, the memory LRU, the disk cache and the cache-disable flag.

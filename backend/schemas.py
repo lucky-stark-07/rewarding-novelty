@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Literal
 from pydantic import BaseModel, Field
 
 class FieldName(str, Enum):
@@ -39,6 +40,11 @@ class RelevanceJudgment(BaseModel):
 
 class RelevanceBatchResponse(BaseModel):
     results: list[RelevanceJudgment]
+
+class ModerationResponse(BaseModel):
+    verdict: Literal["allow", "flag", "block"]
+    categories: list[str] = Field(default_factory=list, max_length=8)
+    reason: str = Field(min_length=1, max_length=400)
 
 class Coverage(str, Enum):
     FULL = "full"
@@ -94,6 +100,8 @@ class ScoreResult(BaseModel):
     reason: str | None = None
     degraded: bool = False
     degraded_reason: str | None = None
+    # {"masked": {"EMAIL": 1}, "moderation": "allow|flag|block|unavailable|disabled", "categories": [...], "warnings": [...]}; never contains masked values
+    guardrails: dict = Field(default_factory=dict)
     meta: dict = Field(default_factory=dict)
     add_to_corpus_requested: bool = False
     added_to_corpus: bool = False

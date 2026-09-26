@@ -142,7 +142,9 @@ def test_extraction_and_judging_run_once_per_field(corpus: CorpusStore) -> None:
     assert sum(len(field.claims) for field in result.field_scores) == 3
     by_prompt: dict[str, list[str]] = {}
     for name, variables in llm.calls:
-        by_prompt.setdefault(name, []).append(variables["field"])
+        if name != "moderate":  # the guard is one call per submission, not per field
+            by_prompt.setdefault(name, []).append(variables["field"])
+    assert [name for name, _ in llm.calls].count("moderate") == 1
     assert sorted(by_prompt["extract_claims"]) == sorted(field.value for field in FieldName)
     assert sorted(by_prompt["judge_relevance"]) == sorted(field.value for field in FieldName)
     assert len(by_prompt.get("judge_coverage", [])) == len(set(by_prompt.get("judge_coverage", [])))

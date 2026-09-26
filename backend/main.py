@@ -12,7 +12,7 @@ from .routes import corpus, submit
 from .telemetry import ServiceStats, TraceSink
 
 
-def create_app(settings: Settings | None = None, llm: LLMClient | None = None) -> FastAPI:
+def create_app(settings: Settings | None = None, llm: LLMClient | None = None, guard: LLMClient | None = None) -> FastAPI:
     active = settings or get_settings()
 
     @asynccontextmanager
@@ -20,6 +20,8 @@ def create_app(settings: Settings | None = None, llm: LLMClient | None = None) -
         await run_embedder(lambda _texts: warm_up(), [])
         app.state.settings = active
         app.state.llm = llm or LLMClient(active)
+        # Separate client: its own endpoint (on-prem capable), key, breaker and budget.
+        app.state.guard_llm = guard or llm or LLMClient(active.guard_settings())
         app.state.index = await CorpusIndex.create(CorpusStore(active.corpus_path), embed, REFERENCE_PRODUCT_DESCRIPTION)
         app.state.stats = ServiceStats()
         app.state.trace_sink = TraceSink(active.trace_log_path)
@@ -40,6 +42,7 @@ def create_app(settings: Settings | None = None, llm: LLMClient | None = None) -
         return {
             **state.stats.snapshot(),
             "llm": state.llm.snapshot(),
+            "guard_llm": state.guard_llm.snapshot() if state.guard_llm is not state.llm else "shared",
             "embeddings_cache": cache_snapshot(),
             "corpus": {"entries": len(state.index.entries), "claims": state.index.claim_count},
             "config": {
@@ -49,6 +52,9 @@ def create_app(settings: Settings | None = None, llm: LLMClient | None = None) -
                 "high_threshold": active.high_threshold,
                 "entailment_top_k": active.entailment_top_k,
                 "max_inflight_requests": active.max_inflight_requests,
+                "moderation_enabled": active.moderation_enabled,
+                "guard_model": active.guard_model,
+                "guard_endpoint": "custom" if active.guard_base_url else "openrouter",
                 "corpus_regenerate_enabled": bool(active.admin_token and active.admin_token.get_secret_value()),
                 "prompt_versions": [prompt.PROMPT_VERSION for prompt in (EXTRACT_CLAIMS, JUDGE_RELEVANCE, JUDGE_COVERAGE, GENERATE_CORPUS)],
             },

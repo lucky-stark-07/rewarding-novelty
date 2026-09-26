@@ -2,11 +2,13 @@
 import asyncio
 import json
 import uuid
+from collections.abc import Awaitable, Callable
 from typing import Any
 import numpy as np
 from .claims import extract_claims
 from .config import Settings, get_settings
 from .corpus import CorpusIndex
+from .guardrails import mask_submission, moderate, warnings_for
 from .llm_client import LLM_UNAVAILABLE, LLMClient
 from .prompts import FIELD_INTENTS, JUDGE_COVERAGE, JUDGE_RELEVANCE
 from .reference import REFERENCE_PRODUCT_DESCRIPTION
@@ -141,15 +143,45 @@ def _field_scores(assessments: list[ClaimAssessment]) -> list[FieldScore]:
     return fields
 
 
-async def score_submission(submission: Submission, index: CorpusIndex, llm: LLMClient, *, settings: Settings | None = None, request_id: str | None = None, add_to_corpus: bool = False) -> ScoreResult:
-    """Score a submission against the in-memory corpus index. Uses the active request trace, or opens one."""
+async def score_submission(submission: Submission, index: CorpusIndex, llm: LLMClient, *, settings: Settings | None = None, request_id: str | None = None, add_to_corpus: bool = False, guard: LLMClient | None = None) -> ScoreResult:
+    """Score a submission against the in-memory corpus index. Uses the active request trace, or opens one.
+
+    Guardrails: secrets and PII are masked first, and nothing downstream (LLM calls, caches, corpus,
+    logs, response) ever sees the original text. Moderation runs concurrently with scoring on the
+    guard client; a block verdict replaces the result, and only an allow verdict permits storage."""
+    active = settings or get_settings()
     trace = current_trace.get()
     token = None
     if trace is None:
         trace = RequestTrace(request_id)
         token = current_trace.set(trace)
     try:
-        return await _score(submission, index, llm, settings or get_settings(), trace, add_to_corpus)
+        with span("guard.pii") as attrs:
+            masked, counts = mask_submission(submission)
+            attrs.update(masked=sum(counts.values()), types=",".join(sorted(counts)))
+        if index.find_duplicate(masked):
+            async def already_moderated() -> tuple[str, list[str], str]:
+                return "allow", [], "Matches an existing corpus entry, which passed moderation when it was stored."
+            moderation = asyncio.create_task(already_moderated())
+        else:
+            moderation = asyncio.create_task(moderate(masked, guard or llm, active))
+
+        async def storage_allowed() -> bool:
+            return (await moderation)[0] == "allow"
+
+        try:
+            result = await _score(masked, index, llm, active, trace, add_to_corpus, storage_allowed)
+        except BaseException:
+            moderation.cancel()
+            raise
+        verdict, categories, reason = await moderation
+        guardrails = {"masked": dict(counts), "moderation": verdict, "categories": categories, "moderation_reason": reason, "warnings": warnings_for(counts)}
+        if verdict == "block":
+            return _result(trace, index, submission_score=0.0, field_scores=[FieldScore(field=field, score=0.0, novelty_fraction=0.0, relevance_gate=0.0) for field in FieldName], scoring_mode=SCORING_MODE, reason="content_policy",
+                           message=f"Blocked by the content policy ({', '.join(categories) or 'unsafe content'}). The review was not scored or stored.", add_to_corpus_requested=add_to_corpus, guardrails=guardrails)
+        if verdict != "allow":
+            guardrails["warnings"].append("This review was scored but will not be added to the corpus" + (" because it was flagged by moderation." if verdict == "flag" else " because moderation could not be completed."))
+        return result.model_copy(update={"guardrails": guardrails})
     finally:
         if token is not None:
             current_trace.reset(token)
@@ -161,7 +193,7 @@ def _result(trace: RequestTrace, index: CorpusIndex, **fields: Any) -> ScoreResu
     return ScoreResult(**fields, degraded=trace.degraded, degraded_reason=reason, meta=request_meta(trace, index, **extra))
 
 
-async def _score(submission: Submission, index: CorpusIndex, llm: LLMClient, settings: Settings, trace: RequestTrace, add_to_corpus: bool) -> ScoreResult:
+async def _score(submission: Submission, index: CorpusIndex, llm: LLMClient, settings: Settings, trace: RequestTrace, add_to_corpus: bool, storage_allowed: Callable[[], Awaitable[bool]]) -> ScoreResult:
     with span("dedupe", corpus_entries=len(index.entries)):
         duplicate = index.find_duplicate(submission)
     if duplicate:
@@ -207,7 +239,7 @@ async def _score(submission: Submission, index: CorpusIndex, llm: LLMClient, set
 
     added_to_corpus = False
     # Degraded judgments are provisional; never let them change the comparison baseline.
-    if add_to_corpus and not trace.degraded and submission_score >= settings.corpus_acceptance_threshold:
+    if add_to_corpus and not trace.degraded and submission_score >= settings.corpus_acceptance_threshold and await storage_allowed():
         entry_id = str(uuid.uuid4())
         stored_claims = [claim.model_copy(update={"source_submission_id": entry_id}) for claim in claims]
         with span("corpus_append"):

@@ -27,7 +27,9 @@ async def score(submission: ScoreRequest, request: Request, response: Response) 
     token = current_trace.set(trace)
     outcome = "error"
     try:
-        result = await score_submission(submission, state.index, state.llm, settings=state.settings, add_to_corpus=submission.add_to_corpus)
+        result = await score_submission(submission, state.index, state.llm, settings=state.settings, add_to_corpus=submission.add_to_corpus, guard=state.guard_llm)
+        stats.masked.update(result.guardrails.get("masked", {}))
+        stats.moderation[result.guardrails.get("moderation", "none")] += 1
         outcome = "degraded" if result.degraded else "ok"
     finally:
         stats.in_flight -= 1

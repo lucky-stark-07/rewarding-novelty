@@ -1,4 +1,8 @@
-.PHONY: setup gen-corpus test eval holdout smoke load dev
+.PHONY: setup gen-corpus test eval holdout smoke load dev purge-cache
+
+# Deletes cached LLM responses (they may hold review text from before masking existed). Refills on the next calls.
+purge-cache:
+	rm -f backend/.cache/*.json backend/.cache/*.tmp
 BACKEND_PORT ?= 8000
 FRONTEND_PORT ?= 3000
 
